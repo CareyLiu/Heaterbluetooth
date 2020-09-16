@@ -1,4 +1,119 @@
 <resources>
     <string name="back_exit_tips">再按一次退出程序</string>
     <string name="app_name">Heaterbluetooth</string>
+
+    <string name="home" translatable="false">首页</string>
+    <string name="play" translatable="false">神播</string>
+    <string name="car_online" translatable="false">车联网</string>
+    <string name="message" translatable="false">消息</string>
+    <string name="mine" translatable="false">我的</string>
+    <string name="sms_login" translatable="false">用短信验证码登录</string>
+    <string name="pwd_login" translatable="false">用聚易佳密码登录</string>
+    <string name="smart_devices" translatable="false">智能家居</string>
+    <string name="get_code" translatable="false">获取验证码</string>
+    <string name="text_heater_air_value" translatable="false">%1$d  ℃</string>
+    <string name="text_heater_set_temperature_value" translatable="false">预设温度：%1$d  ℃</string>
+    <string name="text_heater_manual_value" translatable="false">%1$d  档</string>
+    <string name="text_heater_current_temperature" translatable="false">当前温度</string>
+    <string name="text_heater_air_mode" translatable="false">空调模式</string>
+    <string name="text_heater_gear_mode" translatable="false">档位模式</string>
+    <string name="text_heater_pump_mode" translatable="false">水泵模式</string>
+    <string name="text_heater_yby_mode" translatable="false">预泵油</string>
+    <string name="text_heater_ytf_mode" translatable="false">预通风</string>
+    <string name="text_heater_set_temperature" translatable="false">长按选择开机模式</string>
+    <string name="text_heater_click_ofen" translatable="false">您的点击过于频繁，请稍后再试</string>
+    <string name="text_heater_bluetooth_unconnect" translatable="false">蓝牙尚未连接，请稍后再试</string>
+    <string name="scan_add" translatable="false">扫一扫添加</string>
+    <string name="hand_add" translatable="false">手动添加</string>
+    <string name="scan_hint" translatable="false">请将二维码放入框内</string>
+    <string name="xjqx" translatable="false">申请相机权限</string>
+    <string name="tcqx" translatable="false">申请弹窗权限</string>
+    <string name="get_error" translatable="false">权限获取失败，该功能无法使用</string>
+    <string name="consult" translatable="false">咨询</string>
+    <string name="master_info" translatable="false">车主信息</string>
+
+
+    <string name="loading" translatable="false">加载中,请稍后...</string>
+    <string name="load_failed" translatable="false">加载失败，请点我重试</string>
+    <string name="load_end" translatable="false">没有更多数据</string>
+
+
+    <string name="menu_item_about" translatable="false">About App</string>
+    <string name="about_app_version" translatable="false">App Version: %s</string>
+
+    <string name="main_title" translatable="false">Home</string>
+
+    <string name="esptouch_message_permission" translatable="false">APP require Location permission to get Wi-Fi information. \nClick to request permission</string>
+    <string name="esptouch_message_location" translatable="false">Please turn on GPS to get Wi-Fi information.</string>
+    <string name="esptouch_message_wifi_connection" translatable="false">Please connect Wi-Fi first.</string>
+    <string name="esptouch_message_wifi_frequency" translatable="false">Current Wi-Fi connection is 5G, but the device just support 2.4G.</string>
+
+    <string name="esptouch1_title" translatable="false">EspTouch</string>
+    <string name="esptouch1_about_version" translatable="false">EspTouch Version: %s</string>
+    <string name="esptouch1_ssid_title" translatable="false">SSID: </string>
+    <string name="esptouch1_bssid_title" translatable="false">BSSID: </string>
+    <string name="esptouch1_password_title" translatable="false">Password: </string>
+    <string name="esptouch1_device_count_title" translatable="false">Device count: </string>
+    <string name="esptouch1_package_broadcast" translatable="false">Broadcast</string>
+    <string name="esptouch1_package_multicast" translatable="false">Multicast</string>
+    <string name="esptouch1_confirm" translatable="false">Confirm</string>
+    <string name="esptouch1_wifi_5g_message" translatable="false">当前配网不支持5G制式，请切换后重新尝试</string>
+    <string name="esptouch1_location_permission_title" translatable="false">⚠️Warning</string>
+    <string name="esptouch1_location_permission_message" translatable="false">On Android M or higher version, App can\'t get Wi-Fi connection information if you forbid Location permission.</string>
+    <string name="esptouch1_configuring_message" translatable="false">请稍后</string>
+    <string name="esptouch1_configure_wifi_change_message" translatable="false">Wi-Fi disconnected or changed</string>
+    <string name="esptouch1_configure_result_failed" translatable="false">EspTouch failed</string>
+    <string name="esptouch1_configure_result_failed_port" translatable="false">Create EspTouch task failed, the EspTouch port could be used by other thread</string>
+    <string name="esptouch1_configure_result_success" translatable="false">网络连接成功</string>
+    <string name="esptouch1_configure_result_success_item" translatable="false">BSSID = %1$s, InetAddress = %2$s</string>
+
+    <string name="esptouch2_title" translatable="false">EspTouch V2</string>
+    <string name="esptouch2_about_version" translatable="false">EspTouch V2 Version: %s</string>
+    <string name="esptouch2_ssid_label" translatable="false">SSID: </string>
+    <string name="esptouch2_bssid_label" translatable="false">BSSID: </string>
+    <string name="esptouch2_ip_label" translatable="false">IP: </string>
+    <string name="esptouch2_password_label" translatable="false">Password</string>
+    <string name="esptouch2_aes_key" translatable="false">AES Key</string>
+    <string name="esptouch2_aes_key_error" translatable="false">AES Key must be null or 16 bytes data</string>
+    <string name="esptouch2_custom_data" translatable="false">Custom Data</string>
+    <string name="esptouch2_custom_data_error" translatable="false">Custom data can\'t be more than 127 bytes</string>
+
+    <string name="esptouch2_provision_title" translatable="false">Provision</string>
+    <string name="esptouch2_provision_stop" translatable="false">Stop</string>
+    <string name="esptouch2_provision_result_exception" translatable="false">Catch exception: %s</string>
+    <string name="esptouch2_provision_result_none" translatable="false">Not found any devices</string>
+    <string name="empty">当前数据为空!</string>
+    <string name="load_failed_no_network">网络连接失败,请联网后重新尝试,点击重连</string>
+    <string name="str_none" />
+    <string name="content">豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。
+时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。
+披绣闼，俯雕甍，山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。
+遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人？萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？
+嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！
+勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？
+呜乎！胜地不常，盛筵难再；兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙怀，恭疏短引；一言均赋，四韵俱成。请洒潘江，各倾陆海云尔：
+滕王高阁临江渚，佩玉鸣鸾罢歌舞。
+画栋朝飞南浦云，珠帘暮卷西山雨。
+闲云潭影日悠悠，物换星移几度秋。
+阁中帝子今何在？槛外长江空自流。豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。
+时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。
+披绣闼，俯雕甍，山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。
+遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人？萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？
+嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！
+勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？
+呜乎！胜地不常，盛筵难再；兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙怀，恭疏短引；一言均赋，四韵俱成。请洒潘江，各倾陆海云尔：
+滕王高阁临江渚，佩玉鸣鸾罢歌舞。
+画栋朝飞南浦云，珠帘暮卷西山雨。
+闲云潭影日悠悠，物换星移几度秋。
+阁中帝子今何在？槛外长江空自流豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。
+时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。
+披绣闼，俯雕甍，山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。
+遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人？萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？
+嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子见机，达人知命。老当益壮，宁移白首之心？穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹欢。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空余报国之情；阮籍猖狂，岂效穷途之哭！
+勃，三尺微命，一介书生。无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；钟期既遇，奏流水以何惭？
+呜乎！胜地不常，盛筵难再；兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙怀，恭疏短引；一言均赋，四韵俱成。请洒潘江，各倾陆海云尔：
+滕王高阁临江渚，佩玉鸣鸾罢歌舞。
+画栋朝飞南浦云，珠帘暮卷西山雨。
+闲云潭影日悠悠，物换星移几度秋。
+阁中帝子今何在？槛外长江空自流</string>
 </resources>

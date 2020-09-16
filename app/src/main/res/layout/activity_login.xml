@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        app:srcCompat="@mipmap/logi_icon"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="55dp"
+        app:srcCompat="@drawable/user"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view"
+        android:layout_alignStart="@+id/et_pwd_code"
+        android:layout_alignLeft="@+id/et_pwd_code"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignRight="@+id/view"
+        android:background="@null"
+        android:ems="10"
+        android:hint="请输入手机号码"
+        android:inputType="phone"
+        android:maxLength="11" />
+
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/imageView4"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        app:srcCompat="@color/chuck_status_requested" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/view"
+        android:layout_alignStart="@+id/imageView4"
+        android:layout_alignLeft="@+id/imageView4"
+        android:layout_marginTop="23dp"
+        app:srcCompat="@drawable/password" />
+
+    <EditText
+        android:id="@+id/et_pwd_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView3"
+        android:layout_alignRight="@+id/imageView3"
+        android:layout_alignBottom="@+id/imageView7"
+        android:layout_marginLeft="30dp"
+        android:layout_toEndOf="@+id/imageView7"
+        android:layout_toRightOf="@+id/imageView7"
+        android:background="@null"
+        android:ems="10"
+        android:hint="请输入验证码"
+        android:inputType="textPersonName"
+        android:maxLength="16" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/imageView7"
+        android:layout_alignStart="@+id/view"
+        android:layout_alignLeft="@+id/view"
+        android:layout_alignEnd="@+id/view"
+        android:layout_alignRight="@+id/view"
+        android:layout_marginTop="19dp"
+        app:srcCompat="@color/chuck_status_requested" />
+
+    <TextView
+        android:id="@+id/tv_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView10"
+        android:layout_alignStart="@+id/imageView10"
+        android:layout_alignLeft="@+id/imageView10"
+        android:layout_marginTop="23dp"
+        android:text="切换验证方式"
+        android:textColor="@color/chuck_status_300" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_switch"
+        android:layout_alignStart="@+id/tv_switch"
+        android:layout_alignLeft="@+id/tv_switch"
+        android:layout_alignEnd="@+id/imageView10"
+        android:layout_alignRight="@+id/imageView10"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/bt_login_bacground"
+        android:text="注册/登录"
+        android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_login"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:text="登录即表示同意"
+            android:textColor="#ff999999"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_yinsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:text="《隐私保护声明》"
+            android:textColor="#ff999999"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_yonghushiyong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:text="和《用户使用协议》"
+            android:textColor="#ff999999"
+            android:textSize="11sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/get_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView10"
+        android:layout_alignTop="@+id/et_pwd_code"
+        android:layout_toRightOf="@+id/et_pwd_code"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/et_pwd_code"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@+id/et_pwd_code"
+            android:layout_toRightOf="@+id/et_pwd_code"
+            android:layout_weight="1"
+            android:background="@color/app_bg"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/imageView9"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@+id/imageView9"
+            android:layout_toRightOf="@+id/imageView9"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="获取验证码"
+            android:textColor="#FC0100" />
+    </LinearLayout>
+</RelativeLayout>

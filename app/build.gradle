@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.sdkj.heaterbluetooth"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,11 @@ android {
     packagingOptions {
         //解决编译时com.android.builder.merge.DuplicateRelativeFileException: More than one file was found with OS independent path 'META-INF/rxjava.properties'这个错误
         exclude 'META-INF/rxjava.properties'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -87,4 +92,28 @@ dependencies {
     /*Rx生命周期管理*/
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
+    /**
+     *   Android智能下拉刷新框架-SmartRefreshLayout
+     *   https://github.com/scwang90/SmartRefreshLayout
+     * */
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'
+    /**
+     *    RecyclerView的强大的BaseAdapter
+     * */
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.readystatesoftware.chuck:library:1.0.4'
+    implementation 'com.blankj:utilcode:1.29.0'
+    implementation 'com.flyco.dialog:FlycoDialog_Lib:1.2.2@aar'
+    implementation 'cn.rongcloud.sdk:im_lib:2.10.5'
+    implementation 'cn.rongcloud.sdk:im_kit:2.10.5'
+    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.9.0@aar'
+    implementation 'com.github.ZS-ZhangsShun:EasyMqttAndroidClient:1.0.2'
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    implementation 'com.rairmmd:andmqtt:1.0.3'
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
 }
