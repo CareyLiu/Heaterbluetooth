@@ -24,6 +24,7 @@ import androidx.multidex.MultiDexApplication;
 
 
 import com.blankj.utilcode.util.StringUtils;
+import com.bulong.rudeness.RudenessScreenHelper;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -165,7 +166,9 @@ public class MyApplication extends MultiDexApplication {
 
     public void onCreate() {
         super.onCreate();
-
+        //设计图标注的宽度
+        int designWidth = 720;
+        new RudenessScreenHelper(this, designWidth).activate();
         doMqttValue = new DoMqttValue();
         context = getApplicationContext();
         initRongYun();

@@ -21,6 +21,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.activity.FengNuanActivity;
 import com.sdkj.heaterbluetooth.adapter.SheBeiListAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
@@ -124,6 +125,8 @@ public class SheBeiFragment extends BaseFragment {
                                 UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                             }
                         }
+
+                        FengNuanActivity.actionStart(getActivity());
                         break;
                 }
             }
