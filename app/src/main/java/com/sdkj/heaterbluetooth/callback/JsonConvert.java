@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
 import com.sdkj.heaterbluetooth.activity.LoginActivity;
 import com.sdkj.heaterbluetooth.app.MyApplication;
+import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 
@@ -70,7 +71,7 @@ public class JsonConvert<T> implements Converter<T> {
                 return parseClass(response, clazz);
             }
         }
-        Log.d("AppType",type+"");
+        Log.d("AppType", type + "");
         if (type instanceof ParameterizedType) {
             return parseParameterizedType(response, (ParameterizedType) type);
         } else if (type instanceof Class) {
@@ -145,13 +146,11 @@ public class JsonConvert<T> implements Converter<T> {
                 if (msg_code.equals("0000")) {
                     //noinspection unchecked
                     return (T) appResponse;
-                }
-                else if (msg_code.equals("0003")){
-                    MyApplication.getAppContext().startActivity(new Intent( MyApplication.getAppContext(), LoginActivity.class));
+                } else if (msg_code.equals("0003")) {
+//                    MyApplication.getAppContext().startActivity(new Intent(MyApplication.getAppContext(), HomeBasicActivity.class));
                     UserManager.getManager(MyApplication.getAppContext()).removeUser();
                     throw new IllegalStateException(appResponse.msg);
-                }
-                else {
+                } else {
                     //直接将服务端的错误信息抛出，onError中可以获取
                     throw new IllegalStateException("错误代码：" + msg_code + "，错误信息：" + appResponse.msg);
                 }

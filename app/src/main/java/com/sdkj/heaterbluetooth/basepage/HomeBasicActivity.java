@@ -13,6 +13,7 @@ import com.sdkj.heaterbluetooth.app.App;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.basicmvp.BasicFragment;
 import com.sdkj.heaterbluetooth.fragment.SheBeiFragment;
+import com.sdkj.heaterbluetooth.fragment.ShebeiFrament;
 import com.sdkj.heaterbluetooth.fragment.ShuoMingFragment;
 import com.sdkj.heaterbluetooth.fragment.WoDeFragment;
 import com.sdkj.heaterbluetooth.view.BottomBar;
@@ -61,46 +62,37 @@ public class HomeBasicActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_bottom_out);
-        Log.i("shouYeZhouQi", "DingDan_onNewIntent");
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.i("shouYeZhouQi", "DingDan_oncraete");
         overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_bottom_out);
         ac = this;
         BasicFragment firstFragment = findFragment(SheBeiFragment.class);
         if (firstFragment == null) {
-            mFragments[FIRST] = SheBeiFragment.newInstance();
+            mFragments[FIRST] = ShebeiFrament.newInstance();
             mFragments[SECOND] = ShuoMingFragment.newInstance();
             mFragments[THIRD] = WoDeFragment.newInstance();
-
-
 
             loadMultipleRootFragment(R.id.fl_container1, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD]);
-
         }
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
         mBottomBar.show();
         mBottomBar
-                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_dingdan_nor, R.mipmap.tab_icon_dingdan_sel, "设备"))
-                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_xiaoxi_nor, R.mipmap.tab_icon_xiaoxi_sel, "说明"))
-                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_shangpin_nor, R.mipmap.tab_icon_shangpin_sel, "我的"));
+                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_shebei_nor, R.mipmap.tab_icon_shebei_sel, "设备"))
+                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_shuomingshu_nor, R.mipmap.tab_icon_shuomingshu_sel, "说明"))
+                .addItem(new BottomBarTab(this, R.mipmap.tab_icon_wode_nor, R.mipmap.tab_icon_wode_sel, "我的"));
 
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-
-
                 showHideFragment(mFragments[position], mFragments[prePosition]);
-
             }
 
             @Override
@@ -116,7 +108,6 @@ public class HomeBasicActivity extends BaseActivity {
                 // 在FirstPagerFragment中接收, 因为是嵌套的孙子Fragment 所以用EventBus比较方便
                 // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
                 // EventBusActivityScope.getDefault(MainActivity.this).post(new TabSelectedEvent(position));
-
             }
         });
         app = App.getInstance();
@@ -126,8 +117,6 @@ public class HomeBasicActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("shouYeZhouQi", "DingDan_onDestroy");
-
     }
 
     @Override
@@ -145,7 +134,6 @@ public class HomeBasicActivity extends BaseActivity {
 //            }
 //        });
         app = App.getInstance();
-        Log.i("shouYeZhouQi", "DingDan_onStart");
     }
 
 

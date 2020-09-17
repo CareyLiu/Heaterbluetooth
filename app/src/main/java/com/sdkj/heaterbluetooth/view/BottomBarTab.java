@@ -113,7 +113,11 @@ public class BottomBarTab extends FrameLayout {
         mTvUnreadCount.setLayoutParams(tvUnReadParams);
         mTvUnreadCount.setVisibility(GONE);
 
+        mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.grayf1f1f1));
+
         addView(mTvUnreadCount);
+
+        setBackgroundColor(com.sdkj.heaterbluetooth.util.Y.getColor(R.color.bg_title_new));
     }
 
 
@@ -137,7 +141,7 @@ public class BottomBarTab extends FrameLayout {
                     mTvTitle.setVisibility(VISIBLE);
                 }
             }
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.FC0100));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_blue));
         } else {
             if (select_flag) {
                 mIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_unselect));
@@ -155,7 +159,7 @@ public class BottomBarTab extends FrameLayout {
                 }
 
             }
-            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_3));
+            mTvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.grayf1f1f1));
         }
     }
 

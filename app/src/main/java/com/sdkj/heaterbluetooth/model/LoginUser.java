@@ -71,7 +71,7 @@ public class LoginUser {
          */
 
         private String of_user_id;
-        private String app_token;
+        private String token;
         private String user_name;
         private String power_state_name;
         private String token_rong;
@@ -98,12 +98,12 @@ public class LoginUser {
             this.of_user_id = of_user_id;
         }
 
-        public String getApp_token() {
-            return app_token;
+        public String getToken() {
+            return token;
         }
 
-        public void setApp_token(String app_token) {
-            this.app_token = app_token;
+        public void setToken(String token) {
+            this.token = token;
         }
 
         public String getUser_name() {

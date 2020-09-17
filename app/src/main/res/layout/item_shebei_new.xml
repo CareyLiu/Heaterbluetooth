@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_app_new">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="211pt"
+        android:layout_marginHorizontal="25pt"
+        android:layout_marginBottom="58pt"
+        android:background="@mipmap/bg_shebei_item"
+        android:gravity="center_vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="29pt"
+            android:layout_marginRight="24pt"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_shebei_icon"
+                android:layout_width="92pt"
+                android:layout_height="92pt"
+                android:layout_marginTop="35pt"
+                android:background="@color/bg_app"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/tv_zhuangtai"
+                android:layout_width="103pt"
+                android:layout_height="31pt"
+                android:layout_marginTop="20pt"
+                android:background="@drawable/shebei_bg15"
+                android:gravity="center"
+                android:text="使用中"
+                android:textColor="#FFA400"
+                android:textSize="22pt" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_shebei_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35pt"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="风暖加热器"
+                android:textColor="@color/white"
+                android:textSize="29pt" />
+
+            <TextView
+                android:id="@+id/tv_ccid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="93pt"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="ccid:aaaaaa301"
+                android:textColor="@color/white"
+                android:textSize="21pt" />
+
+            <TextView
+                android:id="@+id/tv_shebei_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="139pt"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="设备有效期至：2020-12-12 10:10:10"
+                android:textColor="@color/white"
+                android:textSize="25pt" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="29pt"
+            android:layout_height="29pt"
+            android:layout_marginRight="20pt"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/push_white" />
+    </LinearLayout>
+</LinearLayout>

@@ -5,7 +5,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.App;
-
+import com.sdkj.heaterbluetooth.app.MyApplication;
 
 
 /**
@@ -24,7 +24,7 @@ public class TimeCount extends CountDownTimer {
     public void onFinish() {// 计时完毕
         view.setClickable(true);
         view.setText("获取验证码");
-        view.setTextColor(ContextCompat.getColor(App.getInstance(), R.color.app_bg));
+        view.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.app_bg));
         view.setTextSize(14);
     }
 
@@ -33,7 +33,7 @@ public class TimeCount extends CountDownTimer {
         view.setClickable(false);
         view.setTextSize(12);
         view.setText(millisUntilFinished / 1000 + "s后重新发送");
-        view.setTextColor(ContextCompat.getColor(App.getInstance(), R.color.app_bg));
+        view.setTextColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.app_bg));
 
     }
 

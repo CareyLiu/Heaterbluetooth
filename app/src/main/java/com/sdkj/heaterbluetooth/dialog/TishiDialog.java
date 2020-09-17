@@ -61,7 +61,7 @@ public class TishiDialog extends Dialog implements View.OnClickListener {
             setTextTitle("操作失败").setTextContent("操作失败，请稍后再重试").setTextConfirm("确定").setTextCancel("").setImgPic(R.mipmap.alert_pic_failed);
             iv_img.setImageResource(R.mipmap.alert_pic_failed);
         } else if (type == TYPE_CAOZUO) {
-            setTextTitle("操作提示").setTextContent("确认此操作？").setTextConfirm("确定").setTextCancel("取消").setImgPic(R.mipmap.alert_pic_caozuotishi);
+            setTextTitle("提示").setTextContent("确认此操作？").setTextConfirm("确定").setTextCancel("取消").setImgPic(R.mipmap.alert_pic_caozuotishi);
             iv_img.setImageResource(R.mipmap.alert_pic_caozuotishi);
         } else if (type == TYPE_SUCESS) {
             setTextTitle("操作成功").setTextContent("恭喜您操作成功").setTextConfirm("确定").setTextCancel("").setImgPic(R.mipmap.alert_pic_sucess);

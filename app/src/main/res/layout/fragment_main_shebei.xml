@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app_new"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="169pt"
+        android:background="@color/bg_title_new">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28pt"
+            android:includeFontPadding="false"
+            android:text="设备"
+            android:textColor="@color/white"
+            android:textSize="33pt"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/ll_shebei_no"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/bg_shebei"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2.6" />
+
+            <ImageView
+                android:id="@+id/iv_login"
+                android:layout_width="307pt"
+                android:layout_height="307pt"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/pic_saoyisao" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/sm_shebei_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srlTextSizeTime="10sp"
+                app:srlTextSizeTitle="@dimen/sp_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="263pt">
+
+                    <View
+                        android:id="@+id/v1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="56pt" />
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v1"
+                        android:layout_marginLeft="40pt"
+                        android:includeFontPadding="false"
+                        android:text="欢迎使用"
+                        android:textColor="@color/white"
+                        android:textSize="36pt" />
+
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv1"
+                        android:layout_marginLeft="40pt"
+                        android:layout_marginTop="42pt"
+                        android:includeFontPadding="false"
+                        android:text="驻车加热器器控制系统"
+                        android:textColor="@color/white"
+                        android:textSize="36pt" />
+
+                    <View
+                        android:id="@+id/v2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_below="@+id/tv2" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_add_shebei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_above="@id/v2"
+                        android:layout_below="@id/v1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="26pt"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="65pt"
+                            android:layout_height="65pt"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/shebei_icon_sao" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="添加新设备"
+                            android:textColor="#00FFFF"
+                            android:textSize="28pt" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srlTextSizeTime="10sp"
+                app:srlTextSizeTitle="@dimen/sp_12" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </FrameLayout>
+</LinearLayout>

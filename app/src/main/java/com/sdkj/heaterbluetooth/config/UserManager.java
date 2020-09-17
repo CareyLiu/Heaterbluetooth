@@ -4,10 +4,11 @@
 package com.sdkj.heaterbluetooth.config;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.model.LoginUser;
-
+import com.sdkj.heaterbluetooth.util.Y;
 
 
 /**
@@ -47,19 +48,23 @@ public class UserManager {
     }
 
 
-    public String getUserName(){
+    public String getUserName() {
         return PreferenceHelper.getInstance(mContext).getString("user_name", "");
     }
 
-    public String getRongYun(){
+    public String getRongYun() {
         return PreferenceHelper.getInstance(mContext).getString("token_rong", "");
+    }
+
+    public String getOfUserId() {
+        return PreferenceHelper.getInstance(mContext).getString("of_user_id", "");
     }
 
     //保存用户信息
     public void saveUser(LoginUser.DataBean user) {
         if (user != null) {
             PreferenceHelper.getInstance(mContext).putString("of_user_id", user.getOf_user_id());
-            PreferenceHelper.getInstance(mContext).putString("app_token", user.getApp_token());
+            PreferenceHelper.getInstance(mContext).putString("app_token", user.getToken());
             PreferenceHelper.getInstance(mContext).putString("user_name", user.getUser_name());
             PreferenceHelper.getInstance(mContext).putString("power_state_name", user.getPower_state());
             PreferenceHelper.getInstance(mContext).putString("token_rong", user.getToken_rong());
@@ -67,11 +72,7 @@ public class UserManager {
             PreferenceHelper.getInstance(mContext).putString("user_id_key", user.getUser_id_key());
             PreferenceHelper.getInstance(mContext).putString("server_id", user.getServer_id());
             PreferenceHelper.getInstance(mContext).putString("power_state", user.getPower_state());
-
-          //  Log.i("server_id1", PreferenceHelper.getInstance(mContext).getString("server_id", user.getServer_id()));
         }
-
-
     }
 
     /**
@@ -88,6 +89,16 @@ public class UserManager {
         PreferenceHelper.getInstance(mContext).removeKey("server_id");
         PreferenceHelper.getInstance(mContext).removeKey("power_state");
         PreferenceHelper.getInstance(mContext).removeKey("car_server_id");
+    }
+
+    public boolean isLogin() {
+        Y.i("我获取的touken是多少啊   " + getAppToken());
+
+        if (TextUtils.isEmpty(getAppToken())) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

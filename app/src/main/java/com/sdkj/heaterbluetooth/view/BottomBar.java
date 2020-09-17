@@ -12,6 +12,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
+import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.util.Y;
+
 import androidx.core.view.ViewCompat;
 
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class BottomBar extends LinearLayout {
 
         mTabParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
         mTabParams.weight = 1;
+        setBackgroundColor(com.sdkj.heaterbluetooth.util.Y.getColor(R.color.bg_title_new));
     }
 
     public BottomBar addItem(final BottomBarTab tab) {

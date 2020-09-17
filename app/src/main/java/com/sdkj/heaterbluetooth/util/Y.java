@@ -11,7 +11,8 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.lzy.okgo.model.Response;
-import com.sdkj.heaterbluetooth.app.App;
+import com.sdkj.heaterbluetooth.app.MyApplication;
+import com.sdkj.heaterbluetooth.app.MyApplication;
 
 import java.text.DecimalFormat;
 
@@ -47,11 +48,11 @@ public class Y {
     }
 
     public static void t(String str) {
-        Toast.makeText(App.getInstance().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApplication.getInstance().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
     }
 
     public static void tLong(String str) {
-        Toast.makeText(App.getInstance().getApplicationContext(), str, Toast.LENGTH_LONG).show();
+        Toast.makeText(MyApplication.getInstance().getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
     public static void tError(Response response) {
@@ -59,11 +60,14 @@ public class Y {
         String[] msgToast = msg.split("：");
         if (msgToast.length == 3) {
             Y.t(msgToast[2]);
+        } else {
+            Y.t("网络异常");
         }
+        ;
     }
 
     public static Resources getResources() {
-        return App.getInstance().getApplicationContext().getResources();
+        return MyApplication.getInstance().getApplicationContext().getResources();
     }
 
     public static int getColor(int resId) {

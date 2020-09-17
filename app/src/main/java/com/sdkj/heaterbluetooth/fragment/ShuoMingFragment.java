@@ -13,7 +13,7 @@ public class ShuoMingFragment extends BaseFragment {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.layout_shuoming;
+        return R.layout.fragment_main_shuoming;
     }
     @Override
     protected void initView(View rootView) {
