@@ -27,7 +27,6 @@
                 android:layout_width="92pt"
                 android:layout_height="92pt"
                 android:layout_marginTop="35pt"
-                android:background="@color/bg_app"
                 android:scaleType="centerCrop" />
 
             <TextView

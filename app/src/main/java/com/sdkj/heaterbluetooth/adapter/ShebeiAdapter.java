@@ -26,6 +26,6 @@ public class ShebeiAdapter extends BaseQuickAdapter<SheBeiModel, BaseViewHolder>
         helper.setText(R.id.tv_ccid, "ccid:" + item.ccid);
         helper.setText(R.id.tv_shebei_data, "设备有效期至:" + item.validity_time);
         helper.setText(R.id.tv_zhuangtai, item.validity_term);
-        Glide.with(mContext).load(item.device_img_url).into((ImageView) helper.getView(R.id.iv_image));
+        Glide.with(mContext).load(item.device_img_url).into((ImageView) helper.getView(R.id.iv_shebei_icon));
     }
 }

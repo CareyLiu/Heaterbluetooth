@@ -181,7 +181,6 @@
                         android:layout_height="138pt"
                         android:layout_marginLeft="63pt"
                         android:layout_marginRight="37pt"
-                        android:background="@color/white"
                         android:scaleType="centerCrop" />
 
                     <LinearLayout
