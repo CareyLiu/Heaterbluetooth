@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/car_heater_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/titlebar_application" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_ignition_plug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="点火塞"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_out_sensor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="出风口传感器"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_oil_pump"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="油泵"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_fan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="风机"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_combustion_chamber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="燃烧室"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_control_board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="控制板"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_control_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="控制开关"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_radiator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="散热体"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_harness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="线束"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_shell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="塑料外壳(铝)"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+
+            <com.smarthome.magic.lanya_fengnuan.ItemTitleInfo
+                android:id="@+id/itf_driver_rubber_parts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tinfo_title="橡胶件"></com.smarthome.magic.lanya_fengnuan.ItemTitleInfo>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -116,4 +116,8 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.flyco.animation:FlycoAnimation_Lib:1.0.0@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
+    implementation 'com.czp.arcProgressBar:ArcProgressBar:1.0.1'
+    implementation 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 }

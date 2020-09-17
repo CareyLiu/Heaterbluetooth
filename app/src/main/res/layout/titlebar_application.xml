@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/re_title"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/ibtn_title_userinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@mipmap/img_userinfo"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/ibtn_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@mipmap/img_back" />
+
+    <TextView
+        android:id="@+id/title_view_page"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="汽车加热器手机掌控"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_title_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/img_title_blt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@mipmap/img_blt_unconnect"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/img_repair_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="#00000000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:src="@mipmap/img_repair_add"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/ibtn_title_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="@mipmap/ic_title_aftersales_normal"
+        android:visibility="gone" />
+</RelativeLayout>

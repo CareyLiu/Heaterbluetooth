@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:visible="false"
+            android:id="@+id/nav_bluetooth"
+            android:icon="@drawable/nav_state"
+            android:title="切换至蓝牙模式" />
+        <item
+
+            android:id="@+id/nav_trajectory"
+            android:icon="@drawable/nav_trajectory"
+            android:title="历史轨迹"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/nav_location"
+            android:title="定位"
+            android:visible="false" />
+        <item
+            android:id="@+id/nav_timing"
+            android:icon="@mipmap/fenguanjiaerqi_dingshi"
+            android:title="定时" />
+        <item
+            android:visible="false"
+            android:id="@+id/nav_record"
+            android:icon="@drawable/nav_record"
+            android:title="维修记录" />
+        <item
+            android:id="@+id/nav_state"
+            android:icon="@mipmap/fengnuanjiaerqi_jiaerqizhuangtai"
+            android:title="加热器状态" />
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@mipmap/fengnuanjiaerqi_guzhangbaojing"
+            android:title="故障报警" />
+        <item
+            android:id="@+id/nav_corral"
+            android:icon="@drawable/nav_location"
+            android:title="地理围栏"
+            android:visible="false" />
+
+        <item
+            android:id="@+id/fengnuan_jiebang"
+            android:icon="@mipmap/fengnuanjiaerqi_jiebang"
+            android:title="解绑"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@mipmap/fenguanjiaerqi_shezhi"
+            android:title="设置" />
+    </group>
+
+
+</menu>
