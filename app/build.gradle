@@ -120,4 +120,5 @@ dependencies {
     implementation 'com.czp.arcProgressBar:ArcProgressBar:1.0.1'
     implementation 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'com.bulong.rudeness:rudeness:latest.release@aar'
 }
