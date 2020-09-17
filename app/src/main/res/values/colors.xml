@@ -532,6 +532,7 @@
     <color name="text_color_3">#333333</color>
     <color name="text_color_6">#666666</color>
     <color name="text_color_9">#999999</color>
+    <color name="text_blue">#00FFFF</color>
     <color name="text_red">#FC0100</color>
     <color name="order_red">#E3332B</color>
     <color name="order_gray">#DDDDDD</color>
@@ -541,4 +542,7 @@
     <color name="gray999999">#999999</color>
     <color name="black_06122c">#ff06122c</color>
     <color name="gray_999999">#999999</color>
+
+    <color name="bg_app_new">#02222B</color>
+    <color name="bg_title_new">#00151B</color>
 </resources>
