@@ -184,7 +184,7 @@
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
                         android:text="昵称：Neohiuahd"
-                        android:textColor="@color/text_blue"
+                        android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
 
                     <TextView
@@ -194,28 +194,51 @@
                         android:layout_marginTop="15pt"
                         android:includeFontPadding="false"
                         android:text="手机号：15588880000"
-                        android:textColor="@color/text_blue"
+                        android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_jiaofeijilu"
                 android:layout_width="match_parent"
                 android:layout_height="111pt"
-                android:layout_marginHorizontal="36pt"
+                android:layout_marginHorizontal="28pt"
                 android:background="@mipmap/tongyong_shezhi_bg"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:paddingLeft="36pt">
+
+                <ImageView
+                    android:layout_width="46pt"
+                    android:layout_height="46pt"
+                    android:layout_marginRight="23pt"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/jiaofeijilu_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="缴费记录"
-                    android:textColor="@color/text_blue"
+                    android:textColor="@color/text_color_blue"
                     android:textSize="30pt" />
             </LinearLayout>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_login_out"
+                android:layout_width="match_parent"
+                android:layout_height="81pt"
+                android:layout_marginHorizontal="51pt"
+                android:layout_marginBottom="59pt"
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:gravity="center"
+                android:text="退出登录"
+                android:textColor="@color/text_color_blue"
+                android:textSize="29pt" />
         </LinearLayout>
-
-
     </FrameLayout>
 </LinearLayout>
