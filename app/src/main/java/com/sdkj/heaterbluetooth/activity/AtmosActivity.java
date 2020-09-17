@@ -46,6 +46,7 @@ public class AtmosActivity extends BaseActivity {
     @BindView(R.id.bt_sure)
     Button mBtSure;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
