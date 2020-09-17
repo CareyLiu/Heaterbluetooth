@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -50,7 +51,7 @@ public class ShebeiFrament extends BaseTwoFragment {
     @BindView(R.id.iv_login)
     ImageView iv_login;
     @BindView(R.id.ll_shebei_no)
-    LinearLayout ll_shebei_no;
+    FrameLayout ll_shebei_no;
     @BindView(R.id.ll_add_shebei)
     LinearLayout ll_add_shebei;
     @BindView(R.id.rv_content)
