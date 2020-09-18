@@ -88,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="107pt"
         android:layout_marginHorizontal="38pt"
+        android:visibility="invisible"
         android:layout_marginTop="31pt"
         android:background="@mipmap/tongyong_shezhi_bg"
         android:gravity="center_vertical"
@@ -103,7 +104,7 @@
 
         <TextView
             android:id="@+id/tv_shijian"
-            android:layout_width="0dp"
+            android:layout_width="0pt"
             android:layout_height="31pt"
             android:layout_marginRight="12pt"
             android:layout_weight="1"
@@ -125,7 +126,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="51pt"
         android:gravity="center|top"
         android:orientation="horizontal">
 
@@ -133,6 +134,7 @@
             android:id="@+id/cb_sunday"
             android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
@@ -145,6 +147,7 @@
             android:id="@+id/cb_monday"
             android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
@@ -156,6 +159,7 @@
             android:id="@+id/cb_tuesday"
             android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
@@ -165,8 +169,9 @@
 
         <CheckBox
             android:id="@+id/cb_wednesday"
-            android:layout_width="92dp"
+            android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
@@ -178,6 +183,7 @@
             android:id="@+id/cb_thursday"
             android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
@@ -189,6 +195,7 @@
             android:id="@+id/cb_friday"
             android:layout_width="77pt"
             android:layout_height="77pt"
+            android:layout_marginRight="17pt"
             android:background="@drawable/selector_days"
             android:button="@null"
             android:gravity="center"
