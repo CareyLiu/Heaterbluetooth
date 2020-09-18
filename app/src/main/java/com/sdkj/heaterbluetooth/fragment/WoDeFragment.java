@@ -398,6 +398,7 @@ public class WoDeFragment extends BaseTwoFragment {
         ed_pwd.setHint("请输入验证码");
         ed_pwd.setInputType(InputType.TYPE_CLASS_NUMBER);
         req_type = "2";
+        ed_pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
     }
 
     private void getUserInfo() {

@@ -129,7 +129,7 @@ public class FengnuanJieActivity extends ShuinuanBaseActivity {
         map.put("key", Urls.key);
         map.put("token", UserManager.getManager(this).getAppToken());
         map.put("user_phone", user_phone);
-        map.put("mod_id", "0326");
+        map.put("mod_id", "0334");
         Gson gson = new Gson();
         OkGo.<AppResponse<Message.DataBean>>post(Urls.SERVER_URL + "msg")
                 .tag(this)//

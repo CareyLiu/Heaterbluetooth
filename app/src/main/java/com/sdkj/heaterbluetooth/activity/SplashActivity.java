@@ -17,6 +17,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.AppConfig;
+import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
 import com.tbruyelle.rxpermissions.Permission;
@@ -28,13 +29,18 @@ import java.lang.ref.WeakReference;
 import rx.functions.Action1;
 
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
 
     public static final int UPDATE_OK = 2;
     public static final int OVERTIME = 1;
     protected boolean isAnimationEnd;
     private final NotLeakHandler mHandler = new NotLeakHandler(this);
 
+    @Override
+    public void initImmersion() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.init();
+    }
 
     private static class NotLeakHandler extends Handler {
         private WeakReference<SplashActivity> mWeakReference;
@@ -49,7 +55,6 @@ public class SplashActivity extends Activity {
             if (reference == null) { // the referenced object has been cleared
                 return;
             }
-            // do something
             switch (msg.what) {
                 case UPDATE_OK:
                     SplashOverToGo();
@@ -70,25 +75,14 @@ public class SplashActivity extends Activity {
             if (isFirstRun) {
                 editor.putBoolean(AppConfig.IS_FIRST_RUN, false);
                 editor.apply();
-                mWeakReference.get().startActivity(new Intent(mWeakReference.get(), WelcomeActivity.class));
+//                mWeakReference.get().startActivity(new Intent(mWeakReference.get(), WelcomeActivity.class));
+//                mWeakReference.get().finish();
+                HomeBasicActivity.actionStart(mWeakReference.get());
                 mWeakReference.get().finish();
             } else {
-                if (PreferenceHelper.getInstance(mWeakReference.get()).getString("app_token", "").equals("")) {
-                    LoginActivity.actionStart(mWeakReference.get());
-                } else {
-
-                    HomeBasicActivity.actionStart(mWeakReference.get());
-//                    String str = PreferenceHelper.getInstance(mWeakReference.get()).getString(AppConfig.ROLE, "0");
-//                    if (str.equals("1")) {
-//                        HomeBasicActivity.actionStart(mWeakReference.get());
-//                    } else if (str.equals("2")) {
-//                        HomeBasicTuanGouActivity.actionStart(mWeakReference.get());
-//                    }
-
-                }
+                HomeBasicActivity.actionStart(mWeakReference.get());
                 mWeakReference.get().finish();
             }
-
         }
     }
 
@@ -97,10 +91,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_splash);
         RelativeLayout logoView = findViewById(R.id.iv_welcome);
-        ImmersionBar.with(this).statusBarColor(R.color.colorPrimary).init();
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
         // 动画效果时间为2秒
         alphaAnimation.setDuration(2000);
@@ -122,15 +114,11 @@ public class SplashActivity extends Activity {
 
                 shenQingQuanXian();
                 isAnimationEnd = true;
-
             }
         });
-
-
     }
 
     private void shenQingQuanXian() {
-
         new RxPermissions(SplashActivity.this).requestEach(AppConfig.BASIC_PERMISSIONS)
                 .subscribe(new Action1<Permission>() {
                     @Override
@@ -146,7 +134,6 @@ public class SplashActivity extends Activity {
                             finish();
                         }
                     }
-
                 });
     }
 
@@ -157,6 +144,4 @@ public class SplashActivity extends Activity {
         if (mImmersionBar != null)
             mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
     }
-
-
 }

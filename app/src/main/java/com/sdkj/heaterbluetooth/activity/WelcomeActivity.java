@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.adapter.WelcomeAdapter;
@@ -47,7 +49,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
                 } else {
                     //startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
                     //UIHelper.ToastMessage(mContext, "登陆页面");
-                    LoginActivity.actionStart(mContext);
+                    HomeBasicActivity.actionStart(mContext);
                     finish();
                 }
             }
