@@ -95,7 +95,9 @@ public class SheBeiFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
+
                     case R.id.constrain:
+                        mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
                         if (mDatas.get(position).device_type.equals("1")) {
                             PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
                             int i = mDatas.get(position).ccid.length() - 1;

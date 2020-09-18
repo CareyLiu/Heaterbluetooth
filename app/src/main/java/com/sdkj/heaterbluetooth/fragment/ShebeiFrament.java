@@ -118,6 +118,7 @@ public class ShebeiFrament extends BaseTwoFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mDatas.get(position).device_type.equals("1")) {
+                    mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
                     PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
                     int i = mDatas.get(position).ccid.length() - 1;
                     String str = String.valueOf(mDatas.get(position).ccid.charAt(i));

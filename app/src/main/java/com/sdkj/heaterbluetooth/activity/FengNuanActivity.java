@@ -1,21 +1,913 @@
 package com.sdkj.heaterbluetooth.activity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
+import com.rairmmd.andmqtt.AndMqtt;
+import com.rairmmd.andmqtt.MqttPublish;
+import com.rairmmd.andmqtt.MqttSubscribe;
+import com.rairmmd.andmqtt.MqttUnSubscribe;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.app.App;
+import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConfigValue;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.MyApplication;
+import com.sdkj.heaterbluetooth.app.Notice;
+import com.sdkj.heaterbluetooth.app.PreferenceHelper;
+import com.sdkj.heaterbluetooth.common.UIHelper;
+import com.sdkj.heaterbluetooth.dialog.LordingDialog;
+import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_Notify;
+import com.sdkj.heaterbluetooth.util.DoMqttValue;
+import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
+
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+
+import java.math.BigDecimal;
+
+import butterknife.BindView;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+
+import static com.sdkj.heaterbluetooth.app.ConfigValue.STARTSHELVES;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTARRIVE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTCOMPLETE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTLOST;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONFAILE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS;
+import static com.sdkj.heaterbluetooth.app.MyApplication.CARBOX_GETNOW;
+import static com.sdkj.heaterbluetooth.app.MyApplication.CAR_CTROL;
+import static com.sdkj.heaterbluetooth.app.MyApplication.CAR_NOTIFY;
+import static com.sdkj.heaterbluetooth.app.MyApplication.getAppContext;
 
 
-public class FengNuanActivity extends BaseActivity {
+public class FengNuanActivity extends BaseActivity implements View.OnLongClickListener {
+    ProgressDialog waitDialog;
+    @BindView(R.id.iv_kaiji)
+    ImageView ivKaiji;
+    @BindView(R.id.iv_guanji)
+    ImageView ivGuanji;
+    @BindView(R.id.ll_click_shebeima)
+    LinearLayout llClickShebeima;
+    @BindView(R.id.ll_dingshi)
+    LinearLayout llDingshi;
+    @BindView(R.id.ll_xinhao)
+    LinearLayout llXinhao;
+    @BindView(R.id.ll_fuwu_tianshu)
+    LinearLayout llFuwuTianshu;
+    @BindView(R.id.iv_dangweimoshi)
+    ImageView ivDangweimoshi;
+    @BindView(R.id.iv_kongtiaomoshi)
+    ImageView ivKongtiaomoshi;
+    @BindView(R.id.ll_gongneng)
+    LinearLayout llGongneng;
+    @BindView(R.id.ll_wendu)
+    LinearLayout llWendu;
+    @BindView(R.id.seekBar1)
+    SeekBar seekBar1;
+    @BindView(R.id.tv_zuidiwendu)
+    TextView tvZuidiwendu;
+    @BindView(R.id.tv_zuigaowendu)
+    TextView tvZuigaowendu;
+    @BindView(R.id.tv_dangqian_wendu_or_dangwei)
+    TextView tvDangqianWenduOrDangwei;
+    @BindView(R.id.tv_sheding_wendu_or_dangwei)
+    TextView tvShedingWenduOrDangwei;
+    @BindView(R.id.tv_shuibeng)
+    TextView tvShuibeng;
+    @BindView(R.id.tv_zidongbengyou)
+    TextView tvZidongbengyou;
+    @BindView(R.id.tv_yutongfeng)
+    TextView tvYutongfeng;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+    @BindView(R.id.iv_xinhao)
+    ImageView ivXinhao;
+    @BindView(R.id.tv_zaixian)
+    TextView tvZaixian;
+    @BindView(R.id.tv_shebeizhuangtai)
+    TextView tvShebeizhuangtai;
+    @BindView(R.id.seekBar_kongtiao)
+    SeekBar seekBarKongtiao;
+    @BindView(R.id.tv_dianya)
+    TextView tvDianya;
+    @BindView(R.id.tv_rufengkouwendu)
+    TextView tvRufengkouwendu;
+    @BindView(R.id.tv_chufengkouwendu)
+    TextView tvChufengkouwendu;
+    @BindView(R.id.tv_haibagaodu)
+    TextView tvHaibagaodu;
+    @BindView(R.id.tv_hanyangliang)
+    TextView tvHanyangliang;
+    @BindView(R.id.tv_daqiya)
+    TextView tvDaqiya;
+    private LordingDialog lordingDialog;
+    public String car_server_id;
+    public String ccid;
+    public String of_user_id;
+    MyCarCaoZuoDialog_Notify myCarCaoZuoDialog_notify;
+    String version;
+    private String dangWeiMoShiValue = "0";//0 关 1 开
+    private String kongTiaoMoshiValue = "0";//0关 1 开
+    private String bengYouValue = "0";//0 关 1 开
+    private String tongFengValue = "0";
+    private String shuiBengValue = "0";//0 关 1开 a 无
+
+    private String shuiBengZhongXianFlag = "1";
+    private String firstSetDangWei = "0";
+    private String firstSetKongTiao = "0";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        PreferenceHelper.getInstance(mContext).putString(App.CHOOSE_KONGZHI_XIANGMU, DoMqttValue.FENGNUAN);
+        waitDialog = ProgressDialog.show(mContext, null, "网络状态不稳定,连接中···", true, true);
+        lordingDialog = new LordingDialog(mContext);
+
+        car_server_id = PreferenceHelper.getInstance(mContext).getString("car_server_id", "");
+        ccid = PreferenceHelper.getInstance(mContext).getString("ccid", "");
+        of_user_id = PreferenceHelper.getInstance(mContext).getString("of_user_id", "");
+        setMqttZhiLing();
+
+        Glide.with(mContext).asGif().load(R.drawable.fengnuan_kaiji).into(ivKaiji);
+
+        ivKaiji.setVisibility(View.GONE);
+        ivGuanji.setVisibility(View.VISIBLE);
+
+        myCarCaoZuoDialog_notify = new MyCarCaoZuoDialog_Notify(getAppContext(), new MyCarCaoZuoDialog_Notify.OnDialogItemClickListener() {
+            @Override
+            public void clickLeft() {
+                // player.stop();
+
+            }
+
+            @Override
+            public void clickRight() {
+                DiagnosisActivity.actionStart(mContext);
+                //SoundPoolUtils.soundPool.release();
+                myCarCaoZuoDialog_notify.dismiss();
+
+            }
+        }
+        );
+
+        myCarCaoZuoDialog_notify.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG);
+
+        getTongZhi();
+
+        String value = PreferenceHelper.getInstance(mContext).getString(STARTSHELVES, "1");
+//        if (value.equals("1")) {//档位
+//            ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_sel);
+//            ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_nor);
+//
+//        } else if (value.equals("2")) {//空调
+//            ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_sel);
+//            ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_nor);
+//        }
+
+
+        ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_nor);
+        ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_nor);
+
+        ivDangweimoshi.setOnLongClickListener(this);
+        ivKongtiaomoshi.setOnLongClickListener(this);
+
+
+        rlBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                if (dangWeiMoShiValue.equals("1")) {
+
+                 //   UIHelper.ToastMessage(mContext, seekBar.getProgress() + "");
+                    if (seekBar.getProgress() >= 0 && seekBar.getProgress() < 20) {
+                        seekBar1.setProgress(20);
+                        qieHuanDangWei(1);
+
+                    } else if (seekBar.getProgress() > 20 && seekBar.getProgress() < 40) {
+
+                        if (seekBar.getProgress() > 20 && seekBar.getProgress() < 30) {
+                            seekBar1.setProgress(20);
+                            qieHuanDangWei(1);
+                        } else {
+                            seekBar1.setProgress(40);
+                            qieHuanDangWei(2);
+                        }
+
+                    } else if (seekBar.getProgress() > 40 && seekBar.getProgress() < 60) {
+                        if (seekBar.getProgress() > 40 && seekBar.getProgress() < 50) {
+                            seekBar1.setProgress(40);
+                            qieHuanDangWei(2);
+                        } else {
+                            seekBar1.setProgress(60);
+                            qieHuanDangWei(3);
+                        }
+
+                    } else if (seekBar.getProgress() > 60 && seekBar.getProgress() < 80) {
+                        if (seekBar.getProgress() > 60 && seekBar.getProgress() < 70) {
+                            seekBar1.setProgress(60);
+                            qieHuanDangWei(3);
+                        } else {
+                            seekBar1.setProgress(80);
+                            qieHuanDangWei(4);
+                        }
+
+                    } else if (seekBar.getProgress() > 80 && seekBar.getProgress() < 100) {
+                        if (seekBar.getProgress() > 80 && seekBar.getProgress() < 90) {
+                            seekBar1.setProgress(80);
+                            qieHuanDangWei(4);
+                        } else {
+                            qieHuanDangWei(5);
+                        }
+                    }
+
+                }
+
+            }
+        });
+
+        seekBarKongtiao.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                qieHuanWenDu(seekBar.getProgress());
+
+            }
+        });
+        lordingDialog.setTextMsg("正在加载数据，请稍后");
+        lordingDialog.show();
+
+        tvShuibeng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (shuiBengValue.equals("a")) {
+                    UIHelper.ToastMessage(mContext, "无水泵功能");
+                    return;
+                }
+                if (shuiBengValue.equals("0")) {
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M711.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k71" + "1" + "1.");
+                            lordingDialog.setTextMsg("正在开启水泵循环，请稍后");
+                            lordingDialog.show();
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+                } else {
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M712.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k71" + "2" + "1.");
+                            lordingDialog.setTextMsg("正在关闭水泵循环，请稍后");
+                            lordingDialog.show();
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+
+            }
+        });
+        tvYutongfeng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")) {
+                    UIHelper.ToastMessage(mContext, "请关机后再执行预通风操作");
+                    return;
+                }
+
+                if (tongFengValue.equals("0")) {
+                    //开启预通风
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M61" + "7" + ".")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在开启预通风模式...");
+                            lordingDialog.show();
+                            SoundPoolUtils.soundPool(mContext, R.raw.yutongfeng);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+                } else if (tongFengValue.equals("1")) {
+                    //关闭预通风
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M613.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //  UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在关机请稍后...");
+                            lordingDialog.show();
+
+                            SoundPoolUtils.soundPool(mContext, R.raw.guanjizhong);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败，请检查是否连接网络", Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+
+            }
+        });
+
+        tvZidongbengyou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")) {
+                    UIHelper.ToastMessage(mContext, "请关机后再执行泵油操作");
+                    return;
+                }
+
+                if (bengYouValue.equals("0")) {
+                    //开启泵油
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M61" + "6" + ".")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在开启泵油模式...");
+                            lordingDialog.show();
+                            SoundPoolUtils.soundPool(mContext, R.raw.yubengyou);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                } else if (bengYouValue.equals("1")) {
+                    //关闭泵油
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M613.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //  UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在关机请稍后...");
+                            lordingDialog.show();
+
+                            SoundPoolUtils.soundPool(mContext, R.raw.guanjizhong);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败，请检查是否连接网络", Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+
+            }
+        });
+
+    }
+
+    private void getTongZhi() {
+        _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
+            @Override
+            public void call(Notice message) {
+                Log.i("message.type", String.valueOf(message.type));
+                if (message.type == ConstanceValue.MSG_CAR_J_G) {
+
+                    //接收到信息
+                    Log.i("msg_car_j_", message.content.toString());
+                    String messageData = message.content.toString().substring(1, message.content.toString().length() - 1);
+                    if (0 <= messageData.substring(0, 6).indexOf("a")) {
+                        // 纬度x 045.666666=045666666 9
+                        BigDecimal dec = new BigDecimal(messageData.substring(0, 3) + "." + messageData.substring(3, 9));
+                        String gps_x = dec.toString();
+                        // 经度y 126.666666=126666666 9
+                        dec = new BigDecimal(messageData.substring(9, 12) + "." + messageData.substring(12, 18));
+                        String gps_y = dec.toString();
+                        // 车头朝向方向:1东2南3西4北5西北 6西南7东南 8东北
+                        String car_orientations = messageData.substring(18, 19);
+                        if (!"a".equals(car_orientations)) {
+
+                            if (car_orientations.equals("1")) {
+
+                            } else if (car_orientations.equals("2")) {
+
+                            } else if (car_orientations.equals("3")) {
+
+                            } else if (car_orientations.equals("4")) {
+
+                            } else if (car_orientations.equals("5")) {
+
+                            } else if (car_orientations.equals("6")) {
+
+                            } else if (car_orientations.equals("7")) {
+
+                            } else if (car_orientations.equals("8")) {
+
+                            }
+                        }
+                    }
+                } else if (message.type == ConstanceValue.MSG_CAR_J_M) {
+                    lordingDialog.dismiss();
+                    //接收到信息
+                    Log.i("msg_car_j_m", message.content.toString());
+
+                    String messageData = message.content.toString().substring(1, message.content.toString().length() - 1);
+                    Log.i("msg_car_j_m_data", messageData);
+                    // 驻车加热器:当前档位1至5档	1	是
+                    String oper_dang = messageData.substring(0, 1);
+                    if (0 <= oper_dang.indexOf("a")) {
+                        oper_dang = "";
+                    } else {
+                        if (oper_dang.equals("1")) {
+                            seekBar1.setProgress(20);
+                        } else if (oper_dang.equals("2")) {
+                            seekBar1.setProgress(40);
+                        } else if (oper_dang.equals("3")) {
+                            seekBar1.setProgress(60);
+                        } else if (oper_dang.equals("4")) {
+                            seekBar1.setProgress(80);
+                        } else if (oper_dang.equals("5")) {
+                            seekBar1.setProgress(100);
+                        }
+
+                    }
+                    // 预设温度1至32度	2	是
+                    String oper_wendu_now = messageData.substring(1, 3);
+                    oper_wendu_now = 0 <= oper_wendu_now.indexOf("a") ? "" : new BigDecimal(oper_wendu_now).toString();
+
+                    // 驻车预热器:1.档位开机2.空调开机3.风暖关机4.水暖:开机5.水暖:关机	1	是
+                    String oper_open_close = messageData.substring(3, 4);
+                    /**
+                     * 驻车预热器:1.档位开机2.空调开机3.关机 4.水泵开机9.关机中
+                     * 6.预泵油7.预通风
+                     */
+
+
+                    switch (oper_open_close) {
+                        case "1":
+                            tvShebeizhuangtai.setText("设备状态：挡位模式");
+                            tvDangqianWenduOrDangwei.setText("当前挡位：" + oper_dang + "挡");
+                            if (firstSetDangWei.equals("0")) {
+                                tvShedingWenduOrDangwei.setText("设定挡位：" + oper_dang + "挡");
+                                firstSetDangWei = "1";
+                            }
+                            PreferenceHelper.getInstance(mContext).putString(STARTSHELVES, "1");
+                            //openMode(Integer.parseInt(oper_dang));
+                            //switchModel(rbHeaterGearMode, 1);
+                            // button = rbHeaterGearMode;
+
+                            // if (oper_dang != null) {
+                            //    openMode(Integer.parseInt(oper_dang));
+                            //  }
+                            ivKaiji.setVisibility(View.VISIBLE);
+                            ivGuanji.setVisibility(View.GONE);
+
+                            ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_sel);
+                            ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_nor);
+
+                            tvZuidiwendu.setText("1挡");
+                            tvZuigaowendu.setText("5挡");
+
+                            dangWeiMoShiValue = "1";
+
+
+                            seekBar1.setVisibility(View.VISIBLE);
+                            seekBarKongtiao.setVisibility(View.GONE);
+
+                            break;
+                        case "2":
+                            if (firstSetKongTiao.equals("0")) {
+                                tvShedingWenduOrDangwei.setText("设定温度：" + oper_wendu_now + "℃");
+                                firstSetKongTiao = "1";
+                            }
+                            seekBarKongtiao.setProgress(Integer.parseInt(oper_wendu_now));
+                            tvShebeizhuangtai.setText("设备状态：空调模式");
+                            ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_nor);
+                            ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_sel);
+                            if (oper_wendu_now != null) {
+                                tvDangqianWenduOrDangwei.setText("当前温度：" + oper_wendu_now + "℃");
+                            }
+                            tvZuidiwendu.setText("0℃");
+                            tvZuigaowendu.setText("32℃");
+                            kongTiaoMoshiValue = "1";
+                            PreferenceHelper.getInstance(mContext).putString(STARTSHELVES, "2");
+//                            if (null != oper_wendu_now) {
+//                                openKongTiaoMode(Integer.parseInt(oper_wendu_now));
+//                            } else {
+//                                openMode(0);
+//                            }
+//
+//                            switchModel(rbHeaterAirMode, 2);
+//                            button = rbHeaterAirMode;
+                            ivKaiji.setVisibility(View.VISIBLE);
+                            ivGuanji.setVisibility(View.GONE);
+
+                            seekBar1.setVisibility(View.GONE);
+                            seekBarKongtiao.setVisibility(View.VISIBLE);
+                            break;
+                        case "3":
+                            tvShebeizhuangtai.setText("设备状态：关机");
+                            ivKaiji.setVisibility(View.GONE);
+                            ivGuanji.setVisibility(View.VISIBLE);
+
+                            ivDangweimoshi.setBackgroundResource(R.mipmap.fengnuan_button_dangwei_nor);
+                            ivKongtiaomoshi.setBackgroundResource(R.mipmap.fengnuan_button_kongtiao_nor);
+
+                            dangWeiMoShiValue = "0";
+                            kongTiaoMoshiValue = "0";
+                            shuiBengValue = "0";
+                            tongFengValue = "0";
+                            bengYouValue = "0";
+
+                            tvYutongfeng.setTextColor(mContext.getResources().getColor(R.color.gray999999));
+                            tvZidongbengyou.setTextColor(mContext.getResources().getColor(R.color.gray999999));
+
+                            //   closeMode(0);
+                            //  AlertUtil.t(WindHeaterActivity.this, "当前设备已关机");
+                            //tvYuShe_WenDu.setText("长按选择开机模式");
+                            break;
+                        case "4"://水泵开机
+                            //  tvShebeizhuangtai.setText("设备状态：水泵循环");
+//                            tvShuibeng.setTextColor(mContext.getResources().getColor(R.color.blue00fff));
+//                            tvShuibeng.setText("水泵已开机");
+
+
+                            break;
+                        case "6":
+                            tvShebeizhuangtai.setText("设备状态：预泵油");
+                            tvZidongbengyou.setTextColor(mContext.getResources().getColor(R.color.blue00fff));
+                            bengYouValue = "1";
+
+                            break;
+                        case "7":
+                            tvShebeizhuangtai.setText("设备状态：预通风");
+                            tvYutongfeng.setTextColor(mContext.getResources().getColor(R.color.blue00fff));
+                            tongFengValue = "1";
+//                            tvYuShe_WenDu.setText("当前的挡位为：" + oper_dang + "挡");
+//                            button = rbHeaterYtfMode;
+//                            PreferenceHelper.getInstance(mContext).putString(STARTSHELVES, "7");
+//
+//                            switchModel(rbHeaterYtfMode, 7);
+//                            //档位开机
+//                            if (oper_dang != null) {
+//                                openMode(Integer.parseInt(oper_dang));
+//                            }
+
+                            break;
+                        case "9":
+                            tvShebeizhuangtai.setText("设备状态：关机中");
+                            // mTvWd.setText("00");
+                            // showLoadSuccess();
+                            //  AlertUtil.t(WindHeaterActivity.this, "正在关机，请稍候");
+                            break;
+                    }
+                    // 驻车加热器:当前温度	3	是
+                    String oper_wendu = messageData.substring(4, 6);
+                    oper_wendu += "0".equals(messageData.substring(6, 7)) ? "" : "." + messageData.substring(6, 7);
+
+                    // 水暖加热器:尾气温度 例如:-03	3	是
+                    String xinhaoQiangDu = messageData.substring(7, 9);
+                    String jiGeXinHao = "没有接到信号";
+                    if (!StringUtils.isEmpty(xinhaoQiangDu)) {
+                        int xinhao = Integer.valueOf(xinhaoQiangDu);
+
+                        if (xinhao < 15) {
+                            jiGeXinHao = "无信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal_no);
+                            tvZaixian.setText("离线");
+                        } else if (xinhao >= 15 && xinhao < -19) {
+                            jiGeXinHao = "一格信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal1);
+                        } else if (xinhao >= 20 && xinhao <= 25) {
+                            jiGeXinHao = "两格信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal2);
+                        } else if (xinhao >= 26 && xinhao <= 30) {
+                            jiGeXinHao = "三格信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal3);
+                        } else if (xinhao >= 30 && xinhao <= 35) {
+                            jiGeXinHao = "四格信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal4);
+                        }
+
+                        //  UIHelper.ToastMessage(mContext, jiGeXinHao+xinhao);
+                    }
+
+
+                    // 驻车加热器:电压->0253 = 25.3	4	是
+                    String machine_voltage = messageData.substring(10, 13) + "." + messageData.substring(13, 14);
+                    tvDianya.setText(machine_voltage + "V");
+                    // 驻车加热器:风机转速->13245	5	是
+                    String revolution = messageData.substring(14, 19);
+                    // 驻车加热器:加热塞功率->0264=26.4	4	是
+                    String power = messageData.substring(19, 23);
+                    // 驻车加热器:油泵频率->0265=26.5	4	是
+                    String frequency = messageData.substring(23, 27);
+                    frequency = frequency.substring(0, 3) + "." + frequency.substring(3);
+                    // 驻车加热器:入风口温度->例如:-026	4	是
+
+                    String in_temperature = messageData.substring(27, 31);
+                    tvRufengkouwendu.setText(in_temperature + "℃");
+                    // 驻车加热器:出风口温度->0128	4	是
+                    String out_temperature = messageData.substring(31, 35);
+                    tvChufengkouwendu.setText(out_temperature + "℃");
+
+                    String wendu = out_temperature.substring(2, 4);
+                    if (kongTiaoMoshiValue.equals("1")) {
+                        tvDangqianWenduOrDangwei.setText("当前温度：" + oper_wendu_now + "℃");
+                    }
+
+                    // 驻车加热器故障码->01至18	2	 标准故障码
+                    String zhu_car_stoppage_no = messageData.substring(35, 37);
+                    zhu_car_stoppage_no = 0 <= zhu_car_stoppage_no.indexOf("a") ? "" : String.valueOf(Integer.parseInt(zhu_car_stoppage_no));
+
+                    if (!StringUtils.isEmpty(zhu_car_stoppage_no)) {
+                        Activity currentActivity = AppManager.getAppManager().currentActivity();
+                        if (currentActivity != null) {
+                            if (!currentActivity.getClass().getSimpleName().equals(DiagnosisActivity.class.getSimpleName())) {
+
+                                if (!myCarCaoZuoDialog_notify.isShowing()) {
+                                    myCarCaoZuoDialog_notify.show();
+                                }
+
+                            }
+                        }
+
+                    }
+                    if (messageData.length() >= 38) {
+                        // 水泵状态   0 关  1 开 a 无水泵
+                        String shuiBengZhuangTai = messageData.substring(37, 38);
+
+                        switch (shuiBengZhuangTai) {
+                            case "0"://0关
+//                                rbHeaterPumpMode.setChecked(false);
+//                                rbHeaterPumpMode.setVisibility(View.VISIBLE);
+                                tvShuibeng.setTextColor(mContext.getResources().getColor(R.color.white));
+                                shuiBengValue = "0";
+                                break;
+                            case "1"://1开
+//                                rbHeaterPumpMode.setChecked(true);
+//                                rbHeaterPumpMode.setVisibility(View.VISIBLE);
+                                tvShuibeng.setTextColor(mContext.getResources().getColor(R.color.blue00fff));
+                                shuiBengValue = "1";
+                                if (kongTiaoMoshiValue.equals("0") && dangWeiMoShiValue.equals("0") && tongFengValue.equals("0") && bengYouValue.equals("0")) {
+                                    tvShebeizhuangtai.setText("设备状态：" + "水泵模式");
+                                }
+
+                                break;
+                            case "a"://无
+//                                flag = false;
+//                                rbHeaterPumpMode.setVisibility(View.GONE);
+                                shuiBengValue = "a";
+                                tvShuibeng.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+
+
+                                break;
+                        }
+                    }
+
+
+                    String worktime = "1";
+
+                    if (messageData.length() >= 44) {
+                        worktime = messageData.substring(38, 44);        // 风暖加热器:工作时长(小时)
+                    }
+
+                    if (messageData.length() >= 46) {
+                        // 驻车加热器故障码->01至18	2	其它公司用
+                        String zhu_car_stoppage_no_o = messageData.substring(44, 46);
+                        zhu_car_stoppage_no_o = 0 <= zhu_car_stoppage_no_o.indexOf("a") ? "" : String.valueOf(Integer.parseInt(zhu_car_stoppage_no_o));
+
+
+                    }
+
+                    if (messageData.length() > 46) {
+                        String daqiya = messageData.substring(46, 49);
+                        tvDaqiya.setText(daqiya + "kpa");
+
+                        String haiBaGaoDu = messageData.substring(49,53);
+                        tvHaibagaodu.setText(haiBaGaoDu+"m");
+
+                        String hanYangLiang = messageData.substring(53,55);
+                        tvHanyangliang.setText(hanYangLiang+"g/m3");
+                    }
+
+
+
+
+                } else if (message.type == ConstanceValue.MSG_CAR_K) {
+
+                } else if (message.type == ConstanceValue.MSG_CAR_I) {
+
+                    //接收到信息
+                    Log.i("msg_car_i", message.content.toString());
+                    String message1 = message.content.toString();
+                    version = message1.substring(message1.indexOf("i") + 7, message1.indexOf("i") + 11);
+
+
+                    /**
+                     *     int MSG_MQTT_CONNECTCOMPLETE = 0x10045;//连接完成
+                     *     int MSG_MQTT_CONNECTLOST = 0x10046;//连接丢失
+                     *     int MSG_MQTT_CONNECTARRIVE = 0x10047;//收到连接
+                     *     int MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS = 0x10048;//重连成功
+                     *     int MSG_MQTT_CONNECT_CHONGLIAN_ONFAILE = 0x10049;//重连失败
+                     */
+                } else if (message.type == MSG_MQTT_CONNECTCOMPLETE) {
+
+                    if (waitDialog.isShowing()) {
+                        waitDialog.dismiss();
+                        //  setMqttZhiLing();
+                    }
+                    Log.i("rair", "complete");
+
+                } else if (message.type == MSG_MQTT_CONNECTLOST) {
+
+                    if (!waitDialog.isShowing()) {
+                        waitDialog.show();
+                    }
+                    Log.i("rair", "complete_lost");
+                } else if (message.type == MSG_MQTT_CONNECTARRIVE) {
+
+                    if (waitDialog.isShowing()) {
+                        waitDialog.dismiss();
+                    }
+                    Log.i("rair", "arrive");
+                } else if (message.type == MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS) {
+
+                    if (waitDialog.isShowing()) {
+                        waitDialog.dismiss();
+                    }
+
+                    Log.i("rair", "chonglian_success");
+
+                } else if (message.type == MSG_MQTT_CONNECT_CHONGLIAN_ONFAILE) {
+
+                    if (!waitDialog.isShowing()) {
+                        waitDialog.show();
+                    }
+                    Log.i("rair", "chonglian_failer");
+                } else if (message.type == ConstanceValue.MSG_K6111) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lordingDialog.dismiss();
+                            SoundPoolUtils.soundPool(mContext, R.raw.yikaiji);
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+
+                } else if (message.type == ConstanceValue.MSG_K6131) {
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            SoundPoolUtils.soundPool(mContext, R.raw.yiguanji);
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+
+                } else if (message.type == ConstanceValue.MSG_K6121) {
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            SoundPoolUtils.soundPool(mContext, R.raw.yikaiji);
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+                } else if (message.type == ConstanceValue.MSG_K6141) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            SoundPoolUtils.soundPool(mContext, R.raw.yikaiji);
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+                } else if (message.type == ConstanceValue.MSG_K6161) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            SoundPoolUtils.soundPool(mContext, R.raw.yikaiji);
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+                } else if (message.type == ConstanceValue.MSG_K6171) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            SoundPoolUtils.soundPool(mContext, R.raw.yikaiji);
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+                } else if (message.type == ConstanceValue.MSG_ZHILINGMA) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lordingDialog.dismiss();
+                        }
+                    }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
+
+                }
+            }
+        }));
     }
 
     @Override
@@ -34,24 +926,391 @@ public class FengNuanActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        tv_title.setText("风暖加热器");
-        tv_title.setTextSize(17);
-        tv_title.setTextColor(getResources().getColor(R.color.black));
-        mToolbar.setNavigationIcon(R.mipmap.backbutton);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+    public void setMqttZhiLing() {
+
+        AndMqtt.getInstance().subscribe(new MqttSubscribe()
+                .setTopic(CAR_NOTIFY)
+                .setQos(2), new IMqttActionListener() {
             @Override
-            public void onClick(View v) {
-                //imm.hideSoftInputFromWindow(findViewById(R.id.cl_layout).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                finish();
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "notify:  " + CAR_NOTIFY + "CAR_NOTIFY 我是在类里面订阅的");
+
+
+                MyApplication.mqttDingyue.add(CAR_NOTIFY);
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("CAR_NOTIFY", "(MainActivity.java:68)-onFailure:-&gt;订阅失败");
             }
         });
+
+
+        AndMqtt.getInstance().publish(new MqttPublish()
+                .setMsg("k001.")
+                .setQos(2).setRetained(false)
+                .setTopic(CAR_NOTIFY), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(CAR_NOTIFY.java:79)-onSuccess:-&gt;发布成功" + "k001 我是在类里面订阅的");
+
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+            }
+        });
+
+        //获得车辆的实时数据和基本信息
+        AndMqtt.getInstance().subscribe(new MqttSubscribe()
+                .setTopic(CARBOX_GETNOW)
+                .setQos(2), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "订阅成功 carbox_getnow:  " + CARBOX_GETNOW + " CARBOX_GETNOW 我是在类里面订阅的");
+                MyApplication.mqttDingyue.add(CARBOX_GETNOW);
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:68)-onFailure:-&gt;订阅失败");
+            }
+        });
+
+
+        //控制车辆
+        AndMqtt.getInstance().subscribe(new MqttSubscribe()
+                .setTopic(CAR_CTROL)
+                .setQos(2), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", " Rair用户订阅成功" + "wit/app/" + of_user_id + " CAR_CTROL 我是在类里面订阅的");
+                MyApplication.mqttDingyue.add(CAR_CTROL);
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:68)-onFailure:-&gt;订阅失败");
+            }
+
+
+        });
+
+
+        AndMqtt.getInstance().publish(new MqttPublish()
+                .setMsg("N9.")
+                .setQos(2)
+                .setTopic(CAR_CTROL)
+                .setRetained(false), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功" + " N9 我是在类里面订阅的");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+            }
+        });
+
+        //查询车辆详情数据
+        // requestData();
+
+        // HeaterMqttService.mqttService.publish("M512.", HeaterMqttService.TOPIC_SERVER_ORDER, 2, false);
+//        AndMqtt.getInstance().publish(new MqttPublish()
+//                .setMsg("M512.")
+//                .setQos(2).setRetained(false)
+//                .setTopic(CAR_CTROL), new IMqttActionListener() {
+//            @Override
+//            public void onSuccess(IMqttToken asyncActionToken) {
+//                Log.i("Rair", "(CAR_NOTIFY.java:79)-onSuccess:-&gt;发布成功" + "M512 我是在类里面订阅的");
+//            }
+//
+//            @Override
+//            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+//                Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+//            }
+//        });
     }
 
     @Override
-    public boolean showToolBar() {
-        return false;
+    protected void onDestroy() {
+        super.onDestroy();
+        AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(CAR_NOTIFY), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(MainActivity.java:93)-onSuccess:-&gt;取消订阅成功");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:98)-onFailure:-&gt;取消订阅失败");
+            }
+        });
+
+        AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(CARBOX_GETNOW), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(MainActivity.java:93)-onSuccess:-&gt;取消订阅成功");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:98)-onFailure:-&gt;取消订阅失败");
+            }
+        });
+
+        AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(CAR_CTROL), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(MainActivity.java:93)-onSuccess:-&gt;取消订阅成功");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:98)-onFailure:-&gt;取消订阅失败");
+            }
+        });
+
+
+        for (int i = 0; i < MyApplication.mqttDingyue.size(); i++) {
+            if (MyApplication.mqttDingyue.get(i).equals(CAR_NOTIFY)) {
+                MyApplication.mqttDingyue.remove(i);
+            }
+        }
+
+        for (int i = 0; i < MyApplication.mqttDingyue.size(); i++) {
+            if (MyApplication.mqttDingyue.get(i).equals(CARBOX_GETNOW)) {
+                MyApplication.mqttDingyue.remove(i);
+            }
+        }
+
+        for (int i = 0; i < MyApplication.mqttDingyue.size(); i++) {
+            if (MyApplication.mqttDingyue.get(i).equals(CAR_CTROL)) {
+                MyApplication.mqttDingyue.remove(i);
+            }
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.iv_dangweimoshi:
+                if (kongTiaoMoshiValue.equals("1") || bengYouValue.equals("1") || tongFengValue.equals("1")) {
+                    UIHelper.ToastMessage(mContext, "请关机后重新以挡位模式启动");
+                    return false;
+                }
+                if (dangWeiMoShiValue.equals("0")) {
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M61" + "1" + ".")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在以" + "档位模式" + "开机请稍后...");
+                            lordingDialog.show();
+                            SoundPoolUtils.soundPool(mContext, R.raw.dangwei);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                } else if (dangWeiMoShiValue.equals("1")) {
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M613.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //  UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在关机请稍后...");
+                            lordingDialog.show();
+
+                            SoundPoolUtils.soundPool(mContext, R.raw.guanjizhong);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败，请检查是否连接网络", Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+                break;
+            case R.id.iv_kongtiaomoshi:
+                if (dangWeiMoShiValue.equals("1") || bengYouValue.equals("1") || tongFengValue.equals("1")) {
+                    UIHelper.ToastMessage(mContext, "请关机后重新以空调模式启动");
+                    return false;
+                }
+                if (kongTiaoMoshiValue.equals("0")) {
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M61" + "2" + ".")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在以" + "空调模式" + "开机请稍后...");
+                            lordingDialog.show();
+                            SoundPoolUtils.soundPool(mContext, R.raw.kongtiao);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败", Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                } else if (kongTiaoMoshiValue.equals("1")) {
+
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("M613.")
+                            .setQos(2).setRetained(false)
+                            .setTopic(CAR_CTROL), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                            //  UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
+                            lordingDialog.setTextMsg("正在关机请稍后...");
+                            lordingDialog.show();
+
+                            SoundPoolUtils.soundPool(mContext, R.raw.guanjizhong);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                            UIHelper.ToastMessage(mContext, "指令发送失败，请检查是否连接网络", Toast.LENGTH_SHORT);
+                        }
+                    });
+                }
+
+                break;
+        }
+
+
+        return true;
+    }
+
+    private void qieHuanDangWei(int dangValue) {
+        tvShedingWenduOrDangwei.setText("设定挡位：" + String.valueOf(dangValue) + "挡");
+
+        AndMqtt.getInstance().publish(new MqttPublish()
+                .setMsg("M62" + dangValue + ".")
+                .setQos(2)
+                .setTopic(CAR_CTROL).setRetained(false), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                lordingDialog.setTextMsg("档位切换中,请稍后...");
+                lordingDialog.show();
+                PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k62" + dangValue + "1.");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                UIHelper.ToastMessage(mContext, "切换档位失败:" + exception.getMessage(), Toast.LENGTH_SHORT);
+
+            }
+        });
+
+    }
+
+    private void qieHuanWenDu(int myValue) {
+        tvShedingWenduOrDangwei.setText("设定温度：" + myValue + "℃");
+        if (myValue > 0 && myValue <= 9) {
+            String value = String.valueOf(myValue);
+            Log.i("myValue", value);
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("M65" + value + ".")
+                    .setQos(2)
+                    .setTopic(CAR_CTROL).setRetained(false), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                    PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k66" + value + "1.");
+                    lordingDialog.setTextMsg("温度调节中,请稍后");
+                    lordingDialog.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败" + exception.getMessage());
+                }
+            });
+        } else if (myValue > 9 && myValue < 20) {
+            String value = String.valueOf(myValue).substring(1, 2);
+            Log.i("myValue", value);
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("M66" + value + ".")
+                    .setQos(2)
+                    .setTopic(CAR_CTROL).setRetained(false), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                    PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k66" + value + "1.");
+                    lordingDialog.setTextMsg("温度调节中,请稍后");
+                    lordingDialog.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败" + exception.getMessage());
+                }
+            });
+
+        } else if (myValue > 20 && myValue < 30) {
+            String value = String.valueOf(myValue).substring(1, 2);
+            Log.i("myValue", value);
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("M67" + value + ".")
+                    .setQos(2)
+                    .setTopic(CAR_CTROL).setRetained(false), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                    PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k67" + value + "1.");
+                    lordingDialog.setTextMsg("温度调节中,请稍后");
+                    lordingDialog.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败" + exception.getMessage());
+                }
+            });
+        } else if (myValue > 20 && myValue <= 32) {
+            String value = String.valueOf(myValue).substring(1, 2);
+            Log.i("myValue", value);
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("M68" + value + ".")
+                    .setQos(2)
+                    .setTopic(CAR_CTROL).setRetained(false), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功");
+                    PreferenceHelper.getInstance(mContext).putString(ConfigValue.ZHILINGMA, "k68" + value + "1.");
+                    lordingDialog.setTextMsg("温度调节中,请稍后");
+                    lordingDialog.show();
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败" + exception.getMessage());
+                }
+            });
+        }
     }
 }

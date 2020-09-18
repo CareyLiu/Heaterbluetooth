@@ -904,7 +904,7 @@ public class WindHeaterActivity extends BaseActivity implements View.OnLongClick
         if (dangWeiValue.equals("1")) {//档位开机
             Log.i("MyProgressValue", String.valueOf(progressValue));
             dangWeiMode(progressValue);
-        } else if (dangWeiValue.equals("2")) {//空调开机
+        } else if (dangWeiValue.equals("2")) {
             Log.i("MyProgressValue", String.valueOf(progressValue));
             myValue = 14 + progressValue;
             Log.i("myValue", String.valueOf(myValue));
