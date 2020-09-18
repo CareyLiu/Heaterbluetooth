@@ -65,8 +65,8 @@ public class FengnuandishiActivity extends BaseActivity {
     CheckBox cbSaturday;
 
     private String ccid;
-    private String chooseHour;//小时
-    private String chooseMin;//分钟
+    private String chooseHour = "00";//小时
+    private String chooseMin = "00";//分钟
 
     private String weekTimes;
     private String jinriShijian;
@@ -253,7 +253,7 @@ public class FengnuandishiActivity extends BaseActivity {
                                 chooseHour = shijian[0];
                                 chooseMin = shijian[1];
                             }
-                            tv_shijian.setText(jinriShijian);
+                            tv_time.setText(jinriShijian);
                         }
                     }
 

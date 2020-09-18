@@ -278,6 +278,9 @@ public class WoDeFragment extends BaseTwoFragment {
                         if (!StringUtils.isEmpty(rongYunTouken)) {
                             connectRongYun(response.body().data.get(0).getToken_rong());
                         }
+
+                        timeCount.cancel();
+                        timeCount.onFinish();
                     }
 
                     @Override
@@ -312,7 +315,6 @@ public class WoDeFragment extends BaseTwoFragment {
              */
             @Override
             public void onSuccess(String userId) {
-                //UIHelper.ToastMessage(mContext, "融云连接成功");
                 Log.i("rongYun", "融云连接成功");
                 PreferenceHelper.getInstance(getContext()).putString(AppConfig.RONGYUN_TOKEN, token);
             }
@@ -403,7 +405,6 @@ public class WoDeFragment extends BaseTwoFragment {
         map.put("code", "03003");
         map.put("key", Urls.key);
         map.put("token", UserManager.getManager(getContext()).getAppToken());
-//        map.put("of_user_id", UserManager.getManager(getContext()).getOfUserId());
         Gson gson = new Gson();
         OkGo.<AppResponse<UserModel.DataBean>>post(USER)
                 .tag(this)//

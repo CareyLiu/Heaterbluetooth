@@ -4,7 +4,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseSectionQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sdkj.heaterbluetooth.R;
@@ -12,12 +11,25 @@ import com.sdkj.heaterbluetooth.model.SheBeiModel;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
+public class ShebeiNewAdapter extends BaseSectionQuickAdapter<SheBeiModel, BaseViewHolder> {
 
-public class ShebeiAdapter extends BaseQuickAdapter<SheBeiModel, BaseViewHolder> {
+    /**
+     * Same as QuickAdapter#QuickAdapter(Context,int) but with
+     * some initialization data.
+     *
+     * @param layoutResId      The layout resource id of each item.
+     * @param sectionHeadResId The section head layout id for each item
+     * @param data             A new list is created out of this one to avoid mutable list
+     */
+    public ShebeiNewAdapter(int layoutResId, int sectionHeadResId, List<SheBeiModel> data) {
+        super(layoutResId, sectionHeadResId, data);
 
-    public ShebeiAdapter(int layoutResId, @Nullable List<SheBeiModel> data) {
-        super(layoutResId, data);
+    }
+
+
+    @Override
+    protected void convertHead(BaseViewHolder helper, SheBeiModel item) {
+        helper.setText(R.id.tv_name, item.header);
     }
 
     @Override

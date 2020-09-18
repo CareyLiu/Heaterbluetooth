@@ -25,6 +25,7 @@ import com.sdkj.heaterbluetooth.activity.FengnuanJieActivity;
 import com.sdkj.heaterbluetooth.activity.FengnuandishiActivity;
 import com.sdkj.heaterbluetooth.activity.SheBeiSetActivity;
 import com.sdkj.heaterbluetooth.adapter.ShebeiAdapter;
+import com.sdkj.heaterbluetooth.adapter.ShebeiNewAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
@@ -67,7 +68,7 @@ public class ShebeiFrament extends BaseTwoFragment {
     SmartRefreshLayout sm_shebei_list;
 
     private List<SheBeiModel> mDatas = new ArrayList<>();
-    private ShebeiAdapter adapter;
+    private ShebeiNewAdapter adapter;
 
     @Override
     protected int getLayoutRes() {
@@ -113,7 +114,7 @@ public class ShebeiFrament extends BaseTwoFragment {
     }
 
     private void initAdapter() {
-        adapter = new ShebeiAdapter(R.layout.item_shebei_new, mDatas);
+        adapter = new ShebeiNewAdapter(R.layout.item_shebei_new, R.layout.item_shebei_header, mDatas);
         rv_content.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_content.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -129,7 +130,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                     if (NetworkUtils.isConnected(getActivity())) {
                         Activity currentActivity = AppManager.getAppManager().currentActivity();
                         if (currentActivity != null) {
-                            //startActivity(new Intent(getActivity(), WindHeaterActivity.class));
+                            FengNuanActivity.actionStart(getActivity());
                         }
                     } else {
                         UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
@@ -150,7 +151,6 @@ public class ShebeiFrament extends BaseTwoFragment {
                     }
                 }
 
-                FengNuanActivity.actionStart(getActivity());
             }
         });
     }
@@ -171,8 +171,10 @@ public class ShebeiFrament extends BaseTwoFragment {
                         mDatas.clear();
                         for (int i = 0; i < response.body().data.size(); i++) {
                             SheBeiModel sheBeiModel = new SheBeiModel(true, response.body().data.get(i).getControl_device_name());
+                            // Log.i("name", response.body().data.get(i).getControl_device_name());
                             mDatas.add(sheBeiModel);
                             for (int j = 0; j < response.body().data.get(i).getControl_device_list().size(); j++) {
+                                // Log.i("name--shebei", response.body().data.get(i).getControl_device_list().get(j).getDevice_name());
                                 SheBeiModel sheBeiModel1 = new SheBeiModel(false, response.body().data.get(i).getControl_device_name());
                                 SheBeiLieBieListModel.DataBean.ControlDeviceListBean bean = response.body().data.get(i).getControl_device_list().get(j);
                                 sheBeiModel1.ccid = bean.getCcid();
@@ -185,7 +187,6 @@ public class ShebeiFrament extends BaseTwoFragment {
                                 mDatas.add(sheBeiModel1);
                             }
                         }
-
 
                         if (mDatas.size() == 0) {
                             View view = View.inflate(getActivity(), R.layout.online_empty_view, null);
@@ -227,9 +228,6 @@ public class ShebeiFrament extends BaseTwoFragment {
         Notice n = new Notice();
         n.type = ConstanceValue.MSG_LOGIN;
         RxBus.getDefault().sendRx(n);
-
-
-        SheBeiSetActivity.actionStart(getContext());
     }
 
     private void addShebei() {
