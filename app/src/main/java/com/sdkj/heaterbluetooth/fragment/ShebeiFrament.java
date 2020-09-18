@@ -19,9 +19,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.activity.BindBoxActivity;
 import com.sdkj.heaterbluetooth.activity.FengNuanActivity;
+import com.sdkj.heaterbluetooth.activity.FengnuanJieActivity;
 import com.sdkj.heaterbluetooth.adapter.ShebeiAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basicmvp.BaseFragment;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
@@ -33,6 +37,7 @@ import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.SheBeiLieBieListModel;
 import com.sdkj.heaterbluetooth.model.SheBeiModel;
 import com.sdkj.heaterbluetooth.util.NetworkUtils;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.Y;
 
 import java.util.ArrayList;
@@ -207,6 +212,7 @@ public class ShebeiFrament extends BaseTwoFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_login:
+                clickLogin();
                 break;
             case R.id.ll_add_shebei:
                 addShebei();
@@ -214,8 +220,17 @@ public class ShebeiFrament extends BaseTwoFragment {
         }
     }
 
-    private void addShebei() {
+    private void clickLogin() {
+        Notice n = new Notice();
+        n.type = ConstanceValue.MSG_LOGIN;
+        RxBus.getDefault().sendRx(n);
 
+
+        FengnuanJieActivity.actionStart(getContext());
+    }
+
+    private void addShebei() {
+        BindBoxActivity.actionStart(getContext());
     }
 
     @Override

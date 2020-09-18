@@ -3,19 +3,26 @@ package com.sdkj.heaterbluetooth.basepage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.App;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConfigValue;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.basicmvp.BasicFragment;
 import com.sdkj.heaterbluetooth.fragment.SheBeiFragment;
 import com.sdkj.heaterbluetooth.fragment.ShebeiFrament;
 import com.sdkj.heaterbluetooth.fragment.ShuoMingFragment;
 import com.sdkj.heaterbluetooth.fragment.WoDeFragment;
+import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 import com.sdkj.heaterbluetooth.view.BottomBar;
 import com.sdkj.heaterbluetooth.view.BottomBarTab;
 import com.sdkj.heaterbluetooth.view.DoubleClickExitHelper;
@@ -88,7 +95,6 @@ public class HomeBasicActivity extends BaseActivity {
                 .addItem(new BottomBarTab(this, R.mipmap.tab_icon_shuomingshu_nor, R.mipmap.tab_icon_shuomingshu_sel, "说明"))
                 .addItem(new BottomBarTab(this, R.mipmap.tab_icon_wode_nor, R.mipmap.tab_icon_wode_sel, "我的"));
 
-
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
@@ -112,6 +118,15 @@ public class HomeBasicActivity extends BaseActivity {
         });
         app = App.getInstance();
         doubleClick = new DoubleClickExitHelper(this);
+
+        _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
+            @Override
+            public void call(Notice message) {
+                if (message.type == ConstanceValue.MSG_LOGIN) {
+                    mBottomBar.setCurrentItem(2);
+                }
+            }
+        }));
     }
 
     @Override
@@ -122,17 +137,6 @@ public class HomeBasicActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        RxPermissions rxPermissions = new RxPermissions(HomeBasicActivity.this);
-//        rxPermissions.request(AppConfig.BASIC_PERMISSIONS).subscribe(new Action1<Boolean>() {
-//            @Override
-//            public void call(Boolean granted) {
-//                if (granted) { // 在android 6.0之前会默认返回true
-//
-//                } else {
-//
-//                }
-//            }
-//        });
         app = App.getInstance();
     }
 

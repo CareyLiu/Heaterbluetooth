@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app_new"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="43pt"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80pt"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="80pt"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="18pt"
+                android:layout_height="30pt"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/black_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="风暖加热器"
+            android:textColor="@color/black"
+            android:textSize="33pt" />
+
+        <RelativeLayout
+            android:id="@+id/rl_set"
+            android:layout_width="80pt"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="46pt"
+                android:layout_height="46pt"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/fengnuan_icon_shezhi" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="592pt">
+
+                <FrameLayout
+                    android:layout_width="487pt"
+                    android:layout_height="409pt"
+                    android:layout_marginTop="14pt"
+                    android:background="@mipmap/dipan">
+
+
+                    <ImageView
+                        android:layout_width="396pt"
+                        android:background="@color/white"
+                        android:layout_height="175pt"
+                        android:layout_marginLeft="29pt"
+                        android:layout_marginTop="79pt" />
+
+                </FrameLayout>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

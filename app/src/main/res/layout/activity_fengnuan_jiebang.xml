@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app_new"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="169pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="解绑设备"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="107pt"
+        android:layout_marginHorizontal="38pt"
+        android:layout_marginTop="31pt"
+        android:background="@mipmap/tongyong_shezhi_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="38pt">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设备码"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+
+        <TextView
+            android:id="@+id/tv_shebeima"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="28pt"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="29pt"
+        android:layout_marginLeft="36pt"
+        android:layout_marginTop="42pt"
+        android:layout_marginBottom="48pt"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="手机验证"
+        android:textColor="@color/white"
+        android:textSize="29pt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="107pt"
+        android:layout_marginHorizontal="38pt"
+        android:background="@mipmap/tongyong_shezhi_bg"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/ed_pwd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入验证码"
+            android:paddingLeft="36pt"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="30pt" />
+
+        <TextView
+            android:id="@+id/tv_send_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="36pt"
+            android:paddingRight="36pt"
+            android:text="获取验证码"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_jiebang"
+        android:layout_width="match_parent"
+        android:layout_height="107pt"
+        android:layout_marginHorizontal="38pt"
+        android:layout_marginTop="31pt"
+        android:background="@mipmap/tongyong_shezhi_bg"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="解绑"
+            android:textColor="@color/white"
+            android:textSize="30pt" />
+    </LinearLayout>
+</LinearLayout>

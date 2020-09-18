@@ -11,11 +11,11 @@
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <!--自定义toolbar,可覆盖在内容区上面的布局-->
     <ViewStub
         android:id="@+id/vs_toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent" />
-
 </LinearLayout>

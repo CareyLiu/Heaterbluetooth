@@ -76,7 +76,6 @@ public abstract class BasicActivity<T extends BasicPresenter, E extends BasicMod
      */
     protected void initToolbar() {
         mToolbar.setTitle("");
-        // mToolbar.setTitleTextColor(getResources().getColor(R.color.black));
         tv_title = (TextView) rootView.findViewById(R.id.toolbar_title);
         tv_title.setVisibility(View.VISIBLE);
         tv_rightTitle = (TextView) rootView.findViewById(R.id.tv_toolbar_right);
@@ -119,13 +118,11 @@ public abstract class BasicActivity<T extends BasicPresenter, E extends BasicMod
         }
         if (showToolBar() && getToolBarResId() != -1) {
             //如果需要显示自定义toolbar,并且资源id存在的情况下，实例化baseView;
-            rootView = LayoutInflater.from(this).inflate(toolbarCover() ?
-                    R.layout.basic_toolbar_cover : R.layout.basic_layout, null, false);//根布局
+            rootView = LayoutInflater.from(this).inflate(toolbarCover() ? R.layout.basic_toolbar_cover : R.layout.basic_layout, null, false);//根布局
             ViewStub mVs_toolbar = (ViewStub) rootView.findViewById(R.id.vs_toolbar);//toolbar容器
             FrameLayout fl_container = (FrameLayout) rootView.findViewById(R.id.fl_container);//子布局容器
             mVs_toolbar.setLayoutResource(getToolBarResId());//toolbar资源id
             mVs_toolbar.inflate();//填充toolbar
-//            mToolbar = (Toolbar) mVs_toolbar.inflate();
             LayoutInflater.from(this).inflate(layoutResID, fl_container, true);//子布局
             setContentView(rootView);
         } else {
@@ -206,7 +203,6 @@ public abstract class BasicActivity<T extends BasicPresenter, E extends BasicMod
     public void initPresenter() {
 
     }
-
 
 
     private List<Activity> activityList = new LinkedList<>();

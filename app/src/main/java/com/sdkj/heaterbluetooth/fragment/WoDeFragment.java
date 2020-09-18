@@ -403,7 +403,7 @@ public class WoDeFragment extends BaseTwoFragment {
         map.put("code", "03003");
         map.put("key", Urls.key);
         map.put("token", UserManager.getManager(getContext()).getAppToken());
-        map.put("of_user_id", UserManager.getManager(getContext()).getOfUserId());
+//        map.put("of_user_id", UserManager.getManager(getContext()).getOfUserId());
         Gson gson = new Gson();
         OkGo.<AppResponse<UserModel.DataBean>>post(USER)
                 .tag(this)//

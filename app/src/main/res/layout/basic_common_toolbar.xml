@@ -21,7 +21,7 @@
         app:contentInsetStart="0dp"
         app:title="">
 
-        <com.shendeng.agent.ui.view.ColorFilterImageView
+        <com.sdkj.heaterbluetooth.view.ColorFilterImageView
             android:id="@+id/iv_toolbar_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:textColor="@color/black"
             android:visibility="gone" />
 
-        <com.shendeng.agent.ui.view.ColorFilterImageView
+        <com.sdkj.heaterbluetooth.view.ColorFilterImageView
             android:id="@+id/iv_toolbar_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

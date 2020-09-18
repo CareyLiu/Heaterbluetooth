@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app_new"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="169pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="定时"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="31pt"
+            android:layout_marginLeft="29pt"
+            android:layout_marginTop="42pt"
+            android:layout_marginBottom="52pt"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="请选择加热时间"
+            android:textColor="@color/white"
+            android:textSize="31pt" />
+
+        <TextView
+            android:id="@+id/tv_queren"
+            android:layout_width="115pt"
+            android:layout_height="61pt"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="27pt"
+            android:layout_marginRight="29pt"
+            android:background="@drawable/bg_dingshi_queren"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="29pt" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="146pt"
+        android:layout_marginHorizontal="36pt"
+        android:background="@mipmap/dingshi_pic_time"
+        android:gravity="center"
+        android:text="12:00"
+        android:textColor="@color/white"
+        android:textSize="58pt"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ll_select_time"
+        android:layout_width="match_parent"
+        android:layout_height="107pt"
+        android:layout_marginHorizontal="38pt"
+        android:layout_marginTop="31pt"
+        android:background="@mipmap/tongyong_shezhi_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="38pt">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="31pt"
+            android:includeFontPadding="false"
+            android:text="请预约加热时长"
+            android:textColor="@color/white"
+            android:textSize="31pt" />
+
+        <TextView
+            android:id="@+id/tv_shijian"
+            android:layout_width="0dp"
+            android:layout_height="31pt"
+            android:layout_marginRight="12pt"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:includeFontPadding="false"
+            android:text="30分钟"
+            android:textColor="@color/white"
+            android:textSize="31pt" />
+
+        <ImageView
+            android:layout_width="33pt"
+            android:layout_height="33pt"
+            android:layout_marginRight="22pt"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/push_white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center|top"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_sunday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="日"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+
+        <CheckBox
+            android:id="@+id/cb_monday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="一"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+        <CheckBox
+            android:id="@+id/cb_tuesday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="二"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+        <CheckBox
+            android:id="@+id/cb_wednesday"
+            android:layout_width="92dp"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="三"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+        <CheckBox
+            android:id="@+id/cb_thursday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="四"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+        <CheckBox
+            android:id="@+id/cb_friday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="五"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+
+        <CheckBox
+            android:id="@+id/cb_saturday"
+            android:layout_width="77pt"
+            android:layout_height="77pt"
+            android:background="@drawable/selector_days"
+            android:button="@null"
+            android:gravity="center"
+            android:text="六"
+            android:textColor="@color/white"
+            android:textSize="25pt" />
+    </LinearLayout>
+</LinearLayout>

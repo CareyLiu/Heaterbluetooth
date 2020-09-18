@@ -98,4 +98,7 @@ public interface ConstanceValue {
 
     int MSG_ZHILINGMA = 0x10066;//指令码
 
+
+    int MSG_LOGIN= 0x10067;//登录
+
 }
