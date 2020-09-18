@@ -3,8 +3,6 @@ package com.sdkj.heaterbluetooth.basepage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
@@ -14,15 +12,12 @@ import rx.functions.Action1;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.App;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
-import com.sdkj.heaterbluetooth.app.ConfigValue;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.basicmvp.BasicFragment;
-import com.sdkj.heaterbluetooth.fragment.SheBeiFragment;
 import com.sdkj.heaterbluetooth.fragment.ShebeiFrament;
 import com.sdkj.heaterbluetooth.fragment.ShuoMingFragment;
 import com.sdkj.heaterbluetooth.fragment.WoDeFragment;
-import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 import com.sdkj.heaterbluetooth.view.BottomBar;
 import com.sdkj.heaterbluetooth.view.BottomBarTab;
 import com.sdkj.heaterbluetooth.view.DoubleClickExitHelper;
@@ -76,7 +71,7 @@ public class HomeBasicActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_bottom_out);
         ac = this;
-        BasicFragment firstFragment = findFragment(SheBeiFragment.class);
+        BasicFragment firstFragment = findFragment(ShebeiFrament.class);
         if (firstFragment == null) {
             mFragments[FIRST] = ShebeiFrament.newInstance();
             mFragments[SECOND] = ShuoMingFragment.newInstance();

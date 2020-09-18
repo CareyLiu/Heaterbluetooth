@@ -1233,7 +1233,6 @@ public class WindHeaterActivity extends BaseActivity implements View.OnLongClick
                 break;
 
             case R.id.fengnuan_jiebang:
-                FengNuanJieBangActivity.actionStart(mContext);
                 break;
             case R.id.nav_setting:
                 startActivity(new Intent(this, HeaterSettingActivity.class));

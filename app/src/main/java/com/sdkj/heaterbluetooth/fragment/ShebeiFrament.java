@@ -23,6 +23,7 @@ import com.sdkj.heaterbluetooth.activity.BindBoxActivity;
 import com.sdkj.heaterbluetooth.activity.FengNuanActivity;
 import com.sdkj.heaterbluetooth.activity.FengnuanJieActivity;
 import com.sdkj.heaterbluetooth.activity.FengnuandishiActivity;
+import com.sdkj.heaterbluetooth.activity.SheBeiSetActivity;
 import com.sdkj.heaterbluetooth.adapter.ShebeiAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
@@ -228,7 +229,7 @@ public class ShebeiFrament extends BaseTwoFragment {
         RxBus.getDefault().sendRx(n);
 
 
-        FengnuandishiActivity.actionStart(getContext());
+        SheBeiSetActivity.actionStart(getContext());
     }
 
     private void addShebei() {

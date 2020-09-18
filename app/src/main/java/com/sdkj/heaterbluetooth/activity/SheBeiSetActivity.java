@@ -31,7 +31,7 @@ public class SheBeiSetActivity extends BaseActivity {
         rlDingshi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FengnuandishiActivity.actionStart(mContext);
             }
         });
         rlJiareqicanshu.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +43,7 @@ public class SheBeiSetActivity extends BaseActivity {
         rlJiebangshebei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FengnuanJieActivity.actionStart(mContext);
             }
         });
         rlBack.setOnClickListener(new View.OnClickListener() {
