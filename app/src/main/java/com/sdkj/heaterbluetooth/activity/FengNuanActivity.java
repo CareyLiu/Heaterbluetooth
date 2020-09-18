@@ -123,6 +123,8 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     TextView tvHanyangliang;
     @BindView(R.id.tv_daqiya)
     TextView tvDaqiya;
+    @BindView(R.id.iv_shezhi)
+    ImageView ivShezhi;
     private LordingDialog lordingDialog;
     public String car_server_id;
     public String ccid;
@@ -142,7 +144,12 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ivShezhi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SheBeiSetActivity.actionStart(mContext);
+            }
+        });
         PreferenceHelper.getInstance(mContext).putString(App.CHOOSE_KONGZHI_XIANGMU, DoMqttValue.FENGNUAN);
         waitDialog = ProgressDialog.show(mContext, null, "网络状态不稳定,连接中···", true, true);
         lordingDialog = new LordingDialog(mContext);
@@ -219,7 +226,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
 
                 if (dangWeiMoShiValue.equals("1")) {
 
-                 //   UIHelper.ToastMessage(mContext, seekBar.getProgress() + "");
+                    //   UIHelper.ToastMessage(mContext, seekBar.getProgress() + "");
                     if (seekBar.getProgress() >= 0 && seekBar.getProgress() < 20) {
                         seekBar1.setProgress(20);
                         qieHuanDangWei(1);
@@ -777,14 +784,12 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                         String daqiya = messageData.substring(46, 49);
                         tvDaqiya.setText(daqiya + "kpa");
 
-                        String haiBaGaoDu = messageData.substring(49,53);
-                        tvHaibagaodu.setText(haiBaGaoDu+"m");
+                        String haiBaGaoDu = messageData.substring(49, 53);
+                        tvHaibagaodu.setText(haiBaGaoDu + "m");
 
-                        String hanYangLiang = messageData.substring(53,55);
-                        tvHanyangliang.setText(hanYangLiang+"g/m3");
+                        String hanYangLiang = messageData.substring(53, 55);
+                        tvHanyangliang.setText(hanYangLiang + "g/m3");
                     }
-
-
 
 
                 } else if (message.type == ConstanceValue.MSG_CAR_K) {

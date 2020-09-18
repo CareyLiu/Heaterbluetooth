@@ -38,6 +38,7 @@
             android:textSize="35pt" />
 
         <ImageView
+            android:id="@+id/iv_shezhi"
             android:layout_width="46pt"
             android:layout_height="46pt"
             android:layout_alignParentRight="true"
