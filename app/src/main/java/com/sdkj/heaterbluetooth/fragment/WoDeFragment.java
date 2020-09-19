@@ -1,5 +1,6 @@
 package com.sdkj.heaterbluetooth.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -20,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
 import com.google.gson.Gson;
-import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -29,10 +29,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
-import com.sdkj.heaterbluetooth.basicmvp.BaseFragment;
 import com.sdkj.heaterbluetooth.callback.DialogCallback;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
@@ -88,6 +88,8 @@ public class WoDeFragment extends BaseTwoFragment {
     TextView tv_login_out;
     @BindView(R.id.sm_wode)
     SmartRefreshLayout sm_wode;
+    @BindView(R.id.ll_diertiao)
+    LinearLayout ll_diertiao;
 
     private TimeCount timeCount;
     private String smsId;
@@ -126,7 +128,7 @@ public class WoDeFragment extends BaseTwoFragment {
         });
     }
 
-    @OnClick({R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login, R.id.ll_jiaofeijilu, R.id.tv_login_out})
+    @OnClick({R.id.ll_diertiao, R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login, R.id.ll_jiaofeijilu, R.id.tv_login_out})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_code:
@@ -141,7 +143,10 @@ public class WoDeFragment extends BaseTwoFragment {
                 login();
                 break;
             case R.id.ll_jiaofeijilu:
-                getUserInfo();
+
+                break;
+            case R.id.ll_diertiao:
+
                 break;
             case R.id.tv_login_out:
                 clickLoginOut();
@@ -421,7 +426,8 @@ public class WoDeFragment extends BaseTwoFragment {
 
                     @Override
                     public void onError(Response<AppResponse<UserModel.DataBean>> response) {
-
+                        MyApplication.getAppContext().startActivity(new Intent(MyApplication.getAppContext(), HomeBasicActivity.class));
+                        UserManager.getManager(MyApplication.getAppContext()).removeUser();
                     }
 
                     @Override

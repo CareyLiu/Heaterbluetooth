@@ -193,7 +193,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:includeFontPadding="false"
-                            android:text="昵称：Neohiuahd"
+                            android:text="昵称："
                             android:textColor="@color/text_color_blue"
                             android:textSize="30pt" />
 
@@ -203,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15pt"
                             android:includeFontPadding="false"
-                            android:text="手机号：15588880000"
+                            android:text="手机号："
                             android:textColor="@color/text_color_blue"
                             android:textSize="30pt" />
                     </LinearLayout>
@@ -229,6 +229,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="缴费记录"
+                        android:textColor="@color/text_color_blue"
+                        android:textSize="30pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_diertiao"
+                    android:layout_width="match_parent"
+                    android:layout_height="111pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginHorizontal="28pt"
+                    android:background="@mipmap/tongyong_shezhi_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36pt">
+
+                    <ImageView
+                        android:layout_width="46pt"
+                        android:layout_height="46pt"
+                        android:layout_marginRight="23pt"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/jiaofeijilu_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邮费"
                         android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
                 </LinearLayout>
