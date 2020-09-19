@@ -339,7 +339,7 @@ public class DiagnosisActivity extends BaseActivity {
                             });
 
                             mTvTitle.setText("整机运转异常");
-                            layoutInfo.setVisibility(View.VISIBLE);
+                           // layoutInfo.setVisibility(View.VISIBLE);
                             layoutMessage.setVisibility(View.VISIBLE);
                             btnClean.setVisibility(View.VISIBLE);
                             mTvMessage.setText(response.body().data.get(0).getFailure_name());

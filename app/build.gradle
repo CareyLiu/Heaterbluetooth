@@ -30,6 +30,11 @@ android {
             url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
         }
         maven { url "https://www.jitpack.io" }
+
+        // 添加下面的内容
+        flatDir {
+            dirs 'libs'
+        }
     }
 
     compileOptions {
@@ -52,19 +57,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.gyf.immersionbar:immersionbar:2.3.3'
     implementation 'com.google.code.gson:gson:2.8.2'
-
     implementation 'io.reactivex:rxandroid:1.0.1'
     implementation 'io.reactivex:rxjava:1.0.14'
     implementation 'io.reactivex:rxjava-math:1.0.0'
@@ -79,27 +81,24 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-
     implementation 'me.yokeyword:fragmentationx:1.0.2'
-
-// If you don't want to extends SupportActivity/Fragment and would like to customize your own support, just rely on fragmentation-core
-// implementation 'me.yokeyword:fragmentationx-core:1.0.2'
-
-// To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
+    // If you don't want to extends SupportActivity/Fragment and would like to customize your own support, just rely on fragmentation-core
+    // implementation 'me.yokeyword:fragmentationx-core:1.0.2'
+    // To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
     implementation 'me.yokeyword:fragmentationx:1.0.2'
-// Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
+    // Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
     implementation 'me.yokeyword:fragmentationx-swipeback:1.0.2'
     /*Rx生命周期管理*/
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'
     /**
-     *   Android智能下拉刷新框架-SmartRefreshLayout
-     *   https://github.com/scwang90/SmartRefreshLayout
+     *    Android智能下拉刷新框架-SmartRefreshLayout
+     *    https://github.com/scwang90/SmartRefreshLayout
      * */
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'
     /**
-     *    RecyclerView的强大的BaseAdapter
+     *     RecyclerView的强大的BaseAdapter
      * */
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
@@ -122,4 +121,9 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.bulong.rudeness:rudeness:latest.release@aar'
     implementation 'cn.bingoogolapple:bga-qrcode-zbar:1.2.1'
+    implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation(name: 'alipaySdk-15.6.8-20191021122455-noUtdid', ext: 'aar')
 }

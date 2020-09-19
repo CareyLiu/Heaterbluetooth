@@ -1,26 +1,42 @@
 package com.sdkj.heaterbluetooth.basepage;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.google.gson.Gson;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.activity.DiagnosisActivity;
 import com.sdkj.heaterbluetooth.app.App;
+import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
+import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basicmvp.BasicFragment;
+import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_Notify;
 import com.sdkj.heaterbluetooth.fragment.ShebeiFrament;
 import com.sdkj.heaterbluetooth.fragment.ShuoMingFragment;
 import com.sdkj.heaterbluetooth.fragment.WoDeFragment;
+import com.sdkj.heaterbluetooth.model.AlarmClass;
+import com.sdkj.heaterbluetooth.util.DoMqttValue;
+import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 import com.sdkj.heaterbluetooth.view.BottomBar;
 import com.sdkj.heaterbluetooth.view.BottomBarTab;
 import com.sdkj.heaterbluetooth.view.DoubleClickExitHelper;
+
+import static com.sdkj.heaterbluetooth.app.MyApplication.getAppContext;
 
 
 public class HomeBasicActivity extends BaseActivity {
@@ -40,6 +56,7 @@ public class HomeBasicActivity extends BaseActivity {
     DoubleClickExitHelper doubleClick;
     private App app;
     public static HomeBasicActivity ac;
+    AlarmClass alarmClass;
 
     /**
      * 用于其他Activty跳转到该Activity
@@ -116,12 +133,72 @@ public class HomeBasicActivity extends BaseActivity {
 
         _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
             @Override
-            public void call(Notice message) {
-                if (message.type == ConstanceValue.MSG_LOGIN) {
+            public void call(Notice notice) {
+                if (notice.type == ConstanceValue.MSG_GUZHANG_SHOUYE) {
+
+                    String xiangmu = PreferenceHelper.getInstance(mContext).getString(App.CHOOSE_KONGZHI_XIANGMU, "");
+
+                    if (!StringUtils.isEmpty(xiangmu)){
+                        return;
+                    }
+
+                    String message = (String) notice.content;
+                    Gson gson = new Gson();
+                    alarmClass = gson.fromJson(message.toString(), AlarmClass.class);
+                    Log.i("alarmClass", alarmClass.changjia_name + alarmClass.sell_phone);
+//
+//                    if (player != null) {
+//                        player.stop();
+//                        player.release();
+//                        audioFocusManage.releaseTheAudioFocus();
+//                        player = null;
+//                    }
+
+
+                    switch (alarmClass.sound) {
+
+                        case "chSound1.mp3":
+                            // SoundPoolUtils.soundPool(mContext,R.raw.ch_sound1);
+                            playMusic(R.raw.ch_sound1);
+                            break;
+                        case "chSound2.mp3":
+                            playMusic(R.raw.ch_sound2);
+                            break;
+                        case "chSound3.mp3":
+                            playMusic(R.raw.ch_sound3);
+                            break;
+                        case "chSound4.mp3":
+                            playMusic(R.raw.ch_sound4);
+                            break;
+                        case "chSound5.mp3":
+                            playMusic(R.raw.ch_sound5);
+                            break;
+                        case "chSound6.mp3":
+                            playMusic(R.raw.ch_sound6);
+                            break;
+                        case "chSound8.mp3":
+                            playMusic(R.raw.ch_sound8);
+                            break;
+                        case "chSound9.mp3":
+                            playMusic(R.raw.ch_sound9);
+                            break;
+                        case "chSound10.mp3":
+                            playMusic(R.raw.ch_sound10);
+                            break;
+                        case "chSound11.mp3":
+                            playMusic(R.raw.ch_sound11);
+                            break;
+                        case "chSound18.mp3":
+                            playMusic(R.raw.ch_sound18);
+                            break;
+                    }
+                } else if (notice.type == ConstanceValue.MSG_LOGIN) {
                     mBottomBar.setCurrentItem(2);
                 }
             }
         }));
+
+
     }
 
     @Override
@@ -156,5 +233,57 @@ public class HomeBasicActivity extends BaseActivity {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    public void playMusic(int res) {
+        boolean flag = false;
+
+        Activity currentActivity = AppManager.getAppManager().currentActivity();
+        if (currentActivity != null) {
+            if (!currentActivity.getClass().getSimpleName().equals(DiagnosisActivity.class.getSimpleName())) {
+                MyCarCaoZuoDialog_Notify myCarCaoZuoDialog_notify = new MyCarCaoZuoDialog_Notify(getAppContext(), new MyCarCaoZuoDialog_Notify.OnDialogItemClickListener() {
+                    @Override
+                    public void clickLeft() {
+                        // player.stop();
+                        if (SoundPoolUtils.soundPool != null) {
+                            SoundPoolUtils.soundPool.release();
+                        }
+
+                    }
+
+                    @Override
+                    public void clickRight() {
+                        DiagnosisActivity.actionStart(HomeBasicActivity.this, alarmClass);
+                        //SoundPoolUtils.soundPool.release();
+                        if (SoundPoolUtils.soundPool != null) {
+                            SoundPoolUtils.soundPool.release();
+                        }
+
+                    }
+                }
+                );
+
+                myCarCaoZuoDialog_notify.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG);
+                myCarCaoZuoDialog_notify.show();
+                myCarCaoZuoDialog_notify.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (SoundPoolUtils.soundPool != null) {
+                            SoundPoolUtils.soundPool.release();
+                        }
+                    }
+                });
+
+            } else {
+                flag = true;
+            }
+        }
+
+        if (flag) {
+            return;
+        }
+
+        SoundPoolUtils.soundPool(mContext, res);
+
     }
 }

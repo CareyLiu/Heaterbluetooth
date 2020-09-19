@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
+import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,6 +32,8 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlBack;
     @BindView(R.id.rl_guzhang)
     RelativeLayout rlGuzhang;
+    @BindView(R.id.tv_shebeima)
+    TextView tvShebeima;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +79,9 @@ public class SheBeiSetActivity extends BaseActivity {
                 DiagnosisActivity.actionStart(mContext);
             }
         });
+
+        String ccid = PreferenceHelper.getInstance(mContext).getString("ccid", "");
+        tvShebeima.setText(ccid);
     }
 
     @Override

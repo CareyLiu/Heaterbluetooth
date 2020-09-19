@@ -27,6 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.activity.TuanYouWebView;
 import com.sdkj.heaterbluetooth.activity.ShuinuanMainActivity;
 import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
@@ -51,6 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -147,6 +149,11 @@ public class WoDeFragment extends BaseTwoFragment {
 
                 break;
             case R.id.ll_diertiao:
+//                String str = chiHeWanLeListAdapter.getData().get(position).getHref_url() + "?i=" + JiaMiToken +
+//                        "&" + "gps_x=" + "45.66792" + "&" + "gps_y=" + "126.61145";
+                String str = "https://shop.hljsdkj.com/fc/fcStationList?i=122n120x139D118D99J112o120D125D106n120g&gps_x=45.66792&gps_y=126.61145";
+                TuanYouWebView.actionStart(getActivity(), str);
+//                TuanYouWebView.actionStart(getActivity(), "");
 
                 break;
             case R.id.tv_login_out:

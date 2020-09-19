@@ -391,7 +391,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
         tvYutongfeng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")) {
+                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")||bengYouValue.equals("1")) {
                     UIHelper.ToastMessage(mContext, "请关机后再执行预通风操作");
                     return;
                 }
@@ -449,7 +449,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
         tvZidongbengyou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")) {
+                if (kongTiaoMoshiValue.equals("1") || dangWeiMoShiValue.equals("1")||tongFengValue.equals("1")) {
                     UIHelper.ToastMessage(mContext, "请关机后再执行泵油操作");
                     return;
                 }
@@ -1084,6 +1084,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        PreferenceHelper.getInstance(mContext).removeKey(App.CHOOSE_KONGZHI_XIANGMU);
         AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(CAR_NOTIFY), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
