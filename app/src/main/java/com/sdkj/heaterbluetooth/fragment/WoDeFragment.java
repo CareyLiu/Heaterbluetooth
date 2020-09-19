@@ -132,7 +132,6 @@ public class WoDeFragment extends BaseTwoFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_code:
-            case R.id.tv_login:
                 get_code();
                 break;
             case R.id.tv_qiehuan:
@@ -140,6 +139,7 @@ public class WoDeFragment extends BaseTwoFragment {
                 break;
             case R.id.tv_zhaohui:
                 break;
+            case R.id.tv_login:
                 login();
                 break;
             case R.id.ll_jiaofeijilu:

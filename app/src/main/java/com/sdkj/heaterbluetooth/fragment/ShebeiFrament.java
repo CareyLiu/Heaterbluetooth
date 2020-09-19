@@ -54,6 +54,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class ShebeiFrament extends BaseTwoFragment {
     @BindView(R.id.iv_login)
@@ -89,7 +91,19 @@ public class ShebeiFrament extends BaseTwoFragment {
         ButterKnife.bind(this, rootView);
         initAdapter();
         initSm();
+        initHuidiao();
         return rootView;
+    }
+
+    private void initHuidiao() {
+        _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
+            @Override
+            public void call(Notice message) {
+                if (message.type == ConstanceValue.MSG_LOGIN) {
+                    getShebeiList();
+                }
+            }
+        }));
     }
 
     private void initSm() {

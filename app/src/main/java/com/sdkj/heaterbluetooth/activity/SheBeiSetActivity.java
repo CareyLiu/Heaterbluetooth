@@ -11,8 +11,12 @@ import androidx.annotation.Nullable;
 import com.gyf.barlibrary.ImmersionBar;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 
 import butterknife.BindView;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class SheBeiSetActivity extends BaseActivity {
     @BindView(R.id.rl_dingshi)
@@ -29,6 +33,15 @@ public class SheBeiSetActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
+            @Override
+            public void call(Notice message) {
+                if (message.type == ConstanceValue.MSG_LOGIN) {
+                    finish();
+                }
+            }
+        }));
 
         rlDingshi.setOnClickListener(new View.OnClickListener() {
             @Override

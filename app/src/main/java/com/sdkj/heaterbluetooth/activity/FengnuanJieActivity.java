@@ -15,12 +15,15 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.Message;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.TimeCount;
 import com.sdkj.heaterbluetooth.util.Y;
 
@@ -112,6 +115,9 @@ public class FengnuanJieActivity extends ShuinuanBaseActivity {
                     @Override
                     public void onSuccess(Response<AppResponse<Message.DataBean>> response) {
                         Y.t("解绑成功");
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_JIEBANG;
+                        RxBus.getDefault().sendRx(n);
                         finish();
                     }
 

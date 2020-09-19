@@ -100,5 +100,6 @@ public interface ConstanceValue {
 
 
     int MSG_LOGIN= 0x10067;//登录
+    int MSG_JIEBANG= 0x10068;//解绑设备
 
 }
