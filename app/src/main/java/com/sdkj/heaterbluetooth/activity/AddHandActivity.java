@@ -11,11 +11,14 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.CarBrand;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.Y;
 
 
@@ -106,6 +109,9 @@ public class AddHandActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onSuccess(final Response<AppResponse<CarBrand.DataBean>> response) {
                         Y.t("添加成功");
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_SHUA;
+                        RxBus.getDefault().sendRx(n);
                         finish();
                     }
 

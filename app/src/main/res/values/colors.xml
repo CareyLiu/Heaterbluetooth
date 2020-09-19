@@ -533,6 +533,7 @@
     <color name="text_color_6">#666666</color>
     <color name="text_color_9">#999999</color>
     <color name="text_color_blue">#00FFFF</color>
+    <color name="shuinuan_text_color">#23CEFD</color>
     <color name="text_red">#FC0100</color>
     <color name="order_red">#E3332B</color>
     <color name="order_gray">#DDDDDD</color>

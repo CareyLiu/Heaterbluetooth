@@ -84,14 +84,6 @@ public class FengnuandishiActivity extends BaseActivity {
         mImmersionBar.init();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-        ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
-        chaXunDingShi();
-    }
-
     /**
      * 用于其他Activty跳转到该Activity
      */
@@ -101,6 +93,14 @@ public class FengnuandishiActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+        ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
+        chaXunDingShi();
+    }
 
     //设置定时
     public void setDingShi() {

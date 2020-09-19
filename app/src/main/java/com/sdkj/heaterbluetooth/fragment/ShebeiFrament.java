@@ -99,7 +99,7 @@ public class ShebeiFrament extends BaseTwoFragment {
         _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
             @Override
             public void call(Notice message) {
-                if (message.type == ConstanceValue.MSG_LOGIN) {
+                if (message.type == ConstanceValue.MSG_JIEBANG || message.type == ConstanceValue.MSG_SHUA) {
                     getShebeiList();
                 }
             }

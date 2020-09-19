@@ -214,9 +214,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
                     android:layout_marginHorizontal="28pt"
+                    android:layout_marginBottom="30pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center_vertical"
-                    android:paddingLeft="36pt">
+                    android:paddingLeft="36pt"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="46pt"
@@ -238,7 +240,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
                     android:layout_marginHorizontal="28pt"
-                    android:layout_marginTop="30pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center_vertical"
                     android:paddingLeft="36pt">

@@ -25,6 +25,7 @@ import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.CarBrand;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.Y;
 
 
@@ -136,6 +137,9 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
                     @Override
                     public void onSuccess(final Response<AppResponse<CarBrand.DataBean>> response) {
                         Y.t("添加成功");
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_SHUA;
+                        RxBus.getDefault().sendRx(n);
                         finish();
                     }
 
