@@ -37,6 +37,7 @@ import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.dialog.LordingDialog;
 import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_Notify;
+import com.sdkj.heaterbluetooth.dialog.TishiDialog;
 import com.sdkj.heaterbluetooth.util.DoMqttValue;
 import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 
@@ -148,6 +149,38 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
             @Override
             public void onClick(View v) {
                 SheBeiSetActivity.actionStart(mContext);
+            }
+        });
+        llDingshi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FengnuandishiActivity.actionStart(mContext);
+            }
+        });
+        llClickShebeima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TishiDialog tishiDialog = new TishiDialog(mContext, 3, new TishiDialog.TishiDialogListener() {
+                    @Override
+                    public void onClickCancel(View v, TishiDialog dialog) {
+
+                    }
+
+                    @Override
+                    public void onClickConfirm(View v, TishiDialog dialog) {
+
+                    }
+
+                    @Override
+                    public void onDismiss(TishiDialog dialog) {
+
+                    }
+                });
+                String ccid = PreferenceHelper.getInstance(mContext).getString("ccid", "");
+                tishiDialog.setTextTitle("设备码");
+                tishiDialog.setTextCancel("");
+                tishiDialog.setTextContent(ccid);
+                tishiDialog.show();
             }
         });
         PreferenceHelper.getInstance(mContext).putString(App.CHOOSE_KONGZHI_XIANGMU, DoMqttValue.FENGNUAN);

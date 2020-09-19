@@ -1,8 +1,11 @@
 package com.sdkj.heaterbluetooth.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.BounceEnter.BounceTopEnter;
 import com.flyco.animation.SlideExit.SlideBottomExit;
@@ -25,6 +29,7 @@ import com.flyco.dialog.entity.DialogMenuItem;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.NormalListDialog;
 import com.google.gson.Gson;
+import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.rairmmd.andmqtt.AndMqtt;
@@ -32,7 +37,9 @@ import com.rairmmd.andmqtt.MqttPublish;
 import com.rairmmd.andmqtt.MqttSubscribe;
 import com.rairmmd.andmqtt.MqttUnSubscribe;
 import com.sdkj.heaterbluetooth.R;
+import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConfigValue;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
@@ -48,11 +55,13 @@ import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.AlarmClass;
 import com.sdkj.heaterbluetooth.model.HeaterDetails;
 import com.sdkj.heaterbluetooth.model.ServiceModel;
+import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +75,12 @@ import io.rong.imlib.model.Conversation;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
+import static com.sdkj.heaterbluetooth.app.ConfigValue.STARTSHELVES;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTARRIVE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTCOMPLETE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECTLOST;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONFAILE;
+import static com.sdkj.heaterbluetooth.app.ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS;
 import static com.sdkj.heaterbluetooth.app.MyApplication.CARBOX_GETNOW;
 import static com.sdkj.heaterbluetooth.app.MyApplication.CAR_CTROL;
 
@@ -105,10 +120,7 @@ public class DiagnosisActivity extends BaseActivity {
     Button btnClean;
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
-    @BindView(R.id.rl_consult)
-    RelativeLayout rlConsult;
-    @BindView(R.id.rl_title)
-    RelativeLayout rl_title;
+
     private BaseAnimatorSet mBasIn;
     private BaseAnimatorSet mBasOut;
     private CustomBaseDialog dialog;
@@ -144,12 +156,6 @@ public class DiagnosisActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    public void initImmersion() {
-        super.initImmersion();
-        //  mImmersionBar.with(this).titleBar(rl_title).transparentStatusBar().init();
-        mImmersionBar.with(this).statusBarColor(R.color.blue_3a96e9).init();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,13 +177,13 @@ public class DiagnosisActivity extends BaseActivity {
         mBasIn = new BounceTopEnter();
         mBasOut = new SlideBottomExit();
         // requestData();
-        requestData2();
+        // requestData2();
         alarmClass = (AlarmClass) getIntent().getSerializableExtra("alarmClass");
         if (alarmClass != null) {
             Log.i("alarmClass", alarmClass.changjia_name + alarmClass.sell_phone);
 
             mTvTitle.setText("整机运转异常");
-            layoutInfo.setVisibility(View.VISIBLE);
+            layoutInfo.setVisibility(View.GONE);
             layoutMessage.setVisibility(View.VISIBLE);
             btnClean.setVisibility(View.VISIBLE);
             mTvMessage.setText(alarmClass.failure_name);
@@ -200,7 +206,7 @@ public class DiagnosisActivity extends BaseActivity {
                         AlarmClass alarmClass = gson.fromJson(message.content.toString(), AlarmClass.class);
                         Log.i("alarmClass", alarmClass.changjia_name + alarmClass.sell_phone);
                         mTvTitle.setText("整机运转异常");
-                        layoutInfo.setVisibility(View.VISIBLE);
+                        layoutInfo.setVisibility(View.GONE);
                         layoutMessage.setVisibility(View.VISIBLE);
                         btnClean.setVisibility(View.VISIBLE);
                         mTvMessage.setText(alarmClass.failure_name);
@@ -215,56 +221,8 @@ public class DiagnosisActivity extends BaseActivity {
                     } catch (Exception e) {
                         System.out.println("警报异常" + e.getMessage());
                     }
-//                    mTvVoltage.setText(alarmClass.);
-//                    mTvRate.setText(alarmClass.);
-
-                    // showDialog("是否清除故障");
-
-//                    MyCarCaoZuoDialog_CaoZuoTIshi_Clear clear = new MyCarCaoZuoDialog_CaoZuoTIshi_Clear(DiagnosisActivity.this, new MyCarCaoZuoDialog_CaoZuoTIshi_Clear.OnDialogItemClickListener() {
-//                        @Override
-//                        public void clickLeft() {
-//
-//                        }
-//
-//                        @Override
-//                        public void clickRight() {
-//                            AndMqtt.getInstance().publish(new MqttPublish()
-//                                    .setMsg("M691.").setRetained(false)
-//                                    .setQos(2)
-//                                    .setTopic(CAR_CTROL), new IMqttActionListener() {
-//                                @Override
-//                                public void onSuccess(IMqttToken asyncActionToken) {
-//                                    Log.i("Rair", "(清除故障 --- 发布成功");
-//                                    //      UIHelper.ToastMessage(DiagnosisActivity.this, "故障清除中，请稍候", Toast.LENGTH_SHORT);
-//                                    // dialog.dismiss();
-//                                    UIHelper.ToastMessage(DiagnosisActivity.this, "故障已清除", Toast.LENGTH_SHORT);
-//                                    //获得车辆的实时数据和基本信息
-//                                    finish();
-//
-//                                }
-//
-//                                @Override
-//                                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-//                                    Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
-//                                }
-//                            });
-//                        }
-//                    });
-//                    clear.show();
                 } else if (message.type == ConstanceValue.MSG_CLEARGUZHANGSUCCESS) {
-                    //清除故障
-//                    dialog.setTitle("成功");
-//                    dialog.setContent("清除故障成功");
-//                    dialog.setPic(getResources().getDrawable(R.drawable.chenggong));
-//                    dialog.setCancelClickListener(null);
-//                    dialog.setConfirmClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            dialog.dismiss();
-//                        }
-//                    });
-//
-//                    dialog.setUiBeforShow();
+
 
                     MyCarCaoZuoDialog_Success dialog_success = new MyCarCaoZuoDialog_Success(DiagnosisActivity.this);
                     dialog_success.show();
@@ -273,6 +231,60 @@ public class DiagnosisActivity extends BaseActivity {
                     btnClean.setVisibility(View.GONE);
                     mTvTitle.setText("整机运转正常");
                     UIHelper.ToastMessage(DiagnosisActivity.this, "故障已清除", Toast.LENGTH_LONG);
+
+
+                } else if (message.type == ConstanceValue.MSG_CAR_J_M) {
+                    //接收到信息
+                    Log.i("msg_car_j_m", message.content.toString());
+
+                    String messageData = message.content.toString().substring(1, message.content.toString().length() - 1);
+                    Log.i("msg_car_j_m_data", messageData);
+
+
+                    // 驻车加热器故障码->01至18	2	 标准故障码
+                    String zhu_car_stoppage_no = messageData.substring(35, 37);
+                    zhu_car_stoppage_no = 0 <= zhu_car_stoppage_no.indexOf("a") ? "" : String.valueOf(Integer.parseInt(zhu_car_stoppage_no));
+
+                    if (zhu_car_stoppage_no != null) {
+                        layoutMessage.setVisibility(View.VISIBLE);
+                        btnClean.setVisibility(View.VISIBLE);
+                        switch (zhu_car_stoppage_no) {
+
+                            case "1":
+                                mTvMessage.setText("电压过低或过高");
+                                break;
+                            case "2":
+                                mTvMessage.setText("油泵开路或短路");
+                                break;
+                            case "3":
+                                mTvMessage.setText("壳体温度传感器开路或短路");
+                                break;
+                            case "4":
+                                mTvMessage.setText("入风口传感器开路或短路");
+                                break;
+                            case "5":
+                                mTvMessage.setText("点火塞开路或短路");
+                                break;
+                            case "6":
+                                mTvMessage.setText("入风口传感器高温报警");
+                                break;
+                            case "8":
+                                mTvMessage.setText("风机传感器开路或短路");
+                                break;
+                            case "9":
+                                mTvMessage.setText("火焰熄灭故障");
+                                break;
+                            case "10":
+                                mTvMessage.setText("点火失败故障");
+                                break;
+                            case "11":
+                                mTvMessage.setText("壳体高温报警");
+                                break;
+                            case "18":
+                                mTvMessage.setText("晶屏与主机失联故障");
+                                break;
+                        }
+                    }
 
                 }
 
@@ -406,34 +418,11 @@ public class DiagnosisActivity extends BaseActivity {
 //        });
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_consult, R.id.btn_clean})
+    @OnClick({R.id.rl_back, R.id.btn_clean})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 finish();
-                break;
-            case R.id.rl_consult:
-                final NormalListDialog dialog = new NormalListDialog(this, mMenuItems);
-                dialog.title("请选择")//
-                        .showAnim(mBasIn)//
-                        .dismissAnim(mBasOut)//
-                        .show();
-                dialog.setOnOperItemClickL(new OnOperItemClickL() {
-                    @Override
-                    public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //此处title参数用来区分是车主端还是客服端
-                        ServiceModel.DataBean dataBean = list.get(position);
-                        Conversation.ConversationType conversationType = Conversation.ConversationType.PRIVATE;
-                        String targetId = dataBean.getSub_accid();
-                        String instName = dataBean.getSub_user_name();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("dianpuming", instName);
-                        bundle.putString("inst_accid", targetId);
-                        bundle.putString("shoptype", "1");
-                        RongIM.getInstance().startConversation(mContext, conversationType, targetId, instName, bundle);
-                        dialog.dismiss();
-                    }
-                });
                 break;
             case R.id.btn_clean:
                 MyCarCaoZuoDialog_CaoZuoTIshi_Clear clear = new MyCarCaoZuoDialog_CaoZuoTIshi_Clear(DiagnosisActivity.this, new MyCarCaoZuoDialog_CaoZuoTIshi_Clear.OnDialogItemClickListener() {
@@ -471,4 +460,12 @@ public class DiagnosisActivity extends BaseActivity {
                 clear.show();
         }
     }
+
+    @Override
+    public void initImmersion() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.init();
+    }
+
+
 }

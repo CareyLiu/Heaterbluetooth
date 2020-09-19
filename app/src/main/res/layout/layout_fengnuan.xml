@@ -169,6 +169,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/ll_fuwu_tianshu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -317,7 +318,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12pt"
-                                android:text="当前温度:29℃"
+                                android:text="当前温度: - -"
                                 android:textColor="#ffffffff"
                                 android:textSize="31pt" />
                         </LinearLayout>
@@ -338,7 +339,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12pt"
-                                android:text="设定温度:29℃"
+                                android:text="设定温度: - -"
                                 android:textColor="#ffffffff"
                                 android:textSize="31pt" />
                         </LinearLayout>
@@ -357,7 +358,7 @@
                         android:max="100"
                         android:maxHeight="12pt"
                         android:minHeight="12pt"
-                        android:progress="50"
+                        android:progress="0"
                         android:progressDrawable="@drawable/seekbar_img"
                         android:secondaryProgress="100"
                         android:thumb="@drawable/shape_seekbar_btn"
@@ -391,7 +392,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="41pt"
                         android:layout_marginTop="12pt"
-                        android:text="0℃"
+                        android:text="0℃/1挡"
                         android:textColor="#ffffffff"
                         android:textSize="27pt"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -403,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12pt"
                         android:layout_marginRight="41pt"
-                        android:text="32℃"
+                        android:text="32℃/5挡"
                         android:textColor="#ffffffff"
                         android:textSize="27pt"
                         app:layout_constraintRight_toRightOf="parent"

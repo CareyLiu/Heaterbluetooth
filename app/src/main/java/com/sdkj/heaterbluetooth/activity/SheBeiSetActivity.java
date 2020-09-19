@@ -23,6 +23,8 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlJiebangshebei;
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
+    @BindView(R.id.rl_guzhang)
+    RelativeLayout rlGuzhang;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class SheBeiSetActivity extends BaseActivity {
         rlJiareqicanshu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                JiaReQiCanShuActivity.actionStart(mContext);
             }
         });
         rlJiebangshebei.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,13 @@ public class SheBeiSetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        rlGuzhang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiagnosisActivity.actionStart(mContext);
             }
         });
     }

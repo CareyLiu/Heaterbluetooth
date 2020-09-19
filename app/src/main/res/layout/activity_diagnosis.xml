@@ -4,62 +4,50 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/car_heater_bg"
+    android:background="@color/bg_title_new"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rl_title"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/blue_3a96e9">
+        android:layout_height="@dimen/dp_65">
 
         <RelativeLayout
-            android:id="@+id/rl_back"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true">
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_65"
+            android:layout_alignParentBottom="true">
 
-            <ImageView
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/back_icon" />
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="故障诊断"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
         </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="故障诊断"
-            android:textColor="@color/white" />
-
-        <RelativeLayout
-            android:id="@+id/rl_consult"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/zhenduan_icon_xiaoxi" />
-        </RelativeLayout>
-
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#01212B">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,11 +66,12 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="220dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="20dp"
                 app:srcCompat="@drawable/zhenduan_icon_jiareqi_big" />
 
             <LinearLayout
+                android:layout_marginTop="30dp"
                 android:id="@+id/layout_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,9 +80,11 @@
                 android:visibility="gone">
 
                 <ImageView
+
+                    android:layout_marginLeft="15dp"
                     android:id="@+id/iv_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_weight="0"
                     app:srcCompat="@drawable/zhenduan_icon_tanhao_yellow" />
 
@@ -109,6 +100,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/layout_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -302,11 +294,12 @@
 
 
             <Button
+
                 android:id="@+id/btn_clean"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="150dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/bg_shape_blue"
