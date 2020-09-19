@@ -237,8 +237,8 @@
                     android:id="@+id/ll_diertiao"
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
-                    android:layout_marginTop="30pt"
                     android:layout_marginHorizontal="28pt"
+                    android:layout_marginTop="30pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center_vertical"
                     android:paddingLeft="36pt">
@@ -248,12 +248,12 @@
                         android:layout_height="46pt"
                         android:layout_marginRight="23pt"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/jiaofeijilu_icon" />
+                        android:src="@mipmap/wode_icon_jiayou" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="邮费"
+                        android:text="加油省钱"
                         android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
                 </LinearLayout>
