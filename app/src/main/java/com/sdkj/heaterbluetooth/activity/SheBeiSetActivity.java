@@ -5,15 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-
-import androidx.annotation.Nullable;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
+import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -29,11 +30,17 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlBack;
     @BindView(R.id.rl_guzhang)
     RelativeLayout rlGuzhang;
+    @BindView(R.id.tv_ccid_ma)
+    TextView tvCcidMa;
+
+    private String ccid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
+        tvCcidMa.setText(ccid);
         _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
             @Override
             public void call(Notice message) {

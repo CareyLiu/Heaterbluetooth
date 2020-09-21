@@ -5,6 +5,7 @@
     android:background="@color/bg_title_new"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="89pt"
@@ -41,10 +42,11 @@
                 android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
+
     <ScrollView
-        android:background="#02222B"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#02222B">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,13 +73,12 @@
                     android:textSize="31pt" />
 
                 <TextView
-
+                    android:id="@+id/tv_ccid_ma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="28pt"
-                    android:text="11112222333344445555"
                     android:textColor="#ffffffff"
                     android:textSize="31pt" />
 
@@ -136,6 +137,7 @@
                     android:src="@mipmap/push_white" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_guzhang"
                 android:layout_width="643pt"
@@ -162,6 +164,7 @@
                     android:src="@mipmap/push_white" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_jiebangshebei"
                 android:layout_width="643pt"
@@ -188,8 +191,6 @@
                     android:src="@mipmap/push_white" />
 
             </RelativeLayout>
-
-
 
 
         </LinearLayout>
