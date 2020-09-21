@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -33,6 +34,7 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlGuzhang;
     @BindView(R.id.tv_shebeima)
     TextView tvShebeima;
+    private String ccid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class SheBeiSetActivity extends BaseActivity {
 
         ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
         tvShebeima.setText(ccid);
+
         _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
             @Override
             public void call(Notice message) {

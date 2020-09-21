@@ -11,13 +11,13 @@ android {
 
             keyAlias 'shendengkeji123'
             keyPassword 'shendengkeji123'
-            storeFile file('C:/xiangmu/Heaterbluetooth/app/jiareqi_new.jks')
+            storeFile file('C:/keystore/jiareqi_new.jks')
             storePassword 'shendengkeji123'
         }
         release {
             keyAlias 'shendengkeji123'
             keyPassword 'shendengkeji123'
-            storeFile file('C:/xiangmu/Heaterbluetooth/app/jiareqi_new.jks')
+            storeFile file('C:/keystore/jiareqi_new.jks')
             storePassword 'shendengkeji123'
         }
     }
