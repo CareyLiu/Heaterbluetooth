@@ -49,6 +49,7 @@ import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.dialog.CustomBaseDialog;
+import com.sdkj.heaterbluetooth.dialog.LordingDialog;
 import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_CaoZuoTIshi_Clear;
 import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_Success;
 import com.sdkj.heaterbluetooth.getnet.Urls;
@@ -127,6 +128,10 @@ public class DiagnosisActivity extends BaseActivity {
     private ArrayList<DialogMenuItem> mMenuItems = new ArrayList<>();
     private List<ServiceModel.DataBean> list = new ArrayList<>();
     AlarmClass alarmClass;
+
+    String whatUWant = "";
+
+    private LordingDialog lordingDialog;
 
     @Override
     public int getContentViewResId() {
@@ -224,15 +229,6 @@ public class DiagnosisActivity extends BaseActivity {
                 } else if (message.type == ConstanceValue.MSG_CLEARGUZHANGSUCCESS) {
 
 
-                    MyCarCaoZuoDialog_Success dialog_success = new MyCarCaoZuoDialog_Success(DiagnosisActivity.this);
-                    dialog_success.show();
-                    layoutInfo.setVisibility(View.GONE);
-                    layoutMessage.setVisibility(View.GONE);
-                    btnClean.setVisibility(View.GONE);
-                    mTvTitle.setText("整机运转正常");
-                    UIHelper.ToastMessage(DiagnosisActivity.this, "故障已清除", Toast.LENGTH_LONG);
-
-
                 } else if (message.type == ConstanceValue.MSG_CAR_J_M) {
                     //接收到信息
                     Log.i("msg_car_j_m", message.content.toString());
@@ -248,6 +244,21 @@ public class DiagnosisActivity extends BaseActivity {
                     if (zhu_car_stoppage_no != null) {
                         layoutMessage.setVisibility(View.VISIBLE);
                         btnClean.setVisibility(View.VISIBLE);
+
+
+                        if (whatUWant.equals("qingchuguzhang") && StringUtils.isEmpty(zhu_car_stoppage_no)) {
+                            lordingDialog.dismiss();
+                            whatUWant = "";
+//                            MyCarCaoZuoDialog_Success dialog_success = new MyCarCaoZuoDialog_Success(DiagnosisActivity.this);
+//                            dialog_success.show();
+                            layoutInfo.setVisibility(View.GONE);
+                            layoutMessage.setVisibility(View.GONE);
+                            btnClean.setVisibility(View.GONE);
+                            mTvTitle.setText("整机运转正常");
+                            UIHelper.ToastMessage(DiagnosisActivity.this, "故障已清除", Toast.LENGTH_LONG);
+                            finish();
+                        }
+
                         switch (zhu_car_stoppage_no) {
 
                             case "1":
@@ -339,7 +350,7 @@ public class DiagnosisActivity extends BaseActivity {
                             });
 
                             mTvTitle.setText("整机运转异常");
-                           // layoutInfo.setVisibility(View.VISIBLE);
+                            // layoutInfo.setVisibility(View.VISIBLE);
                             layoutMessage.setVisibility(View.VISIBLE);
                             btnClean.setVisibility(View.VISIBLE);
                             mTvMessage.setText(response.body().data.get(0).getFailure_name());
@@ -433,6 +444,12 @@ public class DiagnosisActivity extends BaseActivity {
 
                     @Override
                     public void clickRight() {
+
+                        lordingDialog = new LordingDialog(mContext);
+                        lordingDialog.setTextMsg("正在清除，请稍后");
+                        lordingDialog.show();
+
+
                         AndMqtt.getInstance().publish(new MqttPublish()
                                 .setMsg("M691.").setRetained(false)
                                 .setQos(2)
@@ -447,6 +464,7 @@ public class DiagnosisActivity extends BaseActivity {
                                 layoutInfo.setVisibility(View.GONE);
                                 layoutMessage.setVisibility(View.GONE);
                                 btnClean.setVisibility(View.GONE);
+                                whatUWant = "qingchuguzhang";
                                 //finish();
                             }
 

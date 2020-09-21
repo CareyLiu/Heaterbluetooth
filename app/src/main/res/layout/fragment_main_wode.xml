@@ -149,6 +149,50 @@
                 android:text="登录/注册"
                 android:textColor="@color/white"
                 android:textSize="30pt" />
+
+
+            <LinearLayout
+                android:layout_marginBottom="100pt"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+
+                    android:id="@+id/tv_yinsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bt_login"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:includeFontPadding="false"
+                    android:text="《隐私保护声明》"
+                    android:textColor="@color/blue"
+                    android:textSize="20pt" />
+
+                <TextView
+
+                    android:id="@+id/tv_yonghushiyong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bt_login"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:includeFontPadding="false"
+                    android:text="《用户使用协议》"
+                    android:textColor="@color/pink"
+                    android:textSize="20pt" />
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -275,13 +319,53 @@
                     android:text="退出登录"
                     android:textColor="@color/text_color_blue"
                     android:textSize="29pt" />
+
+
+
+                <LinearLayout
+                    android:layout_marginBottom="100pt"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+
+                        android:id="@+id/tv_yinsi1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bt_login"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:includeFontPadding="false"
+                        android:text="《隐私保护声明》"
+                        android:textColor="@color/blue"
+                        android:textSize="20pt" />
+
+                    <TextView
+
+                        android:id="@+id/tv_yonghushiyong1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bt_login"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:includeFontPadding="false"
+                        android:text="《用户使用协议》"
+                        android:textColor="@color/pink"
+                        android:textSize="20pt" />
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srlTextSizeTime="10sp"
-                app:srlTextSizeTitle="@dimen/sp_12" />
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </FrameLayout>
 </LinearLayout>

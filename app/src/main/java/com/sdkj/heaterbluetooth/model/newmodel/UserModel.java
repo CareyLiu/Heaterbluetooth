@@ -234,6 +234,7 @@ public class UserModel {
         private String user_level;
         private String pay_num;
         private String aut_gr_province_id;
+        public String tuanyou_url;
 
         public String getAut_oj_area_id() {
             return aut_oj_area_id;

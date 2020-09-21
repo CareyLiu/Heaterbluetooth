@@ -28,6 +28,7 @@ import com.sdkj.heaterbluetooth.adapter.ShebeiAdapter;
 import com.sdkj.heaterbluetooth.adapter.ShebeiNewAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basicmvp.BaseFragment;
@@ -51,11 +52,15 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+
+import static com.sdkj.heaterbluetooth.app.MyApplication.getCcid;
+import static com.sdkj.heaterbluetooth.app.MyApplication.getServer_id;
 
 public class ShebeiFrament extends BaseTwoFragment {
     @BindView(R.id.iv_login)
@@ -135,8 +140,12 @@ public class ShebeiFrament extends BaseTwoFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mDatas.get(position).device_type.equals("1")) {
-                    mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
+                    //  mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
                     PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
+                    MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
+
+
+
                     int i = mDatas.get(position).ccid.length() - 1;
                     String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
                     Log.i("serverId", str);
@@ -183,6 +192,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                     @Override
                     public void onSuccess(Response<AppResponse<SheBeiLieBieListModel.DataBean>> response) {
                         mDatas.clear();
+
                         for (int i = 0; i < response.body().data.size(); i++) {
                             SheBeiModel sheBeiModel = new SheBeiModel(true, response.body().data.get(i).getControl_device_name());
                             // Log.i("name", response.body().data.get(i).getControl_device_name());

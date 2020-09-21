@@ -95,6 +95,16 @@ public class TishiDialog extends Dialog implements View.OnClickListener {
         return this;
     }
 
+
+    public TishiDialog setTextConfirmEnable(String flag) {
+        if (flag.equals("0")) {
+            tv_confirm.setEnabled(false);
+        } else {
+            tv_confirm.setEnabled(true);
+        }
+        return this;
+    }
+
     public TishiDialog setTextContent(String text) {//提示内容
         tv_content.setText(text);
         return this;

@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.flyco.dialog.listener.OnOperItemClickL;
@@ -27,8 +29,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
-import com.sdkj.heaterbluetooth.activity.TuanYouWebView;
-import com.sdkj.heaterbluetooth.activity.ShuinuanMainActivity;
+import com.sdkj.heaterbluetooth.activity.DefaultX5WebViewActivity;
 import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
@@ -37,6 +38,7 @@ import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
 import com.sdkj.heaterbluetooth.callback.DialogCallback;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
+import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
@@ -50,8 +52,6 @@ import com.sdkj.heaterbluetooth.util.Y;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,11 +93,20 @@ public class WoDeFragment extends BaseTwoFragment {
     SmartRefreshLayout sm_wode;
     @BindView(R.id.ll_diertiao)
     LinearLayout ll_diertiao;
+    @BindView(R.id.tv_yinsi)
+    TextView tvYinsi;
+    @BindView(R.id.tv_yonghushiyong)
+    TextView tvYonghushiyong;
+    @BindView(R.id.tv_yinsi1)
+    TextView tvYinsi1;
+    @BindView(R.id.tv_yonghushiyong1)
+    TextView tvYonghushiyong1;
 
     private TimeCount timeCount;
     private String smsId;
     private String req_type;
     private UserModel.DataBean user;
+    private String tuanYouUrl;
 
     @Override
     protected int getLayoutRes() {
@@ -131,7 +140,7 @@ public class WoDeFragment extends BaseTwoFragment {
         });
     }
 
-    @OnClick({R.id.ll_diertiao, R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login, R.id.ll_jiaofeijilu, R.id.tv_login_out})
+    @OnClick({R.id.ll_diertiao, R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login, R.id.ll_jiaofeijilu, R.id.tv_login_out, R.id.tv_yinsi, R.id.tv_yonghushiyong, R.id.tv_yinsi1, R.id.tv_yonghushiyong1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_code:
@@ -151,13 +160,25 @@ public class WoDeFragment extends BaseTwoFragment {
             case R.id.ll_diertiao:
 //                String str = chiHeWanLeListAdapter.getData().get(position).getHref_url() + "?i=" + JiaMiToken +
 //                        "&" + "gps_x=" + "45.66792" + "&" + "gps_y=" + "126.61145";
-                String str = "https://shop.hljsdkj.com/fc/fcStationList?i=122n120x139D118D99J112o120D125D106n120g&gps_x=45.66792&gps_y=126.61145";
-                TuanYouWebView.actionStart(getActivity(), str);
+//                String str = tuanYouUrl + "&gps_x=45.66792&gps_y=126.61145";
+//                TuanYouWebView.actionStart(getActivity(), str);
 //                TuanYouWebView.actionStart(getActivity(), "");
 
                 break;
             case R.id.tv_login_out:
                 clickLoginOut();
+                break;
+
+            case R.id.tv_yinsi:
+            case R.id.tv_yinsi1:
+                UIHelper.ToastMessage(getActivity(), "点击了隐私");
+                DefaultX5WebViewActivity.actionStart(getActivity(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
+
+                break;
+            case R.id.tv_yonghushiyong:
+            case R.id.tv_yonghushiyong1:
+                UIHelper.ToastMessage(getActivity(), "点击了用户使用");
+                DefaultX5WebViewActivity.actionStart(getActivity(), "https://shop.hljsdkj.com/shop_new/user_agreement");
                 break;
         }
     }
@@ -430,6 +451,7 @@ public class WoDeFragment extends BaseTwoFragment {
                         tv_wode_name.setText("昵称：" + user.getUser_name());
                         tv_wode_phone.setText("手机号：" + user.getUser_phone());
                         Glide.with(getContext()).load(user.getUser_img_url()).into(iv_wode_head);
+                        tuanYouUrl = response.body().data.get(0).tuanyou_url;
                     }
 
                     @Override
