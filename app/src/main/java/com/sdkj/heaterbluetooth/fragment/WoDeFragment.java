@@ -29,7 +29,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
-import com.sdkj.heaterbluetooth.activity.DefaultX5WebViewActivity;
+import com.sdkj.heaterbluetooth.activity.ShuinuanMainActivity;
 import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
@@ -53,6 +53,7 @@ import com.sdkj.heaterbluetooth.util.Y;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -451,7 +452,6 @@ public class WoDeFragment extends BaseTwoFragment {
                         tv_wode_name.setText("昵称：" + user.getUser_name());
                         tv_wode_phone.setText("手机号：" + user.getUser_phone());
                         Glide.with(getContext()).load(user.getUser_img_url()).into(iv_wode_head);
-                        tuanYouUrl = response.body().data.get(0).tuanyou_url;
                     }
 
                     @Override

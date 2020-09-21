@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -21,28 +20,22 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.BindBoxActivity;
 import com.sdkj.heaterbluetooth.activity.FengNuanActivity;
-import com.sdkj.heaterbluetooth.activity.FengnuanJieActivity;
-import com.sdkj.heaterbluetooth.activity.FengnuandishiActivity;
-import com.sdkj.heaterbluetooth.activity.SheBeiSetActivity;
-import com.sdkj.heaterbluetooth.adapter.ShebeiAdapter;
+import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanMainActivity;
 import com.sdkj.heaterbluetooth.adapter.ShebeiNewAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
-import com.sdkj.heaterbluetooth.basicmvp.BaseFragment;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
-import com.sdkj.heaterbluetooth.dialog.TianJiaSheBeiDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.SheBeiLieBieListModel;
 import com.sdkj.heaterbluetooth.model.SheBeiModel;
 import com.sdkj.heaterbluetooth.util.NetworkUtils;
 import com.sdkj.heaterbluetooth.util.RxBus;
-import com.sdkj.heaterbluetooth.util.Y;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,14 +153,14 @@ public class ShebeiFrament extends BaseTwoFragment {
                     }
                 } else if (mDatas.get(position).device_type.equals("6")) {
                     String ccid = mDatas.get(position).ccid;
-                    int pos = ccid.length() - 1;
-                    String count = String.valueOf(ccid.charAt(pos)) + "/";
-                    PreferenceHelper.getInstance(getContext()).putString("ccid", mDatas.get(position).ccid);
-                    PreferenceHelper.getInstance(getContext()).putString("car_server_id", count);
+                    String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
+                    PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
+                    PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
+
                     if (NetworkUtils.isConnected(getActivity())) {
                         Activity currentActivity = AppManager.getAppManager().currentActivity();
                         if (currentActivity != null) {
-                            //ShuinuanMainActivity.actionStart(getActivity(), ccid, count);
+                            ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id);
                         }
                     } else {
                         UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -39,6 +38,8 @@ public class SheBeiSetActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
+        tvShebeima.setText(ccid);
         _subscriptions.add(toObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Notice>() {
             @Override
             public void call(Notice message) {
@@ -79,9 +80,6 @@ public class SheBeiSetActivity extends BaseActivity {
                 DiagnosisActivity.actionStart(mContext);
             }
         });
-
-        String ccid = PreferenceHelper.getInstance(mContext).getString("ccid", "");
-        tvShebeima.setText(ccid);
     }
 
     @Override
