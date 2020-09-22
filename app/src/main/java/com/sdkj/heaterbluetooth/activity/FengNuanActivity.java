@@ -172,7 +172,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
         ivShezhi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SheBeiSetActivity.actionStart(mContext);
+                SheBeiSetActivity.actionStart(mContext,SheBeiSetActivity.TYPE_FENGNUAN);
             }
         });
         llDingshi.setOnClickListener(new View.OnClickListener() {

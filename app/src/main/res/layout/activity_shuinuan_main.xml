@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="风暖加热器"
+            android:text="水暖加热器"
             android:textColor="@color/black"
             android:textSize="33pt" />
 
@@ -144,7 +144,8 @@
                     android:includeFontPadding="false"
                     android:text="服务剩余天数:40天"
                     android:textColor="@color/shuinuan_text_color"
-                    android:textSize="26pt" />
+                    android:textSize="26pt"
+                    android:visibility="gone" />
 
 
                 <TextView
@@ -152,13 +153,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="27pt"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="325pt"
+                    android:layout_marginTop="267pt"
                     android:layout_marginRight="25pt"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="服务剩余天数:40天"
+                    android:text="加热器状态：待机中"
                     android:textColor="@color/white"
                     android:textSize="27pt" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/tv_shebei_state"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="27pt"-->
+                <!--                    android:layout_alignParentRight="true"-->
+                <!--                    android:layout_marginTop="325pt"-->
+                <!--                    android:layout_marginRight="25pt"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:includeFontPadding="false"-->
+                <!--                    android:text="服务剩余天数:40天"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="27pt" />-->
 
                 <FrameLayout
                     android:layout_width="487pt"
@@ -167,11 +181,12 @@
                     android:background="@mipmap/dipan">
 
                     <ImageView
+                        android:id="@+id/iv_heater_host"
                         android:layout_width="396pt"
                         android:layout_height="175pt"
                         android:layout_marginLeft="29pt"
                         android:layout_marginTop="79pt"
-                        android:background="@color/white" />
+                    />
                 </FrameLayout>
 
 
@@ -261,8 +276,8 @@
                         android:layout_height="73pt"
                         android:background="@mipmap/shuinuan_pic_switch_nor"
                         android:gravity="center"
-                        android:text="水泵已开启"
-                        android:textColor="@color/text_color_blue"
+                        android:text="水泵已关闭"
+                        android:textColor="@color/text_color_9"
                         android:textSize="30pt" />
 
                     <View

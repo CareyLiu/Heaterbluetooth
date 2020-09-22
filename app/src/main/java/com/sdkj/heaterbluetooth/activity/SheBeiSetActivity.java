@@ -7,16 +7,16 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.gyf.barlibrary.ImmersionBar;
 import com.sdkj.heaterbluetooth.R;
-import com.sdkj.heaterbluetooth.app.AppConfig;
+import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanHostActivity;
+import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanZhuangtaiActivity;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -34,11 +34,29 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlGuzhang;
     @BindView(R.id.tv_shebeima)
     TextView tvShebeima;
+    @BindView(R.id.rl_zhujicanshu)
+    RelativeLayout rlZhujicanshu;
     private String ccid;
+
+    public static final int TYPE_FENGNUAN = 1;
+    public static final int TYPE_SHUINUAN = 2;
+    private int type;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        type = getIntent().getIntExtra("type", 0);
+
+        if (type == TYPE_SHUINUAN) {
+            rlGuzhang.setVisibility(View.GONE);
+            rlZhujicanshu.setVisibility(View.VISIBLE);
+        } else if (type == TYPE_FENGNUAN) {
+            rlGuzhang.setVisibility(View.VISIBLE);
+            rlZhujicanshu.setVisibility(View.GONE);
+        }
+
 
         ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
         tvShebeima.setText(ccid);
@@ -61,7 +79,11 @@ public class SheBeiSetActivity extends BaseActivity {
         rlJiareqicanshu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JiaReQiCanShuActivity.actionStart(mContext);
+                if (type == TYPE_SHUINUAN) {
+                    ShuinuanZhuangtaiActivity.actionStart(mContext);
+                } else if (type == TYPE_FENGNUAN) {
+                    JiaReQiCanShuActivity.actionStart(mContext);
+                }
             }
         });
         rlJiebangshebei.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +105,13 @@ public class SheBeiSetActivity extends BaseActivity {
                 DiagnosisActivity.actionStart(mContext);
             }
         });
+
+        rlZhujicanshu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShuinuanHostActivity.actionStart(mContext);
+            }
+        });
     }
 
     @Override
@@ -93,9 +122,10 @@ public class SheBeiSetActivity extends BaseActivity {
     /**
      * 用于其他Activty跳转到该Activity
      */
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, int type) {
         Intent intent = new Intent(context, SheBeiSetActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 

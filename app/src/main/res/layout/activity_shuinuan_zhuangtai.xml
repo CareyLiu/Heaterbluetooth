@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_title_new"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="加热器参数"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#02222B">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="设备码"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_shebeima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="工作状态"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_zhuangtai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="水泵状态"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_zhuangtai_shuibeng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="油泵状态"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_zhuangtai_youbeng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="风机状态"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_zhuangtai_fengji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="电压"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_dianya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="风机转速"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_fengjizhuansu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="加热塞功率"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_jiaresaigonglv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="油泵频率"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_youbengpinlv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="入水口温度"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_rushukouwendu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="出水口温度"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_chushuikouwendu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="尾气温度"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_weiqiwendu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="当前档位"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_dangwei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="预设温度"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_yushewendu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="总工作时长"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_gongzuoshichang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="大气压"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_daqiya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="海拔高度"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_haibagaodu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="含氧量"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_hanyangliang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30pt" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
