@@ -32,6 +32,7 @@ import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.DefaultX5WebViewActivity;
 import com.sdkj.heaterbluetooth.activity.TuanYouWebView;
 import com.sdkj.heaterbluetooth.app.AppConfig;
+import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
@@ -42,6 +43,7 @@ import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
+import com.sdkj.heaterbluetooth.dialog.FuWuDialog;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.LoginUser;
@@ -112,6 +114,7 @@ public class WoDeFragment extends BaseTwoFragment {
     private String req_type;
     private UserModel.DataBean user;
     private String tuanYouUrl;
+    private FuWuDialog fuWuDialog;
 
     @Override
     protected int getLayoutRes() {
@@ -441,6 +444,36 @@ public class WoDeFragment extends BaseTwoFragment {
         ed_pwd.setInputType(InputType.TYPE_CLASS_NUMBER);
         req_type = "2";
         ed_pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
+        fuWuDialog = new FuWuDialog(getContext(), new FuWuDialog.FuWuDiaLogClikListener() {
+            @Override
+            public void onClickCancel() {
+                AppManager.getAppManager().AppExit(getContext());
+            }
+
+            @Override
+            public void onClickConfirm() {
+                fuWuDialog.dismiss();
+            }
+
+            @Override
+            public void onDismiss(FuWuDialog dialog) {
+
+            }
+
+            @Override
+            public void fuwu() {
+                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/user_agreement");
+            }
+
+            @Override
+            public void yinsixieyi() {
+                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
+            }
+        });
+
+        fuWuDialog.setCancelable(false);
+        fuWuDialog.show();
     }
 
     private void getUserInfo() {

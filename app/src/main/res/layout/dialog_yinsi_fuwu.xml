@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bazi_renzheng"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:paddingTop="30dp"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="服务协议和隐私政策"
+            android:textColor="@color/black_333333"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="30dp"
+                android:text="请你务必审慎阅读，充分理解“服务协议”和隐私政策的各条款，和其中的各项服务"
+                android:textColor="@color/black_666666"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_content">
+
+                <TextView
+               android:paddingLeft="30dp"
+                    android:textColor="@color/black_666666"
+                    android:textSize="13sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="也可以阅读"></TextView>
+
+                <TextView
+                    android:id="@+id/tv_yinsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="《隐私保护声明》"
+                    android:textColor="@color/red"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_yonghushiyong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="和《用户使用协议》"
+                    android:textColor="@color/blue"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="115dp"
+                android:layout_height="42dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/dialog_cancel_bt"
+                android:gravity="center"
+                android:text="暂不使用"
+                android:textColor="@color/black_333333"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="115dp"
+                android:layout_height="42dp"
+                android:background="@drawable/dialog_confirm_bt"
+                android:gravity="center"
+                android:text="同意"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

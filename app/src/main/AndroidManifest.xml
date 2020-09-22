@@ -133,6 +133,20 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
+        <!--加热器参数-->
+        <activity
+            android:name=".activity.shuinuan.ShuinuanZhuangtaiActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <!--主机参数-->
+        <activity
+            android:name=".activity.shuinuan.ShuinuanHostActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <activity
             android:name=".activity.DefaultX5WebViewActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"

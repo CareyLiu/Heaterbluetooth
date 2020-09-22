@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_title_new"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="主机参数"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#02222B">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="机器功率"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_cixianquan0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="无"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_cixianquan1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="一个"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_cixianquan2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="两个"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_cixianquan3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="三个"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_cixianquan4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="四个"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:layout_weight="2"
+                    android:includeFontPadding="false"
+                    android:text="加热塞"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_jiaresai_jingci"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="京瓷"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_jiaresai_limai"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="利麦"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="机器功率"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_jiqigonglv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:layout_weight="2"
+                    android:includeFontPadding="false"
+                    android:text="电压"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_dianya_12v"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12V"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_dianya_24v"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="24V"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+
+                <TextView
+                    android:id="@+id/tv_dianya_zidong"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="自动"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="30pt" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="油泵容积值"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_rongjizhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="过压值"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_guoyazhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="过压值报警时间"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_guoya_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="欠压值"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_qianyazhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="欠压值报警时间"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <TextView
+                    android:id="@+id/tv_qianya_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28pt"
+                    android:textColor="#ffffffff"
+                    android:textSize="31pt" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30pt" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

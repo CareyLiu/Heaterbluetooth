@@ -119,6 +119,12 @@ public class Y {
         }
     }
 
+
+    public static String formatNum(float num) {
+        String format = new DecimalFormat("#.#").format(num);
+        return format;
+    }
+
     /**
      * 获取Money
      */
