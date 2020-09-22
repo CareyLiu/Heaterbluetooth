@@ -163,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12pt"
                                 android:layout_marginBottom="1pt"
-                                android:text="在线"
+                                android:text="连接中"
                                 android:textColor="#23CEFD"
                                 android:textSize="26pt" />
                         </LinearLayout>

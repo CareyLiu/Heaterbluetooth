@@ -129,7 +129,7 @@ public class SplashActivity extends BaseActivity {
                             }
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                            Toast.makeText(SplashActivity.this, "该应用需要赋予访问电话的权限，不开启将无法正常工作！", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SplashActivity.this, "该应用需要赋予的权限，不开启将导致某些功能无法正常工作！", Toast.LENGTH_LONG).show();
                             mHandler.sendEmptyMessage(UPDATE_OK);
                             finish();
                         }

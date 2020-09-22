@@ -150,4 +150,7 @@ dependencies {
     implementation(name: 'alipaySdk-15.6.8-20191021122455-noUtdid', ext: 'aar')
     implementation 'com.amap.api:location:latest.integration'
     implementation 'pub.devrel:easypermissions:1.0.1'
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 }

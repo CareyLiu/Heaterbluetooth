@@ -49,6 +49,7 @@ import com.sdkj.heaterbluetooth.util.JinChengUtils;
 import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.RxUtils;
 import com.sdkj.heaterbluetooth.util.SerializeUtil;
+import com.tencent.bugly.Bugly;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -186,7 +187,7 @@ public class MyApplication extends MultiDexApplication {
 //// 初始化Bugly
 
 
-       // Bugly.init(getApplicationContext(), "9aef7d7467", false);
+     Bugly.init(getApplicationContext(), "daa0e2f67e", false);
 
 
         CompositeSubscription _subscriptions = new CompositeSubscription();

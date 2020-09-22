@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
+import com.googlecode.mp4parser.boxes.mp4.objectdescriptors.AudioSpecificConfig;
 import com.rairmmd.andmqtt.AndMqtt;
 import com.rairmmd.andmqtt.MqttPublish;
 import com.rairmmd.andmqtt.MqttSubscribe;
@@ -39,12 +40,14 @@ import com.sdkj.heaterbluetooth.dialog.LordingDialog;
 import com.sdkj.heaterbluetooth.dialog.MyCarCaoZuoDialog_Notify;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
 import com.sdkj.heaterbluetooth.util.DoMqttValue;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 
 import java.math.BigDecimal;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
@@ -143,7 +146,10 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     private String firstSetKongTiao = "0";
     TishiDialog tishiDialog;
 
-    private String whatUWant = "aaa";//你想要的操作命令   1.档位模式开机 2.档位模式关机 3.空调模式开机 4.空调模式关机 5开启预通风模式 6关闭预通风 7开启泵油 8关闭泵油 9开启水泵 10 关闭水泵
+
+    //你想要的操作命令   1.档位模式开机 2.档位模式关机 3.空调模式开机 4.空调模式关机 5开启预通风模式 6关闭预通风 7开启泵油 8关闭泵油 9开启水泵 10 关闭水泵,11判断是否在线
+    private String whatUWant = "aaa";
+
 
     private final String DANGWEIKAIJI = "1";
     private final String DANGWEIGUANJI = "2";
@@ -155,6 +161,8 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     private final String BENGYOUGUANJI = "8";
     private final String SHUIBENGKAIJI = "9";
     private final String SHUIBENGGUANJI = "10";
+    private final String PANDUANZAIXIANZHUAGNTAI = "11";//判断是否在线
+    N9Thread n9Thread = null;
 
 
     @Override
@@ -595,6 +603,15 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                     }
                 } else if (message.type == ConstanceValue.MSG_CAR_J_M) {
                     lordingDialog.dismiss();
+
+                    if (whatUWant.equals(PANDUANZAIXIANZHUAGNTAI)) {
+                        whatUWant = "";
+                        tvZaixian.setText("在线");
+
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_N9_LIANJIE;
+                        RxBus.getDefault().sendRx(n);
+                    }
                     //接收到信息
                     Log.i("msg_car_j_m", message.content.toString());
 
@@ -900,12 +917,15 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                     String xinhaoQiangDu = messageData.substring(7, 9);
                     String jiGeXinHao = "没有接到信号";
                     if (!StringUtils.isEmpty(xinhaoQiangDu)) {
-                        int xinhao = Integer.valueOf(xinhaoQiangDu);
 
-                        if (xinhao < 15) {
+                        int xinhao = Integer.valueOf(xinhaoQiangDu);
+                        if (xinhaoQiangDu.equals("aa")) {
+                            jiGeXinHao = "两格信号";
+                            ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal2);
+                        } else if (xinhao < 15) {
                             jiGeXinHao = "无信号";
                             ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal_no);
-                            tvZaixian.setText("离线");
+                            //  tvZaixian.setText("离线");
                         } else if (xinhao >= 15 && xinhao < -19) {
                             jiGeXinHao = "一格信号";
                             ivXinhao.setBackgroundResource(R.mipmap.fengnuan_icon_signal1);
@@ -1123,6 +1143,48 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                         }
                     }, ConfigValue.YANCHI);//3秒后执行Runnable中的run方法
 
+                } else if (message.type == ConstanceValue.MSG_N9_WEILIANJIE) {
+
+
+                    TishiDialog tishiDialog = new TishiDialog(mContext, 3, new TishiDialog.TishiDialogListener() {
+                        @Override
+                        public void onClickCancel(View v, TishiDialog dialog) {
+                            whatUWant = "";
+                            lordingDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onClickConfirm(View v, TishiDialog dialog) {
+                            whatUWant = PANDUANZAIXIANZHUAGNTAI;
+
+                            if (n9Thread != null) {
+                                whatUWant = PANDUANZAIXIANZHUAGNTAI;
+                                n9Thread.interrupt();
+                                n9Thread = new N9Thread();
+                                n9Thread.start();
+                            }
+
+                        }
+
+                        @Override
+                        public void onDismiss(TishiDialog dialog) {
+
+                        }
+                    });
+
+                    tishiDialog.setTextTitle("连接失败请，重新尝试");
+                    tishiDialog.setTextConfirm("重连");
+                    tishiDialog.setTextCancel("取消");
+
+                    tishiDialog.show();
+
+                    tvZaixian.setText("离线");
+
+                    whatUWant="";
+                    n9Thread.interrupt();
+
+                } else if (message.type == ConstanceValue.MSG_N9_LIANJIE) {
+
                 }
             }
         }));
@@ -1143,6 +1205,8 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    private Handler handler;
 
     public void setMqttZhiLing() {
 
@@ -1215,22 +1279,12 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
 
         });
 
+        whatUWant = PANDUANZAIXIANZHUAGNTAI;
 
-        AndMqtt.getInstance().publish(new MqttPublish()
-                .setMsg("N9.")
-                .setQos(2)
-                .setTopic(CAR_CTROL)
-                .setRetained(false), new IMqttActionListener() {
-            @Override
-            public void onSuccess(IMqttToken asyncActionToken) {
-                Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功" + " N9 我是在类里面订阅的");
-            }
 
-            @Override
-            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
-            }
-        });
+        n9Thread = new N9Thread();
+        n9Thread.start();
+
 
         //查询车辆详情数据
         // requestData();
@@ -1255,6 +1309,9 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+
+        whatUWant = "";
         PreferenceHelper.getInstance(mContext).removeKey(App.CHOOSE_KONGZHI_XIANGMU);
         AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(CAR_NOTIFY), new IMqttActionListener() {
             @Override
@@ -1534,4 +1591,54 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
             });
         }
     }
+
+
+    private class N9Thread extends Thread {
+        private int i = 0;
+
+        public void run() {
+            while (whatUWant.equals(PANDUANZAIXIANZHUAGNTAI)) {
+
+                try {
+                    if (i == 3) {
+
+                        whatUWant = "";
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_N9_WEILIANJIE;
+                        RxBus.getDefault().sendRx(n);
+
+                    }
+                    AndMqtt.getInstance().publish(new MqttPublish()
+                            .setMsg("N9.")
+                            .setQos(2)
+                            .setTopic(CAR_CTROL)
+                            .setRetained(false), new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功" + " N9 我是在类里面订阅的");
+
+
+                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                            i = i + 1;
+
+
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+                        }
+                    });
+
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    break;
+
+                }
+            }
+        }
+    }
+
+
 }

@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="daa0e2f67e" /> <!-- 配置APP版本号 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="b972188814938e52863393bfd279fa82" /> <!-- <provider -->
