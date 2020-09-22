@@ -8,12 +8,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
@@ -33,10 +32,12 @@ public class TuanYouWebView extends BaseActivity {
     ImageView ivImageBack;
     @BindView(R.id.tv_back)
     TextView tvBack;
-    @BindView(R.id.title_header)
-    ConstraintLayout titleHeader;
     @BindView(R.id.iv_close)
     ImageView ivClose;
+    @BindView(R.id.ll_fanhuishagnyibu)
+    LinearLayout llFanhuishagnyibu;
+    @BindView(R.id.ll_guanbi)
+    LinearLayout llGuanbi;
 
     @Override
     public int getContentViewResId() {
@@ -97,11 +98,11 @@ public class TuanYouWebView extends BaseActivity {
     };
 
 
-    @Override
-    public void initImmersion() {
-        super.initImmersion();
-        mImmersionBar.titleBar(R.id.title_header).init();
-    }
+//    @Override
+//    public void initImmersion() {
+//        super.initImmersion();
+//        mImmersionBar.titleBar(R.id.title_header).init();
+//    }
 
     CustomNavigationJsObject1 customNavigationActivity;
 
@@ -115,13 +116,13 @@ public class TuanYouWebView extends BaseActivity {
 
         webview.setWebViewClient(client);
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
+        llGuanbi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        ivImageBack.setOnClickListener(new View.OnClickListener() {
+        llFanhuishagnyibu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (webview.canGoBack()) {
@@ -131,16 +132,16 @@ public class TuanYouWebView extends BaseActivity {
                 }
             }
         });
-        tvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (webview.canGoBack()) {
-                    // 返回上一页面
-                    //   webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-                    webview.goBack();
-                }
-            }
-        });
+//        tvBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (webview.canGoBack()) {
+//                    // 返回上一页面
+//                    //   webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+//                    webview.goBack();
+//                }
+//            }
+//        });
 
     }
 

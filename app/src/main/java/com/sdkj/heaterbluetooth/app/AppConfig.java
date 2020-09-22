@@ -280,6 +280,7 @@ public class AppConfig {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
+
     };
     /**
      * 基本定位权限管理
@@ -295,5 +296,14 @@ public class AppConfig {
     public static final String[] BASIC_PERMISSIONS_STORAGE = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+
+    public static final String[] BASIC_PERMISSIONS_HEARTERBLUE = new String[]{
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
     };
 }

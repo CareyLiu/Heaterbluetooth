@@ -119,11 +119,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void shenQingQuanXian() {
-        new RxPermissions(SplashActivity.this).requestEach(AppConfig.BASIC_PERMISSIONS)
+        new RxPermissions(SplashActivity.this).requestEach(AppConfig.BASIC_PERMISSIONS_HEARTERBLUE)
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
-                        if (permission.name.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        if (permission.name.equals(Manifest.permission.READ_PHONE_STATE)) {
                             if (permission.granted) {
                                 mHandler.sendEmptyMessage(UPDATE_OK);
                             }
