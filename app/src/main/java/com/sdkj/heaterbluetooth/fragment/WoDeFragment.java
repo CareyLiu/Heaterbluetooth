@@ -30,6 +30,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.DefaultX5WebViewActivity;
+import com.sdkj.heaterbluetooth.app.App;
 import com.sdkj.heaterbluetooth.app.AppConfig;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
@@ -436,35 +437,39 @@ public class WoDeFragment extends BaseTwoFragment {
         req_type = "2";
         ed_pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
-        fuWuDialog = new FuWuDialog(getContext(), new FuWuDialog.FuWuDiaLogClikListener() {
-            @Override
-            public void onClickCancel() {
-                AppManager.getAppManager().AppExit(getContext());
-            }
 
-            @Override
-            public void onClickConfirm() {
-                fuWuDialog.dismiss();
-            }
+        String yonghuxieyi = PreferenceHelper.getInstance(getContext()).getString(App.YONGHUXIEYI, "");
+        if (!yonghuxieyi.equals("1")){
+            fuWuDialog = new FuWuDialog(getContext(), new FuWuDialog.FuWuDiaLogClikListener() {
+                @Override
+                public void onClickCancel() {
+                    AppManager.getAppManager().AppExit(getContext());
+                }
 
-            @Override
-            public void onDismiss(FuWuDialog dialog) {
+                @Override
+                public void onClickConfirm() {
+                    PreferenceHelper.getInstance(getContext()).putString(App.YONGHUXIEYI, "1");
+                    fuWuDialog.dismiss();
+                }
 
-            }
+                @Override
+                public void onDismiss(FuWuDialog dialog) {
 
-            @Override
-            public void fuwu() {
-                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/user_agreement");
-            }
+                }
 
-            @Override
-            public void yinsixieyi() {
-                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
-            }
-        });
+                @Override
+                public void fuwu() {
+                    DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/user_agreement");
+                }
 
-        fuWuDialog.setCancelable(false);
-        fuWuDialog.show();
+                @Override
+                public void yinsixieyi() {
+                    DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
+                }
+            });
+            fuWuDialog.setCancelable(false);
+            fuWuDialog.show();
+        }
     }
 
     private void getUserInfo() {
