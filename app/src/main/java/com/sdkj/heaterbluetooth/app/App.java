@@ -68,7 +68,9 @@ public class App extends MultiDexApplication {
     public static final String DINGDANZHIFU = "0X1117";//我得订单列表里面调支付
     public static final String CUNCHUBIND_WEIXINPAY = "0X1118";//是否绑定过微信支付用于提现
     public static final String CUN_GEREN_TOUXIANG = "0X1119";//存储个人头像
-    public static final String CHOOSE_KONGZHI_XIANGMU="0X1120";//我选择硬件控制项目
+    public static final String CHOOSE_KONGZHI_XIANGMU = "0X1120";//我选择硬件控制项目
+
+    public static final String YONGHUXIEYI = "yonghuxieyi";//用户协议
 
     //发送通知
     public static final int TOKEN_ERROR = 0x04;
@@ -196,7 +198,6 @@ public class App extends MultiDexApplication {
     }
 
 
-
     /**
      * 判断当前版本是否兼容目标版本的方法
      *
@@ -291,8 +292,6 @@ public class App extends MultiDexApplication {
     }
 
 
-
-
     /**
      * 设置是否加载文章图片
      *
@@ -301,7 +300,6 @@ public class App extends MultiDexApplication {
     public void setConfigLoadimage(boolean b) {
         setProperty(AppConfig.CONF_LOAD_IMAGE, String.valueOf(b));
     }
-
 
 
     /**
@@ -314,7 +312,6 @@ public class App extends MultiDexApplication {
     }
 
 
-
     /**
      * 设置启动检查更新
      *
@@ -325,7 +322,6 @@ public class App extends MultiDexApplication {
     }
 
 
-
     /**
      * 设置是否左右滑动
      *
@@ -334,7 +330,6 @@ public class App extends MultiDexApplication {
     public void setConfigScroll(boolean b) {
         setProperty(AppConfig.CONF_SCROLL, String.valueOf(b));
     }
-
 
 
     /**
@@ -405,7 +400,6 @@ public class App extends MultiDexApplication {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.removeAllCookie();
     }
-
 
 
     /**
