@@ -440,37 +440,38 @@ public class WoDeFragment extends BaseTwoFragment {
 
 
         String yonghuxieyi = PreferenceHelper.getInstance(getContext()).getString(App.YONGHUXIEYI, "");
-        if (!yonghuxieyi.equals("1")){
+        if (!yonghuxieyi.equals("1")) {
             fuWuDialog = new FuWuDialog(getContext(), new FuWuDialog.FuWuDiaLogClikListener() {
                 @Override
                 public void onClickCancel() {
-                    AppManager.getAppManager().AppExit(getContext());
+//                    AppManager.getAppManager().AppExit(getContext());
+                    fuWuDialog.dismiss();
                 }
 
                 @Override
                 public void onClickConfirm() {
-                    PreferenceHelper.getInstance(getContext()).putString(App.YONGHUXIEYI, "1");
                     fuWuDialog.dismiss();
                 }
 
                 @Override
                 public void onDismiss(FuWuDialog dialog) {
-
+                    PreferenceHelper.getInstance(getContext()).putString(App.YONGHUXIEYI, "1");
                 }
 
-            @Override
-            public void fuwu() {
-                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/user_agreement");
-            }
+                @Override
+                public void fuwu() {
+                    DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/user_agreement");
+                }
 
-            @Override
-            public void yinsixieyi() {
-                DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
-            }
-        });
+                @Override
+                public void yinsixieyi() {
+                    DefaultX5WebViewActivity.actionStart(getContext(), "https://shop.hljsdkj.com/shop_new/privacy_clause");
+                }
+            });
 
-        fuWuDialog.setCancelable(false);
-        fuWuDialog.show();
+            fuWuDialog.setCancelable(false);
+            fuWuDialog.show();
+        }
     }
 
     private void getUserInfo() {
