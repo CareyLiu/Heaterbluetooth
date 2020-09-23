@@ -36,8 +36,6 @@ public abstract class BaseActivity<T extends BasicPresenter, E extends BasicMode
     protected CompositeSubscription _subscriptions = new CompositeSubscription();
 
 
-
-
     @Override
     public int getContentViewResId() {
         return R.layout.basic_layout;
@@ -220,11 +218,9 @@ public abstract class BaseActivity<T extends BasicPresenter, E extends BasicMode
 
     private LordingDialog lordingDialog;
 
-
     public void showProgressDialog() {
         showProgressDialog("");
     }
-
 
     public void showProgressDialog(String msg) {
         if (lordingDialog == null) {
@@ -242,6 +238,7 @@ public abstract class BaseActivity<T extends BasicPresenter, E extends BasicMode
             try {
                 lordingDialog.dismiss();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

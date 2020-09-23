@@ -75,7 +75,6 @@
                     android:scaleType="centerCrop"
                     android:src="@mipmap/fengnuan_button_shebeima" />
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,7 +101,6 @@
                         android:textColor="@color/shuinuan_text_color"
                         android:textSize="26pt" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -132,7 +130,6 @@
                         android:textSize="26pt" />
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/tv_fuwutianshushengyu"
                     android:layout_width="wrap_content"
@@ -146,7 +143,6 @@
                     android:textColor="@color/shuinuan_text_color"
                     android:textSize="26pt"
                     android:visibility="gone" />
-
 
                 <TextView
                     android:id="@+id/tv_shebei_state"
@@ -186,9 +182,8 @@
                         android:layout_height="175pt"
                         android:layout_marginLeft="29pt"
                         android:layout_marginTop="79pt"
-                    />
+                        android:background="@drawable/shuinuan_guanji" />
                 </FrameLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -556,8 +551,6 @@
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
-
-
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
