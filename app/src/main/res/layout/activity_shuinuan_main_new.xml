@@ -374,7 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="24pt"
                         android:includeFontPadding="false"
-                        android:text="32℃/5挡"
+                        android:text="80℃"
                         android:textColor="@color/white"
                         android:textSize="24pt" />
                 </LinearLayout>

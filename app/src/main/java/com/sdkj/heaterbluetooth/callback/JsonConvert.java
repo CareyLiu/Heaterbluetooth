@@ -21,7 +21,6 @@ import android.util.Log;
 
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
-import com.sdkj.heaterbluetooth.activity.LoginActivity;
 import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
 import com.sdkj.heaterbluetooth.config.AppResponse;

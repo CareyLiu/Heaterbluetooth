@@ -57,15 +57,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
-
-        <!-- 登录页面 -->
-        <activity
-            android:name=".activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-
-
         <activity
             android:name=".activity.FengNuanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
