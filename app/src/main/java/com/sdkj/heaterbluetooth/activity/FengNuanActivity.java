@@ -170,6 +170,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     KongTiaoKaiJiThread kongTiaoKaiJiThread = null;//空调开机
     KongTiaoGuanJiThread kongTiaoGuanJiThread = null;//空调关机
 
+    String dangQianDangWei = "3";//默认3挡
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -335,6 +336,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                             seekBar1.setProgress(80);
                             qieHuanDangWei(4);
                         } else {
+                            seekBar1.setProgress(100);
                             qieHuanDangWei(5);
                         }
                     }
@@ -625,6 +627,8 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                     Log.i("msg_car_j_m_data", messageData);
                     // 驻车加热器:当前档位1至5档	1	是
                     String oper_dang = messageData.substring(0, 1);
+
+                    dangQianDangWei = oper_dang;
                     if (0 <= oper_dang.indexOf("a")) {
                         oper_dang = "";
                     } else {
@@ -1592,6 +1596,10 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
     }
 
     private void qieHuanDangWei(int dangValue) {
+
+        if (dangQianDangWei.equals(String.valueOf(dangValue))) {
+            return;
+        }
         tvShedingWenduOrDangwei.setText("设定挡位：" + String.valueOf(dangValue) + "挡");
 
         AndMqtt.getInstance().publish(new MqttPublish()

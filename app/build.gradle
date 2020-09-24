@@ -29,11 +29,14 @@ android {
         applicationId "com.sdkj.heaterbluetooth"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 6
-        versionName "6.0"
+        versionCode 7
+        versionName "6.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -71,10 +74,7 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+
 
 }
 
@@ -150,7 +150,10 @@ dependencies {
     implementation(name: 'alipaySdk-15.6.8-20191021122455-noUtdid', ext: 'aar')
     implementation 'com.amap.api:location:latest.integration'
     implementation 'pub.devrel:easypermissions:1.0.1'
+
+    //bugly
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
 }

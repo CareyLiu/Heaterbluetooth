@@ -172,6 +172,7 @@ public class MyApplication extends MultiDexApplication {
         new RudenessScreenHelper(this, designWidth).activate();
         doMqttValue = new DoMqttValue();
         context = getApplicationContext();
+        Bugly.init(getApplicationContext(), "daa0e2f67e", false);
         initRongYun();
         initLifecycle();
         initWindow();
@@ -187,7 +188,7 @@ public class MyApplication extends MultiDexApplication {
 //// 初始化Bugly
 
 
-     Bugly.init(getApplicationContext(), "daa0e2f67e", false);
+
 
 
         CompositeSubscription _subscriptions = new CompositeSubscription();

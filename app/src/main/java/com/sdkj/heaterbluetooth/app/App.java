@@ -20,6 +20,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.sdkj.heaterbluetooth.common.UIHelper;
+import com.tencent.bugly.Bugly;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -156,7 +157,6 @@ public class App extends MultiDexApplication {
         super.onCreate();
         mAppApplication = this;
         instance = this;
-
     }
 
 
