@@ -13,21 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-
         <meta-data
             android:name="BUGLY_APPID"
             android:value="daa0e2f67e" /> <!-- 配置APP版本号 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="b972188814938e52863393bfd279fa82" /> <!-- <provider -->
-        <!-- android:name="androidx.core.content.FileProvider" -->
-        <!-- android:authorities="com.smarthome.magic.FileProvider" -->
-        <!-- android:exported="false" -->
-        <!-- android:grantUriPermissions="true"> -->
-        <!-- <meta-data -->
-        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
-        <!-- android:resource="@xml/rc_file_path" /> -->
-        <!-- </provider> -->
+
         <service android:name="com.amap.api.location.APSService" />
 
         <!-- 启动页 -->
@@ -63,7 +55,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
-
         <!--绑定盒子界面-->
         <activity
             android:name=".activity.BindBoxActivity"
@@ -97,11 +88,13 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <activity
             android:name=".activity.JiaReQiCanShuActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <activity
             android:name=".activity.DiagnosisActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -114,12 +107,12 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <activity
             android:name=".activity.TuanYouWebView"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-
 
         <!--水暖主页-->
         <activity
@@ -148,5 +141,4 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
     </application>
-
 </manifest>
