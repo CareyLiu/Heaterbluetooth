@@ -105,5 +105,10 @@ public interface ConstanceValue {
     int MSG_N9_WEILIANJIE = 0x10070;//实时数据未连接
     int MSG_N9_LIANJIE = 0x10071;//实时数据已连接
     int MSG_GDIAN = 0x10072;//g.
+    int MSG_DANGWEIGUANJI = 0x10073;//档位关机
+    int MSG_DANGWEIKAIJI = 0x10074;//档位开机
+
+    int MSG_KONGTIAOKAIJI = 0x10075;//空调开机
+    int MSG_KONGTIAOGUANJI = 0x10076;//空调关机
 
 }

@@ -58,6 +58,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -166,8 +167,13 @@ public class WoDeFragment extends BaseTwoFragment {
             case R.id.ll_diertiao:
 //                String str = chiHeWanLeListAdapter.getData().get(position).getHref_url() + "?i=" + JiaMiToken +
 //                        "&" + "gps_x=" + "45.66792" + "&" + "gps_y=" + "126.61145";
-//                String str = tuanYouUrl + "&gps_x=45.66792&gps_y=126.61145";
-//                TuanYouWebView.actionStart(getActivity(), str);
+
+                String jingdu = PreferenceHelper.getInstance(getActivity()).getString(App.JINGDU, "");
+                String weidu = PreferenceHelper.getInstance(getActivity()).getString(App.WEIDU, "");
+                String str = tuanYouUrl + "&gps_x=" + weidu + "&gps_y=" + jingdu;
+
+                Log.i("tuanYouUrl", str);
+                TuanYouWebView.actionStart(getActivity(), str);
 //                TuanYouWebView.actionStart(getActivity(), "");
 
                 break;
@@ -490,6 +496,7 @@ public class WoDeFragment extends BaseTwoFragment {
                         tv_wode_name.setText("昵称：" + user.getUser_name());
                         tv_wode_phone.setText("手机号：" + user.getUser_phone());
                         Glide.with(getContext()).load(user.getUser_img_url()).into(iv_wode_head);
+                        tuanYouUrl = response.body().data.get(0).tuanyou_url;
                     }
 
                     @Override
