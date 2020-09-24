@@ -313,7 +313,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_guanji.setSelected(false);
                     isKaiji = true;
                     tv_shebei_state.setText("加热器状态：循环水");
-
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_kaiji);
                     animationDrawable = (AnimationDrawable) iv_heater_host.getBackground();
                     animationDrawable.start();
@@ -754,7 +753,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
-
         tishiDialog.setTextTitle("提示");
         tishiDialog.setTextContent(msg);
         tishiDialog.setTextConfirm("重试");

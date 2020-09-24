@@ -63,7 +63,6 @@ public class Y {
         } else {
             Y.t("网络异常");
         }
-        ;
     }
 
     public static Resources getResources() {

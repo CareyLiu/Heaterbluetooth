@@ -16,6 +16,7 @@ import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
+import com.sdkj.heaterbluetooth.dialog.BangdingFailDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.CarBrand;
 import com.sdkj.heaterbluetooth.util.RxBus;
@@ -117,7 +118,17 @@ public class AddHandActivity extends BaseActivity implements View.OnClickListene
 
                     @Override
                     public void onError(Response<AppResponse<CarBrand.DataBean>> response) {
-                        Y.tError(response);
+                        String msg = response.getException().getMessage();
+                        String[] msgToast = msg.split("：");
+                        if (msgToast.length == 3) {
+                            msg = msgToast[2];
+                        } else {
+                            msg = "网络异常";
+                        }
+
+                        BangdingFailDialog dialog = new BangdingFailDialog(mContext);
+                        dialog.setTextContent(msg);
+                        dialog.show();
                     }
                 });
     }
