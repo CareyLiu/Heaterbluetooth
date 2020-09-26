@@ -1346,6 +1346,8 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                     if (kongTiaoGuanJiThread != null) {
                         kongTiaoGuanJiThread.interrupt();
                     }
+                }else if (message.type==ConstanceValue.MSG_C_P){
+
                 }
             }
         }));
@@ -1390,9 +1392,9 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
 
 
         AndMqtt.getInstance().publish(new MqttPublish()
-                .setMsg("k001.")
+                .setMsg("P.")
                 .setQos(2).setRetained(false)
-                .setTopic(CAR_NOTIFY), new IMqttActionListener() {
+                .setTopic(CAR_CTROL), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
                 Log.i("Rair", "(CAR_NOTIFY.java:79)-onSuccess:-&gt;发布成功" + "k001 我是在类里面订阅的");
@@ -1440,9 +1442,25 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
 
         });
 
+        AndMqtt.getInstance().publish(new MqttPublish()
+                .setMsg("P.")
+                .setQos(2)
+                .setTopic(CAR_CTROL)
+                .setRetained(false), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("Rair", "发送指令P.等待应答");
+
+
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                Log.i("Rair", "(MainActivity.java:84)-onFailure:-&gt;发布失败");
+            }
+        });
+
         whatUWant = PANDUANZAIXIANZHUAGNTAI;
-
-
         n9Thread = new N9Thread();
         n9Thread.start();
 
@@ -1735,7 +1753,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                             Log.i("Rair", "(MainActivity.java:79)-onSuccess:-&gt;发布成功" + " N9 我是在类里面订阅的");
 
 
-                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                          //  UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
                             i = i + 1;
 
 
@@ -1788,7 +1806,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                                 lordingDialog.show();
                                 SoundPoolUtils.soundPool(mContext, R.raw.guanjizhong);
                             }
-                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                            //UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
                             i = i + 1;
 
                         }
@@ -1842,7 +1860,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                                 SoundPoolUtils.soundPool(mContext, R.raw.dangwei);
                             }
 
-                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                            //UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
                             i = i + 1;
 
 
@@ -1895,7 +1913,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                                 SoundPoolUtils.soundPool(mContext, R.raw.kongtiao);
                             }
 
-                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                            //UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
                             i = i + 1;
 
 
@@ -1952,7 +1970,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                             }
 
                             i = i + 1;
-                            UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
+                            //UIHelper.ToastMessage(mContext, "第" + String.valueOf(i) + "次发送");
                         }
 
                         @Override

@@ -134,11 +134,6 @@ public class DoMqttValue {
                     RxBus.getDefault().sendRx(n);
                 } else if (message.toString().contains("i")) {
 
-//                            Notice n = new Notice();
-//                            n.type = ConstanceValue.MSG_CAR_I;
-//                            n.content = message.toString();
-//                            RxBus.getDefault().sendRx(n);
-
                 } else if (message.toString().equals("k5011.")) {
                     Notice n = new Notice();
                     n.type = ConstanceValue.MSG_CAR_HUI_FU_CHU_CHAGN;
@@ -183,6 +178,13 @@ public class DoMqttValue {
                     Notice n = new Notice();
                     n.type = ConstanceValue.MSG_ZHILINGMA;
                     RxBus.getDefault().sendRx(n);
+                } else if (message.substring(0, 3).equals("c_P")) {
+
+                    String str = message.substring(3, 20);
+                    Notice n = new Notice();
+                    n.type = ConstanceValue.MSG_C_P;
+                    n.content = str;
+                    RxBus.getDefault().sendRx(n);
                 }
                 break;
             case SHUINUAN:
@@ -212,7 +214,7 @@ public class DoMqttValue {
 
     //水暖相关代码
     private void shuiNuan(String topic, String message) {
-        if (topic.contains("wh/app")||topic.contains("wh/hardware/")) {
+        if (topic.contains("wh/app") || topic.contains("wh/hardware/")) {
             Notice n = new Notice();
             n.type = ConstanceValue.MSG_SN_DATA;
             n.content = message.toString();
