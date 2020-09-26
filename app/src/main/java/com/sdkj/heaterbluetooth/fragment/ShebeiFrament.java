@@ -196,8 +196,6 @@ public class ShebeiFrament extends BaseTwoFragment {
                     public void onSuccess(Response<AppResponse<SheBeiLieBieListModel.DataBean>> response) {
                         mqtt_connect_state = response.body().mqtt_connect_state;
                         mqtt_connect_prompt = response.body().mqtt_connect_prompt;
-                        Y.e("开了房建设路口的师德师风可接受的  " + mqtt_connect_prompt + "   " + mqtt_connect_state);
-
 
                         for (int i = 0; i < response.body().data.size(); i++) {
                             SheBeiModel sheBeiModel = new SheBeiModel(true, response.body().data.get(i).getControl_device_name());
