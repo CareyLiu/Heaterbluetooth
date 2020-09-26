@@ -31,11 +31,13 @@ import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
+import com.sdkj.heaterbluetooth.dialog.BangdingFailDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.SheBeiLieBieListModel;
 import com.sdkj.heaterbluetooth.model.SheBeiModel;
 import com.sdkj.heaterbluetooth.util.NetworkUtils;
 import com.sdkj.heaterbluetooth.util.RxBus;
+import com.sdkj.heaterbluetooth.util.Y;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +71,8 @@ public class ShebeiFrament extends BaseTwoFragment {
 
     private List<SheBeiModel> mDatas = new ArrayList<>();
     private ShebeiNewAdapter adapter;
+    private String mqtt_connect_state;
+    private String mqtt_connect_prompt;
 
     @Override
     protected int getLayoutRes() {
@@ -132,42 +136,47 @@ public class ShebeiFrament extends BaseTwoFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (mDatas.get(position).device_type.equals("1")) {
-                    //  mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
-                    PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
-                    MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
+                if (mqtt_connect_state.equals("1")){
+                    if (mDatas.get(position).device_type.equals("1")) {
+                        //  mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
+                        PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
+                        MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
 
 
-
-                    int i = mDatas.get(position).ccid.length() - 1;
-                    String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
-                    Log.i("serverId", str);
-                    PreferenceHelper.getInstance(getActivity()).putString("car_server_id", str + "/");
-                    if (NetworkUtils.isConnected(getActivity())) {
-                        Activity currentActivity = AppManager.getAppManager().currentActivity();
-                        if (currentActivity != null) {
-                            FengNuanActivity.actionStart(getActivity());
+                        int i = mDatas.get(position).ccid.length() - 1;
+                        String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
+                        Log.i("serverId", str);
+                        PreferenceHelper.getInstance(getActivity()).putString("car_server_id", str + "/");
+                        if (NetworkUtils.isConnected(getActivity())) {
+                            Activity currentActivity = AppManager.getAppManager().currentActivity();
+                            if (currentActivity != null) {
+                                FengNuanActivity.actionStart(getActivity());
+                            }
+                        } else {
+                            UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                         }
-                    } else {
-                        UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
-                    }
-                } else if (mDatas.get(position).device_type.equals("6")) {
-                    String ccid = mDatas.get(position).ccid;
+                    } else if (mDatas.get(position).device_type.equals("6")) {
+                        String ccid = mDatas.get(position).ccid;
 //                    ccid = "aaaaaaaaaaaaaaaa90070018";
-                    String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
-                    PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
-                    PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
+//                    ccid = "aaaaaaaaaaaaaa0070040018";
+                        String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
+                        PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
+                        PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
 
-                    if (NetworkUtils.isConnected(getActivity())) {
-                        Activity currentActivity = AppManager.getAppManager().currentActivity();
-                        if (currentActivity != null) {
-                            ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id);
+                        if (NetworkUtils.isConnected(getActivity())) {
+                            Activity currentActivity = AppManager.getAppManager().currentActivity();
+                            if (currentActivity != null) {
+                                ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id);
+                            }
+                        } else {
+                            UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                         }
-                    } else {
-                        UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                     }
+                }else {
+                    BangdingFailDialog dialog = new BangdingFailDialog(getContext());
+                    dialog.setTextContent(mqtt_connect_prompt);
+                    dialog.show();
                 }
-
             }
         });
     }
@@ -185,7 +194,10 @@ public class ShebeiFrament extends BaseTwoFragment {
                 .execute(new JsonCallback<AppResponse<SheBeiLieBieListModel.DataBean>>() {
                     @Override
                     public void onSuccess(Response<AppResponse<SheBeiLieBieListModel.DataBean>> response) {
-                        mDatas.clear();
+                        mqtt_connect_state = response.body().mqtt_connect_state;
+                        mqtt_connect_prompt = response.body().mqtt_connect_prompt;
+                        Y.e("开了房建设路口的师德师风可接受的  " + mqtt_connect_prompt + "   " + mqtt_connect_state);
+
 
                         for (int i = 0; i < response.body().data.size(); i++) {
                             SheBeiModel sheBeiModel = new SheBeiModel(true, response.body().data.get(i).getControl_device_name());
@@ -201,7 +213,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                                 sheBeiModel1.validity_state = bean.getValidity_state();
                                 sheBeiModel1.validity_term = bean.getValidity_term();
                                 sheBeiModel1.validity_time = bean.getValidity_time();
-                                sheBeiModel1.device_type = response.body().data.get(i).control_type_id;
+                                sheBeiModel1.device_type = response.body().data.get(i).getControl_type_id();
                                 mDatas.add(sheBeiModel1);
                             }
                         }
