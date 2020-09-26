@@ -30,6 +30,8 @@ public class AppResponse<T> implements Serializable {
     public String typeNext;//
     public List<T> data;
     public String wares_id_data;//商品列表
+    public String mqtt_connect_state;
+    public String mqtt_connect_prompt;
 
     @Override
     public String toString() {
