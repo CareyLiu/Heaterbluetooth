@@ -17,18 +17,13 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
-import com.sdkj.heaterbluetooth.app.ConstanceValue;
-import com.sdkj.heaterbluetooth.app.Notice;
-import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.dialog.BangdingFailDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.CarBrand;
-import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.Y;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,11 +56,20 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
 
     /**
      * 用于其他Activty跳转到该Activity
+     *
+     * @param context
      */
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, AddScanCarActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -74,6 +78,8 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
         initToolbar();
         mQRCodeView.startSpot();
         mQRCodeView.setDelegate(this);
+        // mQRCodeView.setResultHandler(this);
+
     }
 
     @Override
@@ -106,6 +112,7 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
 
     @Override
     public void onScanQRCodeSuccess(String result) {
+        Log.e(tag, result);
         myCode = result;
         waitdialog = ProgressDialog.show(AddScanCarActivity.this, null, "已扫描，正在处理···", true, true);
         waitdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -115,11 +122,20 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
         });
 
         vibrate();
+        // mQRCodeView.startSpot();
         waitdialog.dismiss();
         if (result.length() == 24) {
             addSheBei(result);
         } else {
-            Y.t("您的车辆码不正确");
+            BangdingFailDialog dialog = new BangdingFailDialog(mContext);
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    finish();
+                }
+            });
+            dialog.setTextContent("您的设备码不正确");
+            dialog.show();
         }
     }
 
@@ -138,9 +154,6 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
                     @Override
                     public void onSuccess(final Response<AppResponse<CarBrand.DataBean>> response) {
                         Y.t("添加成功");
-                        Notice n = new Notice();
-                        n.type = ConstanceValue.MSG_SHUA;
-                        RxBus.getDefault().sendRx(n);
                         finish();
                     }
 
@@ -155,20 +168,44 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
                         }
 
                         BangdingFailDialog dialog = new BangdingFailDialog(mContext);
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                finish();
+                            }
+                        });
                         dialog.setTextContent(msg);
                         dialog.show();
                     }
                 });
     }
 
+
     @Override
     public void onScanQRCodeOpenCameraError() {
+        Log.e(tag, "打开相机出错");
         mQRCodeView.startCamera();
     }
+
+    /**
+     * 扫描结果对话框
+     */
+    public void showDialog(final String msg) {
+        new AlertDialog.Builder(AddScanCarActivity.this).setTitle("扫描结果").setMessage(msg)
+                .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        waitdialog.dismiss();
+                        dialog.dismiss();
+                        mQRCodeView.startSpotAndShowRect();
+                    }
+                }).show();
+    }
+
 
     @OnClick({R.id.capture_flash})
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.capture_flash:
                 light();
                 break;
@@ -184,6 +221,7 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mQRCodeView.onDestroy();
         if (waitdialog != null) {
             waitdialog.dismiss();
         }
@@ -208,4 +246,5 @@ public class AddScanCarActivity extends BaseActivity implements QRCodeView.Deleg
     public boolean showToolBar() {
         return true;
     }
+
 }

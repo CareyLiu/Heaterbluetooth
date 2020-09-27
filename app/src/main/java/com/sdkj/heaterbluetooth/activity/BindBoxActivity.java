@@ -15,6 +15,7 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.EasyPermissions;
 import rx.functions.Action1;
 
 /**

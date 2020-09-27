@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -33,7 +35,9 @@ import com.sdkj.heaterbluetooth.util.Y;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -96,6 +100,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     TextView tv_daqiya;
     @BindView(R.id.iv_heater_host)
     ImageView iv_heater_host;
+    @BindView(R.id.ll_content)
+    LinearLayout ll_content;
 
     private String sn_state;     //水暖状态
     private String yushewendu;      //预设温度
@@ -114,6 +120,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     private final int zhiling_guanji = 2;
     private final int zhiling_shuibeng = 3;
     private final int zhiling_youbeng = 4;
+
+    private String log = "";
+    private long nowTime;
+    private long lastTime;
+    private long chazhi;
+    private String xinhaoStr;
 
 
     @Override
@@ -191,7 +203,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     }
 
     private void getData(String msg) {
-        Log.i("水暖加热器返回的数据是", msg);
+//        Log.i("水暖加热器返回的数据是", msg);
         if (msg.contains("j_s")) {
             sn_state = msg.substring(3, 4);//水暖状态
             String syscTime = msg.substring(4, 7);//加热剩余时长
@@ -227,7 +239,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                 }
             }
 
-            String xinhaoStr = msg.substring(55, 57);
+            xinhaoStr = msg.substring(55, 57);
             if (xinhaoStr.equals("aa")) {
                 iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal2);
                 tv_zaixian.setText("在线");
@@ -389,6 +401,26 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         } else if (msg.contains("g_s.")) {
+//            lastTime = nowTime;
+//            nowTime = System.currentTimeMillis();
+//            chazhi = (nowTime - lastTime) / 1000;
+//
+//            String huoqushuju = getTime(lastTime) + " - " + getTime(nowTime) + " - " + chazhi + " - " + xinhaoStr;
+//            Y.e("心跳监听 " + huoqushuju);
+//            if (chazhi > 40) {
+//                View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
+//                TextView tv_content = view.findViewById(R.id.tv_content);
+//                tv_content.setTextColor(Y.getColor(R.color.text_color_blue));
+//                tv_content.setText(huoqushuju + "     断开了");
+//                ll_content.addView(view);
+//            } else {
+//                View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
+//                TextView tv_content = view.findViewById(R.id.tv_content);
+//                tv_content.setText(huoqushuju + "     没有问题");
+//                ll_content.addView(view);
+//            }
+
+
             if (!isZaixian) {
                 isZaixian = true;
                 iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal1);
@@ -756,7 +788,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         tishiDialog.setTextTitle("提示");
         tishiDialog.setTextContent(msg);
         tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("关闭");
+        tishiDialog.setTextCancel("忽略");
         tishiDialog.show();
     }
 
@@ -794,7 +826,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         tishiDialog.setTextTitle("提示");
         tishiDialog.setTextContent("指令发送失败，是否重新发送？");
         tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("关闭");
+        tishiDialog.setTextCancel("忽略");
         tishiDialog.show();
     }
 
@@ -1071,5 +1103,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
+    }
+
+
+    public String getTime(long seconds) {
+        String format = "HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(seconds));
     }
 }
