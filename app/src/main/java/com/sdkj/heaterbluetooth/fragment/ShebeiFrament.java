@@ -136,7 +136,7 @@ public class ShebeiFrament extends BaseTwoFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (mqtt_connect_state.equals("1")) {
+                if (mqtt_connect_state.equals("1")){
                     if (mDatas.get(position).device_type.equals("1")) {
                         //  mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90070018";
                         PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
@@ -172,7 +172,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                             UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                         }
                     }
-                } else {
+                }else {
                     BangdingFailDialog dialog = new BangdingFailDialog(getContext());
                     dialog.setTextContent(mqtt_connect_prompt);
                     dialog.show();
