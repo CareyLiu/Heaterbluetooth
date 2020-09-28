@@ -114,4 +114,7 @@ public interface ConstanceValue {
     int MSG_YUTONGFENGKAIJI = 0x10078;//预通风开机
     int MSG_YUTONGFENGGUANJI = 0x10079;//预通风关机
 
+    int MSG_BEGNYOUKAIJI = 0x10080;//泵油开机
+    int MSG_BENGYOUGUANJI = 0x10081;//泵油关机
+
 }
