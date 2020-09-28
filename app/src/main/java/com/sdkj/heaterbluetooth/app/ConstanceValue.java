@@ -111,5 +111,7 @@ public interface ConstanceValue {
     int MSG_KONGTIAOKAIJI = 0x10075;//空调开机
     int MSG_KONGTIAOGUANJI = 0x10076;//空调关机
     int MSG_C_P = 0x10077;//c_p 获得当前的
+    int MSG_YUTONGFENGKAIJI = 0x10078;//预通风开机
+    int MSG_YUTONGFENGGUANJI = 0x10079;//预通风关机
 
 }

@@ -178,7 +178,7 @@ public class DoMqttValue {
                     Notice n = new Notice();
                     n.type = ConstanceValue.MSG_ZHILINGMA;
                     RxBus.getDefault().sendRx(n);
-                } else if (message.substring(0, 3).equals("c_P")) {
+                } else if (message.substring(0, 3).equals("c_X")) {
 
                     String str = message.substring(3, 20);
                     Notice n = new Notice();
