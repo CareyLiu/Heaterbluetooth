@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_title_new"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="共享成员"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sm_shebei_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlTextSizeTime="10sp"
+            app:srlTextSizeTitle="@dimen/sp_12" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#02222B">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_zanwu"
+                    android:layout_width="match_parent"
+                    android:layout_height="425pt"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="131pt"
+                        android:layout_height="131pt"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/gongxiangchengyuan_none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50pt"
+                        android:includeFontPadding="false"
+                        android:text="暂无共享成员"
+                        android:textColor="@color/white"
+                        android:textSize="30pt" />
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"></androidx.recyclerview.widget.RecyclerView>
+
+
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="643pt"
+                    android:layout_height="107pt"
+                    android:background="@mipmap/tongyong_shezhi_bg"
+                    android:gravity="center"
+                    android:text="立即添加"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30pt" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlTextSizeTime="10sp"
+            app:srlTextSizeTitle="@dimen/sp_12" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

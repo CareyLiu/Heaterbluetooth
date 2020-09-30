@@ -145,8 +145,8 @@
                 android:layout_width="643pt"
                 android:layout_height="107pt"
                 android:layout_marginTop="31pt"
-                android:visibility="gone"
-                android:background="@mipmap/tongyong_shezhi_bg">
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -221,7 +221,32 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_gongxiang"
+                android:layout_width="643pt"
+                android:layout_height="107pt"
+                android:layout_marginTop="31pt"
+                android:background="@mipmap/tongyong_shezhi_bg"
+                android:visibility="gone">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="38pt"
+                    android:includeFontPadding="false"
+                    android:text="设备共享"
+                    android:textColor="@color/white"
+                    android:textSize="31pt" />
+
+                <ImageView
+                    android:layout_width="35pt"
+                    android:layout_height="35pt"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="38pt"
+                    android:src="@mipmap/push_white" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
