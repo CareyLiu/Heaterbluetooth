@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -70,6 +69,8 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
     TextView tvHaibagaodu;
     @BindView(R.id.tv_hanyangliang)
     TextView tvHanyangliang;
+    @BindView(R.id.tv_xinhao)
+    TextView tvXinhao;
 
     @Override
     public void initImmersion() {
@@ -225,6 +226,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
             tvDaqiya.setText(daqiya + "kpa");
             tvHaibagaodu.setText(haibagaodu + "m");
             tvHanyangliang.setText(hanyangliang + "kg/cm3");
+            tvXinhao.setText(xinhaoStr);
 
             dismissProgressDialog();
             handlerStart.removeMessages(1);

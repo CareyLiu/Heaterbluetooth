@@ -135,7 +135,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
                 clickCixianquan(citienum);
                 clickJiaresai(jiaresai);
                 tvJiqigonglv.setText(Y.formatNum(Y.getFloat(jiqigonglv) / 10));
-                clickDianya(dianya + "v");
+                clickDianya(dianya);
                 tvRongjizhi.setText(rongjizhi + "L");
                 tvGuoyazhi.setText(Y.formatNum(Y.getFloat(guoyazhi) / 10) + "v");
                 tvGuoyaTime.setText(guoyatime + "s");

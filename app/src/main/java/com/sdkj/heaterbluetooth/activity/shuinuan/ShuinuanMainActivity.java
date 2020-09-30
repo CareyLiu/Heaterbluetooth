@@ -6,8 +6,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.health.SystemHealthManager;
 import android.util.Log;
-import android.util.TimeUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +30,8 @@ import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
 import com.sdkj.heaterbluetooth.util.DoMqttValue;
+import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
+import com.sdkj.heaterbluetooth.util.TimeCount;
 import com.sdkj.heaterbluetooth.util.Y;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -112,16 +114,15 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     private String shuibeng_state;
     private String youbeng_state;
     private boolean youbengIson;
+    private boolean youbengIsdianhou;
     private boolean shubengIson;
-    private boolean isFirst = true;
+    private boolean shoubengisdianhou;
     private boolean isZaixian = false;
     private int zhilingma;
     private final int zhiling_kaiji = 1;
     private final int zhiling_guanji = 2;
     private final int zhiling_shuibeng = 3;
     private final int zhiling_youbeng = 4;
-
-    private String log = "";
     private long nowTime;
     private long lastTime;
     private long chazhi;
@@ -203,7 +204,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     }
 
     private void getData(String msg) {
-//        Log.i("水暖加热器返回的数据是", msg);
+        Log.e("水暖加热器返回的数据是", msg);
         if (msg.contains("j_s")) {
             sn_state = msg.substring(3, 4);//水暖状态
             String syscTime = msg.substring(4, 7);//加热剩余时长
@@ -226,16 +227,18 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             String haibagaodu = msg.substring(48, 52);//海拔高度
             String hanyangliang = msg.substring(52, 55);//含氧量
 
-            if (isFirst) {
-                isFirst = false;
-                if (sn_state.equals("0") || sn_state.equals("3")) {
-                    if (shuibeng_state.equals("1")) {
-                        shubengIson = true;
-                    }
 
-                    if (youbeng_state.equals("1")) {
-                        youbengIson = true;
-                    }
+            if (sn_state.equals("0") || sn_state.equals("3")) {
+                if (shuibeng_state.equals("1") && youbeng_state.equals("2")) {
+                    shubengIson = true;
+                } else {
+                    shubengIson = false;
+                }
+
+                if (youbeng_state.equals("1") && shuibeng_state.equals("2")) {
+                    youbengIson = true;
+                } else {
+                    youbengIson = false;
                 }
             }
 
@@ -259,6 +262,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     tv_zaixian.setText("在线");
                 }
             }
+
 
             String num = "水暖状态" + sn_state + "  加热剩余时长" + syscTime + "  水泵状态" + shuibeng_state + "  油泵状态" + youbeng_state
                     + "  风机状态" + fengji_state
@@ -296,7 +300,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_kaiji.setSelected(true);
                     rv_shuinuan_guanji.setSelected(false);
                     isKaiji = true;
-                    tv_shebei_state.setText("加热器状态：开机中");
+                    tv_shebei_state.setText("加热器状态：开机");
 
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_kaiji);
                     animationDrawable = (AnimationDrawable) iv_heater_host.getBackground();
@@ -338,25 +342,25 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_kaiji.setSelected(false);
                     rv_shuinuan_guanji.setSelected(true);
                     isKaiji = false;
-                    tv_shebei_state.setText("加热器状态：关机中");
+                    tv_shebei_state.setText("加热器状态：关机");
 
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_guanji);
 
-                    if (shubengIson) {
-                        if (shuibeng_state.equals("1")) {
-                            tv_shebei_state.setText("加热器状态：水泵模式");
-                        }
-                    } else {
-                        shuibeng_state = "2";
-                    }
+//                    if (shubengIson) {
+//                        if (shuibeng_state.equals("1")) {
+//                            tv_shebei_state.setText("加热器状态：水泵模式");
+//                        }
+//                    } else {
+//                        shuibeng_state = "2";
+//                    }
 
-                    if (youbengIson) {
-                        if (youbeng_state.equals("1")) {
-                            tv_shebei_state.setText("加热器状态：油泵模式");
-                        }
-                    } else {
-                        youbeng_state = "2";
-                    }
+//                    if (youbengIson) {
+//                        if (youbeng_state.equals("1")) {
+//                            tv_shebei_state.setText("加热器状态：油泵模式");
+//                        }
+//                    } else {
+//                        youbeng_state = "2";
+//                    }
                     break;
             }
 
@@ -401,24 +405,35 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         } else if (msg.contains("g_s.")) {
+//            //向水暖加热器发送获取实时数据
+//            AndMqtt.getInstance().publish(new MqttPublish()
+//                    .setMsg("N_s.")
+//                    .setQos(2).setRetained(false)
+//                    .setTopic(SN_Send), new IMqttActionListener() {
+//                @Override
+//                public void onSuccess(IMqttToken asyncActionToken) {
+//                    Log.i("app端向水暖加热器请求实时数据", "");
+//                }
+//
+//                @Override
+//                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+//
+//                }
+//            });
+//
+//
 //            lastTime = nowTime;
 //            nowTime = System.currentTimeMillis();
 //            chazhi = (nowTime - lastTime) / 1000;
-//
-//            String huoqushuju = getTime(lastTime) + " - " + getTime(nowTime) + " - " + chazhi + " - " + xinhaoStr;
-//            Y.e("心跳监听 " + huoqushuju);
+//            String time = getTime(lastTime) + " - " + getTime(nowTime) + " - " + chazhi+" - "+xinhaoStr;
+//            View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
+//            TextView tv_content = view.findViewById(R.id.tv_content);
 //            if (chazhi > 40) {
-//                View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
-//                TextView tv_content = view.findViewById(R.id.tv_content);
 //                tv_content.setTextColor(Y.getColor(R.color.text_color_blue));
-//                tv_content.setText(huoqushuju + "     断开了");
-//                ll_content.addView(view);
-//            } else {
-//                View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
-//                TextView tv_content = view.findViewById(R.id.tv_content);
-//                tv_content.setText(huoqushuju + "     没有问题");
-//                ll_content.addView(view);
+//                time = time + "   出问题了";
 //            }
+//            tv_content.setText(time);
+//            ll_content.addView(view);
 
 
             if (!isZaixian) {
@@ -627,6 +642,22 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
+
+        //向水暖加热器发送获取实时数据
+        AndMqtt.getInstance().publish(new MqttPublish()
+                .setMsg("X_s.")
+                .setQos(2).setRetained(false)
+                .setTopic(SN_Send), new IMqttActionListener() {
+            @Override
+            public void onSuccess(IMqttToken asyncActionToken) {
+                Log.i("app端向水暖加热器请求实时数据", "");
+            }
+
+            @Override
+            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
+            }
+        });
     }
 
     private int time = 0;
@@ -685,6 +716,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                             initHandlerClick();
                         }
                     } else {
+                        if (iskaijiDianhou) {
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_end_on);
+                        } else {
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_end_off);
+                        }
+
                         dismissProgressDialog();
                         time = 0;
                     }
@@ -692,71 +729,113 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     break;
                 case 3:
                     time++;
-                    if (shubengIson) {
-                        if (shuibeng_state.equals("1")) {
-                            dismissProgressDialog();
-                            time = 0;
+//                    if (shubengIson) {
+//                        if (shuibeng_state.equals("1")) {
+//                            dismissProgressDialog();
+//                            time = 0;
+//                        } else {
+//                            if (time >= 60) {
+//                                shubengIson = false;
+//                                showZhiling();
+//                            } else {
+//                                if (time == 4 || time == 24 || time == 44) {
+//                                    getNs();
+//                                }
+//                                initHandlerShuibeng();
+//                            }
+//                        }
+//                    } else {
+//                        if (shuibeng_state.equals("2")) {
+//                            dismissProgressDialog();
+//                            time = 0;
+//                        } else {
+//                            if (time >= 60) {
+//                                shubengIson = true;
+//                                showZhiling();
+//                            } else {
+//                                if (time == 4 || time == 24 || time == 44) {
+//                                    getNs();
+//                                }
+//                                initHandlerShuibeng();
+//                            }
+//                        }
+//                    }
+
+                    if (shoubengisdianhou != shubengIson) {
+                        if (time >= 60) {
+                            shoubengisdianhou = !shoubengisdianhou;
+                            showZhiling();
                         } else {
-                            if (time >= 60) {
-                                shubengIson = false;
-                                showZhiling();
-                            } else {
-                                if (time == 4 || time == 24 || time == 44) {
-                                    getNs();
-                                }
-                                initHandlerShuibeng();
+                            if (time == 4 || time == 24 || time == 44) {
+                                getNs();
                             }
+                            initHandlerShuibeng();
                         }
                     } else {
-                        if (shuibeng_state.equals("2")) {
-                            dismissProgressDialog();
-                            time = 0;
+                        if (shoubengisdianhou) {
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_shuibeng_on_a);
                         } else {
-                            if (time >= 60) {
-                                shubengIson = true;
-                                showZhiling();
-                            } else {
-                                if (time == 4 || time == 24 || time == 44) {
-                                    getNs();
-                                }
-                                initHandlerShuibeng();
-                            }
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_shuibeng_off_a);
                         }
+
+                        dismissProgressDialog();
+                        time = 0;
                     }
-                    Y.i("水泵的计时是多少啊啊啊" + time);
+                    Y.i("水泵的计时是多少啊啊啊" + time + "   " + shubengIson);
                     break;
                 case 4:
                     time++;
-                    if (youbengIson) {
-                        if (youbeng_state.equals("1")) {
-                            dismissProgressDialog();
-                            time = 0;
+//                    if (youbengIson) {
+//                        if (youbeng_state.equals("1")) {
+//                            dismissProgressDialog();
+//                            time = 0;
+//                        } else {
+//                            if (time >= 60) {
+//                                youbengIson = false;
+//                                showZhiling();
+//                            } else {
+//                                if (time == 4 || time == 24 || time == 44) {
+//                                    getNs();
+//                                }
+//                                initHandlerYoubeng();
+//                            }
+//                        }
+//                    } else {
+//                        if (youbeng_state.equals("2")) {
+//                            dismissProgressDialog();
+//                            time = 0;
+//                        } else {
+//                            if (time >= 60) {
+//                                youbengIson = true;
+//                                showZhiling();
+//                            } else {
+//                                if (time == 4 || time == 24 || time == 44) {
+//                                    getNs();
+//                                }
+//                                initHandlerYoubeng();
+//                            }
+//                        }
+//                    }
+
+                    if (youbengIsdianhou != youbengIson) {
+                        if (time >= 60) {
+                            youbengIsdianhou = !youbengIsdianhou;
+                            showZhiling();
                         } else {
-                            if (time >= 60) {
-                                youbengIson = false;
-                                showZhiling();
-                            } else {
-                                if (time == 4 || time == 24 || time == 44) {
-                                    getNs();
-                                }
-                                initHandlerYoubeng();
+                            if (time == 4 || time == 24 || time == 44) {
+                                getNs();
                             }
+                            initHandlerYoubeng();
                         }
                     } else {
-                        if (youbeng_state.equals("2")) {
-                            dismissProgressDialog();
-                            time = 0;
+                        if (youbengIsdianhou) {
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_youbeng_on_a);
                         } else {
-                            if (time >= 60) {
-                                youbengIson = true;
-                                showZhiling();
-                            } else {
-                                if (time == 4 || time == 24 || time == 44) {
-                                    getNs();
-                                }
-                                initHandlerYoubeng();
-                            }
+                            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_youbeng_off_a);
                         }
+
+                        dismissProgressDialog();
+                        time = 0;
                     }
                     Y.i("油泵的计时是多少啊啊啊" + time);
                     break;
@@ -788,7 +867,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         tishiDialog.setTextTitle("提示");
         tishiDialog.setTextContent(msg);
         tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("忽略");
+        tishiDialog.setTextCancel("关闭");
         tishiDialog.show();
     }
 
@@ -826,7 +905,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         tishiDialog.setTextTitle("提示");
         tishiDialog.setTextContent("指令发送失败，是否重新发送？");
         tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("忽略");
+        tishiDialog.setTextCancel("关闭");
         tishiDialog.show();
     }
 
@@ -951,10 +1030,10 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         showProgressDialog("发送指令中...");
         initHandlerYoubeng();
         zhilingma = zhiling_youbeng;
-        if (youbengIson) {
-            youbengIson = false;
+        if (youbeng_state.equals("1")) {
+            youbengIsdianhou = false;
             String data = "M_s052.";
-
+            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_youbeng_off);
             AndMqtt.getInstance().publish(new MqttPublish()
                     .setMsg(data)
                     .setQos(2).setRetained(false)
@@ -970,8 +1049,9 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                 }
             });
         } else {
-            youbengIson = true;
+            youbengIsdianhou = true;
             String data = "M_s051.";
+            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_youbeng_on);
             AndMqtt.getInstance().publish(new MqttPublish()
                     .setMsg(data)
                     .setQos(2).setRetained(false)
@@ -1001,9 +1081,10 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         showProgressDialog("发送指令中...");
         initHandlerShuibeng();
         zhilingma = zhiling_shuibeng;
-        if (shubengIson) {
-            shubengIson = false;
+        if (shuibeng_state.equals("1")) {
+            shoubengisdianhou = false;
             String data = "M_s022.";
+            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_shuibeng_off);
             AndMqtt.getInstance().publish(new MqttPublish()
                     .setMsg(data)
                     .setQos(2).setRetained(false)
@@ -1019,8 +1100,9 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                 }
             });
         } else {
-            shubengIson = true;
+            shoubengisdianhou = true;
             String data = "M_s021.";
+            SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_shuibeng_on);
             AndMqtt.getInstance().publish(new MqttPublish()
                     .setMsg(data)
                     .setQos(2).setRetained(false)
@@ -1048,7 +1130,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
         iskaijiDianhou = false;
         zhilingma = zhiling_guanji;
-
+        SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_start_off);
         String data = "M_s012.";
         AndMqtt.getInstance().publish(new MqttPublish()
                 .setMsg(data)
@@ -1089,6 +1171,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         zhilingma = zhiling_kaiji;
 
         String data = "M_s011000080.";
+        SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_start_on);
         AndMqtt.getInstance().publish(new MqttPublish()
                 .setMsg(data)
                 .setQos(2).setRetained(false)
@@ -1106,7 +1189,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     }
 
 
-    public String getTime(long seconds) {
+    public static String getTime(long seconds) {
         String format = "HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(new Date(seconds));

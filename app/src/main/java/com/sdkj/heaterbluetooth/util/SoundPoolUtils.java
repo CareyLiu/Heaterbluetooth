@@ -10,11 +10,11 @@ import android.os.Build;
 public class SoundPoolUtils {
     public static SoundPool soundPool=null;
 
-    public static void soundPool(Context context, int raw) {
-        if (soundPool != null) {
-            soundPool.release();
-        }
-        //sdk版本21是SoundPool 的一个分水岭
+        public static void soundPool(Context context, int raw) {
+            if (soundPool != null) {
+                soundPool.release();
+            }
+            //sdk版本21是SoundPool 的一个分水岭
         if (Build.VERSION.SDK_INT >= 21) {
             SoundPool.Builder builder = new SoundPool.Builder();
             //传入最多播放音频数量,

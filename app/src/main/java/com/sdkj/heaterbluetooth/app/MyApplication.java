@@ -502,6 +502,8 @@ public class MyApplication extends MultiDexApplication {
                                 n1.type = ConstanceValue.MSG_GUZHANG;
                                 n1.content = message.toString();
                                 RxBus.getDefault().sendRx(n1);
+
+                                doMqttValue.doValue(context, topic, message.toString());
                             }
 
                         } else if (message.toString().contains("p.")) {

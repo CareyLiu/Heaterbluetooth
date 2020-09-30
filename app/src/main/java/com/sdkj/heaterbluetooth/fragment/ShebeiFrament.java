@@ -157,7 +157,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                         }
                     } else if (mDatas.get(position).device_type.equals("6")) {
                         String ccid = mDatas.get(position).ccid;
-//                    ccid = "aaaaaaaaaaaaaaaa90070018";
+//                    ccid = "aaaaaaaaaaaaaaaa80040018";
 //                    ccid = "aaaaaaaaaaaaaa0070040018";
                         String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
                         PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
