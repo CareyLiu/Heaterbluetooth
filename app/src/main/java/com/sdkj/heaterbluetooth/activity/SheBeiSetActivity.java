@@ -36,6 +36,8 @@ public class SheBeiSetActivity extends BaseActivity {
     TextView tvShebeima;
     @BindView(R.id.rl_zhujicanshu)
     RelativeLayout rlZhujicanshu;
+    @BindView(R.id.rl_gongxiang)
+    RelativeLayout rlGongxiang;
     private String ccid;
 
     public static final int TYPE_FENGNUAN = 1;
@@ -110,6 +112,13 @@ public class SheBeiSetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ShuinuanHostActivity.actionStart(mContext);
+            }
+        });
+
+        rlGongxiang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GongxiangActivity.actionStart(mContext,ccid);
             }
         });
     }
