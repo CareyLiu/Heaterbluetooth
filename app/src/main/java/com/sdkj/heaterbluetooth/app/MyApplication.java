@@ -423,7 +423,7 @@ public class MyApplication extends MultiDexApplication {
             if (isAppProcess()) {
                 AndMqtt.getInstance().init(this);
                 MqttConnect builder = new MqttConnect();
-                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id())//连接服务器
+                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id()+System.currentTimeMillis())//连接服务器
                         .setPort(9096)
                         .setAutoReconnect(true)
                         .setCleanSession(true)
