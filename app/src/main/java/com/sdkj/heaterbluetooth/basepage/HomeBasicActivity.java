@@ -155,6 +155,7 @@ public class HomeBasicActivity extends BaseActivity {
                     Gson gson = new Gson();
                     alarmClass = gson.fromJson(message.toString(), AlarmClass.class);
                     Log.i("alarmClass", alarmClass.changjia_name + alarmClass.sell_phone);
+
 //
 //                    if (player != null) {
 //                        player.stop();
