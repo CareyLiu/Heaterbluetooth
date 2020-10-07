@@ -1954,6 +1954,7 @@ public class FengNuanActivity extends BaseActivity implements View.OnLongClickLi
                             //UIHelper.ToastMessage(WindHeaterActivity.this, "指令发送成功,等待服务器响应", Toast.LENGTH_SHORT);
 
                             if (i == 0) {
+                                UIHelper.ToastMessage(mContext,"正在以档位模式");
                                 lordingDialog.setTextMsg("正在以" + "档位模式" + "开机请稍后...");
                                 lordingDialog.show();
                                 SoundPoolUtils.soundPool(mContext, R.raw.dangwei);

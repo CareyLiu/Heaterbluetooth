@@ -1,7 +1,9 @@
 package com.sdkj.heaterbluetooth.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -33,7 +35,6 @@ import com.sdkj.heaterbluetooth.activity.DefaultX5WebViewActivity;
 import com.sdkj.heaterbluetooth.activity.TuanYouWebView;
 import com.sdkj.heaterbluetooth.app.App;
 import com.sdkj.heaterbluetooth.app.AppConfig;
-import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
@@ -41,7 +42,6 @@ import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.basepage.HomeBasicActivity;
 import com.sdkj.heaterbluetooth.callback.DialogCallback;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
-import com.sdkj.heaterbluetooth.common.UIHelper;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.dialog.FuWuDialog;
@@ -54,10 +54,9 @@ import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.TimeCount;
 import com.sdkj.heaterbluetooth.util.Y;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,6 +106,8 @@ public class WoDeFragment extends BaseTwoFragment {
     TextView tvYinsi1;
     @BindView(R.id.tv_yonghushiyong1)
     TextView tvYonghushiyong1;
+    @BindView(R.id.ll_lianxiwomen)
+    LinearLayout llLianxiwomen;
 
     private TimeCount timeCount;
     private String smsId;
@@ -147,7 +148,9 @@ public class WoDeFragment extends BaseTwoFragment {
         });
     }
 
-    @OnClick({R.id.ll_diertiao, R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login, R.id.ll_jiaofeijilu, R.id.tv_login_out, R.id.tv_yinsi, R.id.tv_yonghushiyong, R.id.tv_yinsi1, R.id.tv_yonghushiyong1})
+    @OnClick({R.id.ll_diertiao, R.id.tv_send_code, R.id.tv_qiehuan, R.id.tv_zhaohui, R.id.tv_login,
+            R.id.ll_jiaofeijilu, R.id.tv_login_out, R.id.tv_yinsi, R.id.tv_yonghushiyong, R.id.tv_yinsi1,
+            R.id.tv_yonghushiyong1, R.id.ll_lianxiwomen})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_send_code:
@@ -189,6 +192,32 @@ public class WoDeFragment extends BaseTwoFragment {
             case R.id.tv_yonghushiyong:
             case R.id.tv_yonghushiyong1:
                 DefaultX5WebViewActivity.actionStart(getActivity(), "https://shop.hljsdkj.com/shop_new/user_agreement");
+                break;
+            case R.id.ll_lianxiwomen:
+
+                String[] items = {"拨打400电话 - 4000060790"};
+                final ActionSheetDialog dialog = new ActionSheetDialog(getActivity(), items, null);
+                dialog.isTitleShow(false).show();
+                dialog.setOnOperItemClickL(new OnOperItemClickL() {
+                    @Override
+                    public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        switch (position) {
+                            case 0:
+                                Intent intent = new Intent(Intent.ACTION_DIAL);
+                                Uri data = Uri.parse("tel:" + "4000060790");
+                                intent.setData(data);
+                                startActivity(intent);
+                                dialog.dismiss();
+                                break;
+                            case 1:
+
+                                break;
+                        }
+                        dialog.dismiss();
+
+                    }
+                });
                 break;
         }
     }

@@ -113,7 +113,7 @@
                         android:layout_marginLeft="40pt"
                         android:layout_marginTop="42pt"
                         android:includeFontPadding="false"
-                        android:text="驻车加热器器控制系统"
+                        android:text="驻车加热器控制系统"
                         android:textColor="@color/white"
                         android:textSize="36pt" />
 
