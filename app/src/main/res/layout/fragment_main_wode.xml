@@ -277,9 +277,24 @@
                         android:text="缴费记录"
                         android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </View>
+
+
+                    <ImageView
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white"
+                        android:layout_width="29pt"
+                        android:layout_height="29pt"/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:id="@+id/ll_diertiao"
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
@@ -301,6 +316,60 @@
                         android:text="加油省钱"
                         android:textColor="@color/text_color_blue"
                         android:textSize="30pt" />
+
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </View>
+
+
+                    <ImageView
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white"
+                        android:layout_width="29pt"
+                        android:layout_height="29pt"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="23pt"
+                    android:id="@+id/ll_lianxiwomen"
+                    android:layout_width="match_parent"
+                    android:layout_height="111pt"
+                    android:layout_marginHorizontal="28pt"
+                    android:background="@mipmap/tongyong_shezhi_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36pt">
+
+                    <ImageView
+                        android:layout_width="46pt"
+                        android:layout_height="46pt"
+                        android:layout_marginRight="23pt"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/wode_icon_lianxi" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系我们"
+                        android:textColor="@color/text_color_blue"
+                        android:textSize="30pt" />
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </View>
+
+
+                    <ImageView
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white"
+                        android:layout_width="29pt"
+                        android:layout_height="29pt"/>
                 </LinearLayout>
 
                 <View

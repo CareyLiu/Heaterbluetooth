@@ -29,8 +29,8 @@ android {
         applicationId "com.sdkj.heaterbluetooth"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 7
-        versionName "6.1"
+        versionCode 8
+        versionName "6.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
@@ -156,4 +156,5 @@ dependencies {
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+    implementation 'com.flyco.dialog:FlycoDialog_Lib:1.2.2@aar'
 }

@@ -167,6 +167,7 @@ public class MyApplication extends MultiDexApplication {
 
     public void onCreate() {
         super.onCreate();
+
         //设计图标注的宽度
         int designWidth = 720;
         new RudenessScreenHelper(this, designWidth).activate();
@@ -422,7 +423,7 @@ public class MyApplication extends MultiDexApplication {
             if (isAppProcess()) {
                 AndMqtt.getInstance().init(this);
                 MqttConnect builder = new MqttConnect();
-                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id())//连接服务器
+                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id()+System.currentTimeMillis())//连接服务器
                         .setPort(9096)
                         .setAutoReconnect(true)
                         .setCleanSession(true)
@@ -517,7 +518,7 @@ public class MyApplication extends MultiDexApplication {
 
                     @Override
                     public void deliveryComplete(IMqttDeliveryToken token) {
-                        Log.i("Rair", "(MainActivity.java:44)-deliveryComplete:-&gt;消息已送达");
+                       // Log.i("Rair", "(MainActivity.java:44)-deliveryComplete:-&gt;消息已送达");
                         sendRx(ConstanceValue.MSG_MQTT_CONNECTCOMPLETE, "");
                     }
                 }).connect(builder
