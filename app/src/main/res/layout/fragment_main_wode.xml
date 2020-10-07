@@ -289,7 +289,7 @@
                     <ImageView
                         android:layout_marginRight="28pt"
                         android:src="@mipmap/push_white"
-                        android:layout_width="16pt"
+                        android:layout_width="29pt"
                         android:layout_height="29pt"/>
                 </LinearLayout>
 
@@ -329,7 +329,7 @@
                     <ImageView
                         android:layout_marginRight="28pt"
                         android:src="@mipmap/push_white"
-                        android:layout_width="16pt"
+                        android:layout_width="29pt"
                         android:layout_height="29pt"/>
                 </LinearLayout>
 
@@ -368,7 +368,7 @@
                     <ImageView
                         android:layout_marginRight="28pt"
                         android:src="@mipmap/push_white"
-                        android:layout_width="16pt"
+                        android:layout_width="29pt"
                         android:layout_height="29pt"/>
                 </LinearLayout>
 
