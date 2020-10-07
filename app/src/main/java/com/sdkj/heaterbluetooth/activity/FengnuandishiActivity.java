@@ -162,7 +162,8 @@ public class FengnuandishiActivity extends BaseActivity {
                 .execute(new JsonCallback<AppResponse>() {
                     @Override
                     public void onSuccess(final Response<AppResponse> response) {
-                        Y.t(response.body().msg);
+//                        Y.t(response.body().msg);
+                        Y.t("定时成功");
                     }
 
                     @Override
