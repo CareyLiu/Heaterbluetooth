@@ -136,10 +136,11 @@ public class ShebeiFrament extends BaseTwoFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (mqtt_connect_state.equals("1")){
+                if (mqtt_connect_state.equals("1")) {
                     if (mDatas.get(position).device_type.equals("1")) {
                         //mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90090018";
                         PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
+                        PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
                         MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
                         MyApplication.CAR_CTROL = "wit/cbox/hardware/" + getServer_id() + getCcid();
 
@@ -162,6 +163,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                         String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
                         PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
                         PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
+                        PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
 
                         if (NetworkUtils.isConnected(getActivity())) {
                             Activity currentActivity = AppManager.getAppManager().currentActivity();
@@ -172,7 +174,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                             UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                         }
                     }
-                }else {
+                } else {
                     BangdingFailDialog dialog = new BangdingFailDialog(getContext());
                     dialog.setTextContent(mqtt_connect_prompt);
                     dialog.show();
@@ -212,6 +214,8 @@ public class ShebeiFrament extends BaseTwoFragment {
                                 sheBeiModel1.validity_state = bean.getValidity_state();
                                 sheBeiModel1.validity_term = bean.getValidity_term();
                                 sheBeiModel1.validity_time = bean.getValidity_time();
+                                sheBeiModel1.sim_ccid_save_type = bean.getSim_ccid_save_type();
+                                sheBeiModel1.share_type = bean.getShare_type();
                                 sheBeiModel1.device_type = response.body().data.get(i).getControl_type_id();
                                 mDatas.add(sheBeiModel1);
                             }

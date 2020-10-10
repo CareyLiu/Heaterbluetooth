@@ -127,6 +127,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     private long lastTime;
     private long chazhi;
     private String xinhaoStr;
+    private boolean isFirst;
 
 
     @Override
@@ -186,6 +187,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
         MyApplication.mqttDingyue.add(SN_Send);
         MyApplication.mqttDingyue.add(SN_Accept);
+
+        isFirst = true;
     }
 
     /**
@@ -284,11 +287,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             tv_haibagaodu.setText(haibagaodu + "m");
             tv_hanyangliang.setText(hanyangliang + "kg/cm3");
             tv_daqiya.setText(daqiya + "kpa");
-
             tv_wendu_yushe.setText("设定温度:" + yushewendu + "℃");
             tv_wendu_dangqian.setText("当前温度:" + chushuikowendu + "℃");
-
-
             isZaixian = true;
 
             switch (sn_state) {
@@ -301,7 +301,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_guanji.setSelected(false);
                     isKaiji = true;
                     tv_shebei_state.setText("加热器状态：开机");
-
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_kaiji);
                     animationDrawable = (AnimationDrawable) iv_heater_host.getBackground();
                     animationDrawable.start();
@@ -315,7 +314,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_guanji.setSelected(false);
                     isKaiji = true;
                     tv_shebei_state.setText("加热器状态：加热中");
-
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_kaiji);
                     animationDrawable = (AnimationDrawable) iv_heater_host.getBackground();
                     animationDrawable.start();
@@ -343,24 +341,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     rv_shuinuan_guanji.setSelected(true);
                     isKaiji = false;
                     tv_shebei_state.setText("加热器状态：关机");
-
                     iv_heater_host.setBackgroundResource(R.drawable.shuinuan_guanji);
-
-//                    if (shubengIson) {
-//                        if (shuibeng_state.equals("1")) {
-//                            tv_shebei_state.setText("加热器状态：水泵模式");
-//                        }
-//                    } else {
-//                        shuibeng_state = "2";
-//                    }
-
-//                    if (youbengIson) {
-//                        if (youbeng_state.equals("1")) {
-//                            tv_shebei_state.setText("加热器状态：油泵模式");
-//                        }
-//                    } else {
-//                        youbeng_state = "2";
-//                    }
                     break;
             }
 
@@ -405,37 +386,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         } else if (msg.contains("g_s.")) {
-//            //向水暖加热器发送获取实时数据
-//            AndMqtt.getInstance().publish(new MqttPublish()
-//                    .setMsg("N_s.")
-//                    .setQos(2).setRetained(false)
-//                    .setTopic(SN_Send), new IMqttActionListener() {
-//                @Override
-//                public void onSuccess(IMqttToken asyncActionToken) {
-//                    Log.i("app端向水暖加热器请求实时数据", "");
-//                }
-//
-//                @Override
-//                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-//
-//                }
-//            });
-//
-//
-//            lastTime = nowTime;
-//            nowTime = System.currentTimeMillis();
-//            chazhi = (nowTime - lastTime) / 1000;
-//            String time = getTime(lastTime) + " - " + getTime(nowTime) + " - " + chazhi+" - "+xinhaoStr;
-//            View view = View.inflate(mContext, R.layout.item_shuinuan_guzhuang, null);
-//            TextView tv_content = view.findViewById(R.id.tv_content);
-//            if (chazhi > 40) {
-//                tv_content.setTextColor(Y.getColor(R.color.text_color_blue));
-//                time = time + "   出问题了";
-//            }
-//            tv_content.setText(time);
-//            ll_content.addView(view);
-
-
             if (!isZaixian) {
                 isZaixian = true;
                 iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal1);
@@ -643,21 +593,25 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             }
         });
 
-        //向水暖加热器发送获取实时数据
-        AndMqtt.getInstance().publish(new MqttPublish()
-                .setMsg("X_s.")
-                .setQos(2).setRetained(false)
-                .setTopic(SN_Send), new IMqttActionListener() {
-            @Override
-            public void onSuccess(IMqttToken asyncActionToken) {
-                Log.i("app端向水暖加热器请求实时数据", "");
-            }
 
-            @Override
-            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+        if (isFirst) {
+            //向水暖加热器发送获取实时数据
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("X_s.")
+                    .setQos(2).setRetained(false)
+                    .setTopic(SN_Send), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.i("app端向水暖加热器请求实时数据", "");
+                }
 
-            }
-        });
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
+                }
+            });
+            isFirst = false;
+        }
     }
 
     private int time = 0;
@@ -845,6 +799,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     };
 
     private void showTishiDialog(String msg) {
+        tv_zaixian.setText("离线");
         isZaixian = false;
         time = 0;
         dismissProgressDialog();
@@ -872,6 +827,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     }
 
     private void showZhiling() {
+        tv_zaixian.setText("离线");
         time = 0;
         dismissProgressDialog();
         isZaixian = false;

@@ -30,7 +30,6 @@
                     android:src="@mipmap/back_white" />
             </RelativeLayout>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,18 +91,18 @@
                         android:textSize="30pt" />
                 </LinearLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18pt"
                     android:visibility="gone"></androidx.recyclerview.widget.RecyclerView>
-
 
                 <TextView
                     android:id="@+id/tv_add"
                     android:layout_width="643pt"
                     android:layout_height="107pt"
+                    android:layout_marginTop="18pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center"
                     android:text="立即添加"

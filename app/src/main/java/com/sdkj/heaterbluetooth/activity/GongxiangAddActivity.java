@@ -16,13 +16,16 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
+import com.sdkj.heaterbluetooth.app.ConstanceValue;
+import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.callback.JsonCallback;
 import com.sdkj.heaterbluetooth.config.AppResponse;
 import com.sdkj.heaterbluetooth.config.UserManager;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
 import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.model.Message;
-import com.sdkj.heaterbluetooth.model.ServiceModel;
+import com.sdkj.heaterbluetooth.model.GongxiangModel;
+import com.sdkj.heaterbluetooth.util.RxBus;
 import com.sdkj.heaterbluetooth.util.TimeCount;
 import com.sdkj.heaterbluetooth.util.Y;
 
@@ -115,18 +118,21 @@ public class GongxiangAddActivity extends BaseActivity {
         map.put("sms_id", smsId);
         map.put("sms_code", smm_code);
         Gson gson = new Gson();
-        OkGo.<AppResponse<ServiceModel.DataBean>>post(Urls.SERVER_URL + "wit/app/user")
+        OkGo.<AppResponse<GongxiangModel.DataBean>>post(Urls.SERVER_URL + "wit/app/user")
                 .tag(this)//
                 .upJson(gson.toJson(map))
-                .execute(new JsonCallback<AppResponse<ServiceModel.DataBean>>() {
+                .execute(new JsonCallback<AppResponse<GongxiangModel.DataBean>>() {
                     @Override
-                    public void onSuccess(final Response<AppResponse<ServiceModel.DataBean>> response) {
+                    public void onSuccess(final Response<AppResponse<GongxiangModel.DataBean>> response) {
                         Y.t("添加成功");
+                        Notice n = new Notice();
+                        n.type = ConstanceValue.MSG_GONGXIANG_PEOPLE;
+                        RxBus.getDefault().sendRx(n);
                         finish();
                     }
 
                     @Override
-                    public void onError(Response<AppResponse<ServiceModel.DataBean>> response) {
+                    public void onError(Response<AppResponse<GongxiangModel.DataBean>> response) {
                         Y.tError(response);
                     }
                 });

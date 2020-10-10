@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="146pt"
+        android:layout_marginHorizontal="36pt"
+        android:layout_marginTop="18pt"
+        android:layout_marginBottom="18pt"
+        android:background="@mipmap/dingshi_pic_time"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="61pt"
+            android:layout_height="61pt"
+            android:layout_marginLeft="48pt"
+            android:layout_marginRight="38pt"
+            android:src="@mipmap/gongxiangchengyuan_none" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="30pt"
+                android:includeFontPadding="false"
+                android:text="姓名"
+                android:textColor="@color/white"
+                android:textSize="30pt" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="21pt"
+                android:layout_marginTop="19pt"
+                android:includeFontPadding="false"
+                android:text="15112345678"
+                android:textColor="@color/white"
+                android:textSize="21pt" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="29pt"
+            android:layout_height="29pt"
+            android:layout_marginRight="20pt"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/push_white" />
+    </LinearLayout>
+</LinearLayout>

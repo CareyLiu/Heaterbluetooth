@@ -6,14 +6,14 @@ public class SheBeiLieBieListModel {
 
     /**
      * mqtt_connect_state : 1
-     * mqtt_connect_prompt : 为了给您提供更优质、完善的服务，我公司拟于9月22control_type_id日08:00~17:00对系统进行升级维护，期间您可能无法正常使用微信小程序、手机APP等业务，由此给您带来的不便，敬请谅解！
+     * mqtt_connect_prompt : 为了给您提供更优质、完善的服务，我公司拟于9月22日08:00~17:00对系统进行升级维护，期间您可能无法正常使用微信小程序、手机APP等业务，由此给您带来的不便，敬请谅解！
      * msg_code : 0000
      * msg : ok
-     * data : [{"control_device_name":"水暖加热器","control_device_list":[{"available_check":"1","online_status":"","validity_state":"1","shifen_time":"","lock_detail":"-","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11711","server_id":"8/","weeks_time":"","user_car_id":"267","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"1","ccid":"aaaaaaaaaaaaaaaa90040018","plate_number":"","validity_term":"使用中","validity_time":"2021-09-12"},{"available_check":"2","online_status":"","validity_state":"2","shifen_time":"","lock_detail":"已失效","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11711","server_id":"8/","weeks_time":"","user_car_id":"562","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"1","ccid":"aaaaaaaaaaaaaaaa80040018","plate_number":"","validity_term":"已失效","validity_time":"2020-09-25"}],"control_type_id":"6"}]
+     * data : [{"control_device_name":"水暖加热器","control_device_list":[{"available_check":"2","online_status":"","validity_state":"2","shifen_time":"","lock_detail":"已失效","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11710","server_id":"8/","weeks_time":"","user_car_id":"140","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"2","ccid":"aaaaaaaaaaaaaaaa90040018","sim_ccid_save_type":"2","plate_number":"","validity_term":"已失效","validity_time":"2020-09-24"}],"control_type_id":"6"}]
      */
 
-    public String mqtt_connect_state;
-    public String mqtt_connect_prompt;
+    private String mqtt_connect_state;
+    private String mqtt_connect_prompt;
     private String msg_code;
     private String msg;
     private List<DataBean> data;
@@ -61,7 +61,7 @@ public class SheBeiLieBieListModel {
     public static class DataBean {
         /**
          * control_device_name : 水暖加热器
-         * control_device_list : [{"available_check":"1","online_status":"","validity_state":"1","shifen_time":"","lock_detail":"-","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11711","server_id":"8/","weeks_time":"","user_car_id":"267","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"1","ccid":"aaaaaaaaaaaaaaaa90040018","plate_number":"","validity_term":"使用中","validity_time":"2021-09-12"},{"available_check":"2","online_status":"","validity_state":"2","shifen_time":"","lock_detail":"已失效","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11711","server_id":"8/","weeks_time":"","user_car_id":"562","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"1","ccid":"aaaaaaaaaaaaaaaa80040018","plate_number":"","validity_term":"已失效","validity_time":"2020-09-25"}]
+         * control_device_list : [{"available_check":"2","online_status":"","validity_state":"2","shifen_time":"","lock_detail":"已失效","device_img_url":"https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11710","server_id":"8/","weeks_time":"","user_car_id":"140","zhu_apc":"aaa","device_name":"水暖加热器","share_type":"2","ccid":"aaaaaaaaaaaaaaaa90040018","sim_ccid_save_type":"2","plate_number":"","validity_term":"已失效","validity_time":"2020-09-24"}]
          * control_type_id : 6
          */
 
@@ -95,22 +95,23 @@ public class SheBeiLieBieListModel {
 
         public static class ControlDeviceListBean {
             /**
-             * available_check : 1
+             * available_check : 2
              * online_status :
-             * validity_state : 1
+             * validity_state : 2
              * shifen_time :
-             * lock_detail : -
-             * device_img_url : https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11711
+             * lock_detail : 已失效
+             * device_img_url : https://shop.hljsdkj.com/Frame/uploadFile/showImg?file_id=11710
              * server_id : 8/
              * weeks_time :
-             * user_car_id : 267
+             * user_car_id : 140
              * zhu_apc : aaa
              * device_name : 水暖加热器
-             * share_type : 1
+             * share_type : 2
              * ccid : aaaaaaaaaaaaaaaa90040018
+             * sim_ccid_save_type : 2
              * plate_number :
-             * validity_term : 使用中
-             * validity_time : 2021-09-12
+             * validity_term : 已失效
+             * validity_time : 2020-09-24
              */
 
             private String available_check;
@@ -126,6 +127,7 @@ public class SheBeiLieBieListModel {
             private String device_name;
             private String share_type;
             private String ccid;
+            private String sim_ccid_save_type;
             private String plate_number;
             private String validity_term;
             private String validity_time;
@@ -232,6 +234,14 @@ public class SheBeiLieBieListModel {
 
             public void setCcid(String ccid) {
                 this.ccid = ccid;
+            }
+
+            public String getSim_ccid_save_type() {
+                return sim_ccid_save_type;
+            }
+
+            public void setSim_ccid_save_type(String sim_ccid_save_type) {
+                this.sim_ccid_save_type = sim_ccid_save_type;
             }
 
             public String getPlate_number() {

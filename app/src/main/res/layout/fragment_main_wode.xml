@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="169pt"
+        android:layout_height="139pt"
         android:background="@color/bg_title_new">
 
         <TextView
@@ -152,11 +152,11 @@
 
 
             <LinearLayout
-                android:layout_marginBottom="100pt"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="100pt"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -279,28 +279,25 @@
                         android:textSize="30pt" />
 
                     <View
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </View>
-
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"></View>
 
                     <ImageView
-                        android:layout_marginRight="28pt"
-                        android:src="@mipmap/push_white"
                         android:layout_width="29pt"
-                        android:layout_height="29pt"/>
+                        android:layout_height="29pt"
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:id="@+id/ll_diertiao"
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
                     android:layout_marginHorizontal="28pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:paddingLeft="36pt">
 
                     <ImageView
@@ -319,26 +316,26 @@
 
 
                     <View
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                     </View>
 
 
                     <ImageView
-                        android:layout_marginRight="28pt"
-                        android:src="@mipmap/push_white"
                         android:layout_width="29pt"
-                        android:layout_height="29pt"/>
+                        android:layout_height="29pt"
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="23pt"
                     android:id="@+id/ll_lianxiwomen"
                     android:layout_width="match_parent"
                     android:layout_height="111pt"
                     android:layout_marginHorizontal="28pt"
+                    android:layout_marginTop="23pt"
                     android:background="@mipmap/tongyong_shezhi_bg"
                     android:gravity="center_vertical"
                     android:paddingLeft="36pt">
@@ -358,18 +355,18 @@
                         android:textSize="30pt" />
 
                     <View
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
 
                     </View>
 
 
                     <ImageView
-                        android:layout_marginRight="28pt"
-                        android:src="@mipmap/push_white"
                         android:layout_width="29pt"
-                        android:layout_height="29pt"/>
+                        android:layout_height="29pt"
+                        android:layout_marginRight="28pt"
+                        android:src="@mipmap/push_white" />
                 </LinearLayout>
 
                 <View
@@ -390,13 +387,12 @@
                     android:textSize="29pt" />
 
 
-
                 <LinearLayout
-                    android:layout_marginBottom="100pt"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="100pt"
                     android:orientation="horizontal"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

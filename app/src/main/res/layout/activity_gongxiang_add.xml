@@ -29,7 +29,6 @@
                     android:src="@mipmap/back_white" />
             </RelativeLayout>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
                 android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

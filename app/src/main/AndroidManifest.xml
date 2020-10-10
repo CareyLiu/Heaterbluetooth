@@ -150,6 +150,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
 
+        <!--删除设备共享成员-->
+        <activity
+            android:name=".activity.GongxiangDelectActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
         <!--添加设备共享成员-->
         <activity
             android:name=".activity.GongxiangAddActivity"

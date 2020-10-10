@@ -34,7 +34,12 @@ public class ShebeiNewAdapter extends BaseSectionQuickAdapter<SheBeiModel, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, SheBeiModel item) {
-        helper.setText(R.id.tv_name, item.device_name);
+        if (item.share_type.equals("2")){
+            helper.setText(R.id.tv_name, item.device_name+"(共享)");
+        }else {
+            helper.setText(R.id.tv_name, item.device_name);
+        }
+
         helper.setText(R.id.tv_ccid, "ccid:" + item.ccid);
         helper.setText(R.id.tv_shebei_data, "设备有效期至:" + item.validity_time);
         helper.setText(R.id.tv_zhuangtai, item.validity_term);

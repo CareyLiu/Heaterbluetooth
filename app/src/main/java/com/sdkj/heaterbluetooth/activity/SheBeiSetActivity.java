@@ -59,6 +59,14 @@ public class SheBeiSetActivity extends BaseActivity {
             rlZhujicanshu.setVisibility(View.GONE);
         }
 
+        String share_type = PreferenceHelper.getInstance(mContext).getString("share_type", "");
+        if (share_type.equals("2")) {
+            rlGongxiang.setVisibility(View.GONE);
+            rlJiebangshebei.setVisibility(View.GONE);
+        } else {
+            rlGongxiang.setVisibility(View.VISIBLE);
+            rlJiebangshebei.setVisibility(View.VISIBLE);
+        }
 
         ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
         tvShebeima.setText(ccid);
@@ -118,7 +126,7 @@ public class SheBeiSetActivity extends BaseActivity {
         rlGongxiang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GongxiangActivity.actionStart(mContext,ccid);
+                GongxiangActivity.actionStart(mContext, ccid);
             }
         });
     }
