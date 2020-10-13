@@ -201,6 +201,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                 if (message.type == ConstanceValue.MSG_SN_DATA) {
                     String msg = message.content.toString();
                     getData(msg);
+                } else if (message.type == ConstanceValue.MSG_JIEBANG) {
+                    finish();
                 }
             }
         }));

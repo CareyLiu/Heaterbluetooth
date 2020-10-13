@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanHostActivity;
 import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanZhuangtaiActivity;
@@ -15,6 +19,17 @@ import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
+import com.sdkj.heaterbluetooth.callback.JsonCallback;
+import com.sdkj.heaterbluetooth.config.AppResponse;
+import com.sdkj.heaterbluetooth.config.UserManager;
+import com.sdkj.heaterbluetooth.dialog.TishiDialog;
+import com.sdkj.heaterbluetooth.getnet.Urls;
+import com.sdkj.heaterbluetooth.model.GongxiangModel;
+import com.sdkj.heaterbluetooth.util.RxBus;
+import com.sdkj.heaterbluetooth.util.Y;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -38,6 +53,8 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlZhujicanshu;
     @BindView(R.id.rl_gongxiang)
     RelativeLayout rlGongxiang;
+    @BindView(R.id.rl_gongxiang_jie)
+    RelativeLayout rlGongxiangJie;
     private String ccid;
 
     public static final int TYPE_FENGNUAN = 1;
@@ -63,9 +80,11 @@ public class SheBeiSetActivity extends BaseActivity {
         if (share_type.equals("2")) {
             rlGongxiang.setVisibility(View.GONE);
             rlJiebangshebei.setVisibility(View.GONE);
+            rlGongxiangJie.setVisibility(View.VISIBLE);
         } else {
             rlGongxiang.setVisibility(View.VISIBLE);
             rlJiebangshebei.setVisibility(View.VISIBLE);
+            rlGongxiangJie.setVisibility(View.GONE);
         }
 
         ccid = PreferenceHelper.getInstance(this).getString("ccid", "");
@@ -127,6 +146,64 @@ public class SheBeiSetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 GongxiangActivity.actionStart(mContext, ccid);
+            }
+        });
+
+        rlGongxiangJie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TishiDialog dialog = new TishiDialog(mContext, TishiDialog.TYPE_CAOZUO, new TishiDialog.TishiDialogListener() {
+                    @Override
+                    public void onClickCancel(View v, TishiDialog dialog) {
+
+                    }
+
+                    @Override
+                    public void onClickConfirm(View v, TishiDialog dialog) {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("code", "03514");
+                        map.put("key", Urls.key);
+                        map.put("token", UserManager.getManager(mContext).getAppToken());
+                        map.put("ccid", ccid);
+                        Gson gson = new Gson();
+                        OkGo.<AppResponse<GongxiangModel.DataBean>>post(Urls.SERVER_URL + "wit/app/user")
+                                .tag(this)//
+                                .upJson(gson.toJson(map))
+                                .execute(new JsonCallback<AppResponse<GongxiangModel.DataBean>>() {
+                                    @Override
+                                    public void onSuccess(final Response<AppResponse<GongxiangModel.DataBean>> response) {
+                                        Y.t("退出成功");
+                                        Notice n = new Notice();
+                                        n.type = ConstanceValue.MSG_JIEBANG;
+                                        RxBus.getDefault().sendRx(n);
+                                    }
+
+                                    @Override
+                                    public void onError(Response<AppResponse<GongxiangModel.DataBean>> response) {
+                                        Y.tError(response);
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        super.onFinish();
+                                        dismissProgressDialog();
+                                    }
+
+                                    @Override
+                                    public void onStart(Request<AppResponse<GongxiangModel.DataBean>, ? extends Request> request) {
+                                        super.onStart(request);
+                                        showProgressDialog();
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onDismiss(TishiDialog dialog) {
+
+                    }
+                });
+                dialog.setTextContent("是否退出该共享设备");
+                dialog.show();
             }
         });
     }
