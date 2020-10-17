@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -123,11 +124,37 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     private final int zhiling_guanji = 2;
     private final int zhiling_shuibeng = 3;
     private final int zhiling_youbeng = 4;
-    private long nowTime;
-    private long lastTime;
-    private long chazhi;
     private String xinhaoStr;
     private boolean isFirst;
+    private boolean isOnActivity;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isOnActivity = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isOnActivity = false;
+    }
+
+    private Handler handlerTime10 = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 1:
+                    if (isOnActivity) {
+                        getNsData();
+                        Y.e("我执行了一次查询实时数据啦");
+                    }
+                    initHandlerNS();
+                    break;
+            }
+            return false;
+        }
+    });
 
 
     @Override
@@ -232,6 +259,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             String haibagaodu = msg.substring(48, 52);//海拔高度
             String hanyangliang = msg.substring(52, 55);//含氧量
 
+            boolean isTTT = true;
+
+            if (isTTT) {
+                firstCaozuo();
+            }
+
 
             if (sn_state.equals("0") || sn_state.equals("3")) {
                 if (shuibeng_state.equals("1") && youbeng_state.equals("2")) {
@@ -267,7 +300,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     tv_zaixian.setText("在线");
                 }
             }
-
 
             String num = "水暖状态" + sn_state + "  加热剩余时长" + syscTime + "  水泵状态" + shuibeng_state + "  油泵状态" + youbeng_state
                     + "  风机状态" + fengji_state
@@ -504,6 +536,65 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         }
     }
 
+    private void firstCaozuo() {
+        if (isFirst) {
+            //向水暖加热器发送获取实时数据
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("X_s.")
+                    .setQos(2).setRetained(false)
+                    .setTopic(SN_Send), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Y.i("app端向水暖加热器请求实时数据");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
+                }
+            });
+
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("Y_s.")
+                    .setQos(2).setRetained(false)
+                    .setTopic(SN_Send), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Y.i("查询一次经纬度");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
+                }
+            });
+
+            AndMqtt.getInstance().publish(new MqttPublish()
+                    .setMsg("Z_s.")
+                    .setQos(2).setRetained(false)
+                    .setTopic(SN_Send), new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Y.i("查询故障/报警");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
+                }
+            });
+
+            initHandlerNS();
+            isFirst = false;
+        }
+
+    }
+
+    private void initHandlerNS() {
+        Message message = handlerTime10.obtainMessage(1);
+        handlerTime10.sendMessageDelayed(message, 10000);
+    }
+
     private void showguzhangla(List<String> strings) {
         if (guzhangDialog == null) {
             guzhangDialog = new GuzhangDialog(mContext, new GuzhangDialog.Guzhang() {
@@ -578,7 +669,10 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
+        getNsData();
+    }
 
+    private void getNsData() {
         //向水暖加热器发送获取实时数据
         AndMqtt.getInstance().publish(new MqttPublish()
                 .setMsg("N_s.")
@@ -594,26 +688,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
-
-
-        if (isFirst) {
-            //向水暖加热器发送获取实时数据
-            AndMqtt.getInstance().publish(new MqttPublish()
-                    .setMsg("X_s.")
-                    .setQos(2).setRetained(false)
-                    .setTopic(SN_Send), new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.i("app端向水暖加热器请求实时数据", "");
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-
-                }
-            });
-            isFirst = false;
-        }
     }
 
     private int time = 0;
@@ -914,6 +988,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         handlerStart.removeMessages(2);
         handlerStart.removeMessages(3);
         handlerStart.removeMessages(4);
+        handlerTime10.removeMessages(1);
 
         AndMqtt.getInstance().unSubscribe(new MqttUnSubscribe().setTopic(SN_Send), new IMqttActionListener() {
             @Override
