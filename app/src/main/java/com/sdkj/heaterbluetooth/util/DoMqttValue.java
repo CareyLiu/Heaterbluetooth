@@ -37,8 +37,16 @@ public class DoMqttValue {
                     String messageData = message.substring(2, message.length() - 1);
                     String[] arr = messageData.split("_");
 
-                    for (int i = 0; i < arr.length; i++) {
-                        if (arr[i].contains("g")) {
+                    for (int i = arr.length-1; i >=0 ; i--) {
+                        if (arr[i].contains("Z")) {
+
+                            Notice n = new Notice();
+                            n.type = ConstanceValue.MSG_CAR_Z;
+                            n.content = arr[i];
+                            RxBus.getDefault().sendRx(n);
+                            Log.i("MSG_CAR_Z", n.content.toString());
+
+                        } else if (arr[i].contains("g")) {
                             Notice n = new Notice();
                             n.type = ConstanceValue.MSG_CAR_J_G;
                             n.content = arr[i];
@@ -103,14 +111,6 @@ public class DoMqttValue {
                             n.content = arr[i];
                             RxBus.getDefault().sendRx(n);
                             Log.i("MSG_CAR_s", n.content.toString());
-
-                        } else if (arr[i].contains("Z")) {
-
-//                            Notice n = new Notice();
-//                            n.type = ConstanceValue.MSG_CAR_Z;
-//                            n.content = arr[i];
-//                            RxBus.getDefault().sendRx(n);
-//                            Log.i("MSG_CAR_Z", n.content.toString());
 
                         } else if (message.toString().contains("k")) {
                             Notice n = new Notice();

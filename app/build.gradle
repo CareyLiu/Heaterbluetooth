@@ -29,8 +29,8 @@ android {
         applicationId "com.sdkj.heaterbluetooth"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 8
-        versionName "6.2"
+        versionCode 9
+        versionName "6.3"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {

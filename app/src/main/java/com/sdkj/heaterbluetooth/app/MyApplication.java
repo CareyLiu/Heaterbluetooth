@@ -189,9 +189,6 @@ public class MyApplication extends MultiDexApplication {
 //// 初始化Bugly
 
 
-
-
-
         CompositeSubscription _subscriptions = new CompositeSubscription();
         _subscriptions = RxUtils.getNewCompositeSubIfUnsubscribed(_subscriptions);
 
@@ -239,7 +236,6 @@ public class MyApplication extends MultiDexApplication {
         setMqttConnect();
 
 
-
         application = this;
 
         mCacheMap = new HashMap<>();
@@ -252,8 +248,8 @@ public class MyApplication extends MultiDexApplication {
         registerReceiver(mReceiver, filter);
 
         //view
-      //  Gloading.initDefault(new GlobalAdapter());
-    Logger.addLogAdapter(new AndroidLogAdapter());
+        //  Gloading.initDefault(new GlobalAdapter());
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     private void initRongYun() {
@@ -362,8 +358,6 @@ public class MyApplication extends MultiDexApplication {
                 //UIHelper.ToastMessage(mContext, "融云连接成功");
                 Log.i("rongYun", "融云连接成功");
                 PreferenceHelper.getInstance(getApplicationContext()).putString(AppConfig.RONGYUN_TOKEN, token);
-
-
             }
 
             /**
@@ -423,7 +417,7 @@ public class MyApplication extends MultiDexApplication {
             if (isAppProcess()) {
                 AndMqtt.getInstance().init(this);
                 MqttConnect builder = new MqttConnect();
-                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id()+System.currentTimeMillis())//连接服务器
+                builder.setClientId(HardWareValue.CLIENT_ID + getUser_id() + System.currentTimeMillis())//连接服务器
                         .setPort(9096)
                         .setAutoReconnect(true)
                         .setCleanSession(true)
@@ -518,7 +512,7 @@ public class MyApplication extends MultiDexApplication {
 
                     @Override
                     public void deliveryComplete(IMqttDeliveryToken token) {
-                       // Log.i("Rair", "(MainActivity.java:44)-deliveryComplete:-&gt;消息已送达");
+                        // Log.i("Rair", "(MainActivity.java:44)-deliveryComplete:-&gt;消息已送达");
                         sendRx(ConstanceValue.MSG_MQTT_CONNECTCOMPLETE, "");
                     }
                 }).connect(builder
@@ -542,7 +536,7 @@ public class MyApplication extends MultiDexApplication {
                                     }
                                 });
 
-                             sendRx(ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS, "");
+                                sendRx(ConstanceValue.MSG_MQTT_CONNECT_CHONGLIAN_ONSUCCESS, "");
 
                             }
 
@@ -640,8 +634,6 @@ public class MyApplication extends MultiDexApplication {
         });
 
     }
-
-
 
 
     private void initOkgo() {

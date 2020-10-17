@@ -137,8 +137,12 @@ public class ShebeiFrament extends BaseTwoFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mqtt_connect_state.equals("1")) {
+                    if (mDatas.get(position).validity_state.equals("2")) {
+                        UIHelper.ToastMessage(getActivity(), "当前设备已过期");
+                        return;
+                    }
                     if (mDatas.get(position).device_type.equals("1")) {
-                        //mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90090018";
+                       // mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90090018";
                         PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
                         PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
                         MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
@@ -151,7 +155,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                         if (NetworkUtils.isConnected(getActivity())) {
                             Activity currentActivity = AppManager.getAppManager().currentActivity();
                             if (currentActivity != null) {
-                                FengNuanActivity.actionStart(getActivity());
+                                FengNuanActivity.actionStart(getActivity(),mDatas.get(position).sim_ccid_save_type);
                             }
                         } else {
                             UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");

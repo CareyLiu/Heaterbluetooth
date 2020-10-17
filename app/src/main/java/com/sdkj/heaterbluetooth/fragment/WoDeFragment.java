@@ -135,6 +135,7 @@ public class WoDeFragment extends BaseTwoFragment {
         rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         initSm();
+
         return rootView;
     }
 
@@ -522,6 +523,7 @@ public class WoDeFragment extends BaseTwoFragment {
                     @Override
                     public void onSuccess(Response<AppResponse<UserModel.DataBean>> response) {
                         user = response.body().data.get(0);
+
                         tv_wode_name.setText("昵称：" + user.getUser_name());
                         tv_wode_phone.setText("手机号：" + user.getUser_phone());
                         Glide.with(getContext()).load(user.getUser_img_url()).into(iv_wode_head);
