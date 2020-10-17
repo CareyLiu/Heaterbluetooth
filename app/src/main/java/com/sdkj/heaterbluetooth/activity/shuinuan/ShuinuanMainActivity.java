@@ -67,6 +67,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     TextView tv_fuwutianshushengyu;
     @BindView(R.id.tv_shebei_state)
     TextView tv_shebei_state;
+    @BindView(R.id.tv_shebei_youxiaoqi)
+    TextView tv_shebei_youxiaoqi;
     @BindView(R.id.iv_shuinuan_kaijie)
     ImageView iv_shuinuan_kaijie;
     @BindView(R.id.tv_shuinuan_kaiji)
@@ -119,11 +121,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     private boolean shubengIson;
     private boolean shoubengisdianhou;
     private boolean isZaixian = false;
-    private int zhilingma;
-    private final int zhiling_kaiji = 1;
-    private final int zhiling_guanji = 2;
-    private final int zhiling_shuibeng = 3;
-    private final int zhiling_youbeng = 4;
     private String xinhaoStr;
     private boolean isFirst;
     private boolean isOnActivity;
@@ -172,11 +169,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     /**
      * 用于其他Activty跳转到该Activity
      */
-    public static void actionStart(Context context, String ccid, String car_server_id) {
+    public static void actionStart(Context context, String ccid, String car_server_id, String time) {
         Intent intent = new Intent(context, ShuinuanMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("ccid", ccid);
         intent.putExtra("car_server_id", car_server_id);
+        intent.putExtra("time", time);
         context.startActivity(intent);
     }
 
@@ -207,6 +205,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
      * 初始化Ccid
      */
     private void initCcid() {
+        String time = getIntent().getStringExtra("time");
+        tv_shebei_youxiaoqi.setText("有效期至:" + time);
         String car_server_id = getIntent().getStringExtra("car_server_id");
         ccid = getIntent().getStringExtra("ccid");
         SN_Send = "wh/hardware/" + car_server_id + ccid;
@@ -259,11 +259,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             String haibagaodu = msg.substring(48, 52);//海拔高度
             String hanyangliang = msg.substring(52, 55);//含氧量
 
-            boolean isTTT = true;
-
-            if (isTTT) {
-                firstCaozuo();
-            }
+            firstCaozuo(msg);
 
 
             if (sn_state.equals("0") || sn_state.equals("3")) {
@@ -283,21 +279,16 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             xinhaoStr = msg.substring(55, 57);
             if (xinhaoStr.equals("aa")) {
                 iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal2);
-                tv_zaixian.setText("在线");
             } else {
                 int xinhao = Y.getInt(xinhaoStr);//信号强度
                 if (xinhao >= 15 && xinhao <= 19) {
                     iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal2);
-                    tv_zaixian.setText("在线");
                 } else if (xinhao >= 20 && xinhao <= 25) {
                     iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal3);
-                    tv_zaixian.setText("在线");
                 } else if (xinhao >= 26 && xinhao <= 35) {
                     iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal4);
-                    tv_zaixian.setText("在线");
                 } else {
                     iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal1);
-                    tv_zaixian.setText("在线");
                 }
             }
 
@@ -423,7 +414,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
             if (!isZaixian) {
                 isZaixian = true;
                 iv_xinhao.setImageResource(R.mipmap.fengnuan_icon_signal1);
-                tv_zaixian.setText("在线");
             }
         } else if (msg.contains("r_s")) {
             String dianya = msg.substring(3, 4);//电压	0.正常1.过高2.过低3.故障
@@ -536,7 +526,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         }
     }
 
-    private void firstCaozuo() {
+    private void firstCaozuo(String msg) {
         if (isFirst) {
             //向水暖加热器发送获取实时数据
             AndMqtt.getInstance().publish(new MqttPublish()
@@ -584,10 +574,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                 }
             });
 
-            initHandlerNS();
+
+            if (msg.length() != 58) {
+                initHandlerNS();
+            }
             isFirst = false;
         }
-
     }
 
     private void initHandlerNS() {
@@ -640,7 +632,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     }
 
     private void getNs() {
-        //注册水暖加热器订阅
+//        //注册水暖加热器订阅
         AndMqtt.getInstance().subscribe(new MqttSubscribe()
                 .setTopic(SN_Send)
                 .setQos(2), new IMqttActionListener() {
@@ -694,35 +686,36 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
     private void initHandlerStart() {
         Message message = handlerStart.obtainMessage(1);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
     private void initHandlerClick() {
         Message message = handlerStart.obtainMessage(2);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
     private void initHandlerShuibeng() {
         Message message = handlerStart.obtainMessage(3);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
     private void initHandlerYoubeng() {
         Message message = handlerStart.obtainMessage(4);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
 
-    private Handler handlerStart = new Handler() {
-        public void handleMessage(Message msg) {
+    private Handler handlerStart = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            time++;
             switch (msg.what) {
                 case 1:
-                    time++;
                     if (!isZaixian) {
-                        if (time >= 60) {
+                        if (time >= 30) {
                             showTishiDialog();
                         } else {
-                            if (time == 4 || time == 24 || time == 44) {
+                            if (time == 5 || time == 10 || time == 15 || time == 20 || time == 25) {
                                 getNs();
                             }
                             initHandlerStart();
@@ -731,16 +724,14 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                         dismissProgressDialog();
                         time = 0;
                     }
-                    Y.i("计时是多少啊啊啊" + time);
                     break;
                 case 2:
-                    time++;
                     if (iskaijiDianhou != isKaiji) {
-                        if (time >= 60) {
+                        if (time >= 30) {
                             iskaijiDianhou = !iskaijiDianhou;
                             showZhiling();
                         } else {
-                            if (time == 4 || time == 24 || time == 44) {
+                            if (time == 5 || time == 10 || time == 15 || time == 20 || time == 25) {
                                 getNs();
                             }
                             initHandlerClick();
@@ -755,48 +746,14 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                         dismissProgressDialog();
                         time = 0;
                     }
-                    Y.i("计时是多少啊啊啊" + time);
                     break;
                 case 3:
-                    time++;
-//                    if (shubengIson) {
-//                        if (shuibeng_state.equals("1")) {
-//                            dismissProgressDialog();
-//                            time = 0;
-//                        } else {
-//                            if (time >= 60) {
-//                                shubengIson = false;
-//                                showZhiling();
-//                            } else {
-//                                if (time == 4 || time == 24 || time == 44) {
-//                                    getNs();
-//                                }
-//                                initHandlerShuibeng();
-//                            }
-//                        }
-//                    } else {
-//                        if (shuibeng_state.equals("2")) {
-//                            dismissProgressDialog();
-//                            time = 0;
-//                        } else {
-//                            if (time >= 60) {
-//                                shubengIson = true;
-//                                showZhiling();
-//                            } else {
-//                                if (time == 4 || time == 24 || time == 44) {
-//                                    getNs();
-//                                }
-//                                initHandlerShuibeng();
-//                            }
-//                        }
-//                    }
-
                     if (shoubengisdianhou != shubengIson) {
-                        if (time >= 60) {
+                        if (time >= 30) {
                             shoubengisdianhou = !shoubengisdianhou;
                             showZhiling();
                         } else {
-                            if (time == 4 || time == 24 || time == 44) {
+                            if (time == 5 || time == 10 || time == 15 || time == 20 || time == 25) {
                                 getNs();
                             }
                             initHandlerShuibeng();
@@ -811,48 +768,14 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                         dismissProgressDialog();
                         time = 0;
                     }
-                    Y.i("水泵的计时是多少啊啊啊" + time + "   " + shubengIson);
                     break;
                 case 4:
-                    time++;
-//                    if (youbengIson) {
-//                        if (youbeng_state.equals("1")) {
-//                            dismissProgressDialog();
-//                            time = 0;
-//                        } else {
-//                            if (time >= 60) {
-//                                youbengIson = false;
-//                                showZhiling();
-//                            } else {
-//                                if (time == 4 || time == 24 || time == 44) {
-//                                    getNs();
-//                                }
-//                                initHandlerYoubeng();
-//                            }
-//                        }
-//                    } else {
-//                        if (youbeng_state.equals("2")) {
-//                            dismissProgressDialog();
-//                            time = 0;
-//                        } else {
-//                            if (time >= 60) {
-//                                youbengIson = true;
-//                                showZhiling();
-//                            } else {
-//                                if (time == 4 || time == 24 || time == 44) {
-//                                    getNs();
-//                                }
-//                                initHandlerYoubeng();
-//                            }
-//                        }
-//                    }
-
                     if (youbengIsdianhou != youbengIson) {
-                        if (time >= 60) {
+                        if (time >= 30) {
                             youbengIsdianhou = !youbengIsdianhou;
                             showZhiling();
                         } else {
-                            if (time == 4 || time == 24 || time == 44) {
+                            if (time == 5 || time == 10 || time == 15 || time == 20 || time == 25) {
                                 getNs();
                             }
                             initHandlerYoubeng();
@@ -867,15 +790,14 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                         dismissProgressDialog();
                         time = 0;
                     }
-                    Y.i("油泵的计时是多少啊啊啊" + time);
                     break;
             }
-            super.handleMessage(msg);
+            Y.e(msg.what + "  的时间时多少啊  " + time);
+            return false;
         }
-    };
+    });
 
     private void showTishiDialog() {
-        tv_zaixian.setText("离线");
         isZaixian = false;
         time = 0;
         dismissProgressDialog();
@@ -898,13 +820,12 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         tishiDialog.setTextTitle("提示：网络信号异常");
         tishiDialog.setTextContent("请检查设备情况。1:设备是否接通电源 2:设备信号灯是否闪烁 3:设备是否有损坏 4:手机是否开启网络，如已确认以上问题，请重新尝试。");
         tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("关闭");
+        tishiDialog.setTextCancel("忽略");
         tishiDialog.show();
     }
 
     private void showZhiling() {
         showTishiDialog();
-//        tv_zaixian.setText("离线");
 //        time = 0;
 //        dismissProgressDialog();
 //        isZaixian = false;
@@ -1063,7 +984,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
         showProgressDialog("发送指令中...");
         initHandlerYoubeng();
-        zhilingma = zhiling_youbeng;
         if (youbeng_state.equals("1")) {
             youbengIsdianhou = false;
             String data = "M_s052.";
@@ -1114,7 +1034,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
         showProgressDialog("发送指令中...");
         initHandlerShuibeng();
-        zhilingma = zhiling_shuibeng;
         if (shuibeng_state.equals("1")) {
             shoubengisdianhou = false;
             String data = "M_s022.";
@@ -1163,7 +1082,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         initHandlerClick();
 
         iskaijiDianhou = false;
-        zhilingma = zhiling_guanji;
         SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_start_off);
         String data = "M_s012.";
         AndMqtt.getInstance().publish(new MqttPublish()
@@ -1202,8 +1120,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         initHandlerClick();
 
         iskaijiDianhou = true;
-        zhilingma = zhiling_kaiji;
-
         String data = "M_s011000080.";
         SoundPoolUtils.soundPool(mContext, R.raw.shuinuan_start_on);
         AndMqtt.getInstance().publish(new MqttPublish()
@@ -1220,12 +1136,5 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
-    }
-
-
-    public static String getTime(long seconds) {
-        String format = "HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(seconds));
     }
 }

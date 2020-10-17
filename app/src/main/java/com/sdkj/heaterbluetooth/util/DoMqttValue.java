@@ -197,18 +197,13 @@ public class DoMqttValue {
         }
         if (topic.contains("zn/")) {//智能家居 主题
             String messageData = message.toString().substring(2, message.toString().length() - 1);
-        } else if (message.toString().equals("j_s")) {
-            Notice n = new Notice();
-            n.type = ConstanceValue.MSG_SN_DATA;
-//                            n.content = message.toString();
-            n.content = "j_s345611166666661102640265050070600017002310.";
-            RxBus.getDefault().sendRx(n);
-        } else if (message.toString().contains("j_s")) {
-            Notice n = new Notice();
-            n.type = ConstanceValue.MSG_SN_DATA;
-            n.content = message.toString();
-            RxBus.getDefault().sendRx(n);
         }
+//        else if (message.toString().contains("j_s")) {
+//            Notice n = new Notice();
+//            n.type = ConstanceValue.MSG_SN_DATA;
+//            n.content = message.toString();
+//            RxBus.getDefault().sendRx(n);
+//        }
     }
 
 

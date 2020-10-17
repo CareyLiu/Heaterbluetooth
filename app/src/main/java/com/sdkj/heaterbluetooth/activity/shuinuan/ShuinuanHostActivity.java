@@ -179,7 +179,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
 
     private void initHandlerStart() {
         Message message = handlerStart.obtainMessage(1);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
     private void getHost() {
@@ -189,7 +189,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
                 .setQos(2), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Y.i("我订阅了" + SN_Send);
+
             }
 
             @Override
@@ -204,7 +204,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
                 .setQos(2), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Y.i("我订阅了" + SN_Accept);
+
             }
 
             @Override
@@ -220,7 +220,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
                 .setTopic(SN_Send), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Log.i("app端向水暖加热器请求主机参数", "");
+
             }
 
             @Override
@@ -237,15 +237,14 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
             switch (msg.what) {
                 case 1:
                     time++;
-                    if (time >= 60) {
+                    if (time >= 20) {
                         showTishiDialog();
                     } else {
-                        if (time == 4 || time == 24 || time == 44) {
+                        if (time == 5 || time == 10 || time == 15) {
                             getHost();
                         }
                         initHandlerStart();
                     }
-                    Y.i("计时是多少啊啊啊" + time);
                     break;
 
             }

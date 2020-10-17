@@ -3,10 +3,10 @@ package com.sdkj.heaterbluetooth.getnet;
 //网络接口地址
 public class Urls {
     public static String key = "20180305124455yu";//全局请求key
- public static String SERVER_URL = "https://shop.hljsdkj.com/";//基本地址
+     public static String SERVER_URL = "https://shop.hljsdkj.com/";//基本地址
     //public static String SERVER_URL = "http://192.168.1.122:8080/";//大志本地
     //public static String SERVER_URL = "http://192.168.1.127:8080/";//大ge本地
-    //public static String SERVER_URL = "https://test.hljsdkj.com/";//测试地址
+//    public static String SERVER_URL = "https://test.hljsdkj.com/";//测试地址
 
     public final static String code_00001 = "00001";//发送验证码
     public final static String code_04310 = "04310";//登录接口

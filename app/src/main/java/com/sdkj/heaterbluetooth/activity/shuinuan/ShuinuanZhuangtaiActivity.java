@@ -245,7 +245,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
 
     private void initHandlerStart() {
         Message message = handlerStart.obtainMessage(1);
-        handlerStart.sendMessageDelayed(message, 250);
+        handlerStart.sendMessageDelayed(message, 1000);
     }
 
     private void getNs() {
@@ -255,7 +255,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
                 .setQos(2), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Y.i("我订阅了" + SN_Send);
+
             }
 
             @Override
@@ -270,7 +270,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
                 .setQos(2), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Y.i("我订阅了" + SN_Accept);
+
             }
 
             @Override
@@ -286,7 +286,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
                 .setTopic(SN_Send), new IMqttActionListener() {
             @Override
             public void onSuccess(IMqttToken asyncActionToken) {
-                Log.i("app端向水暖加热器请求实时数据", "");
+
             }
 
             @Override
@@ -303,15 +303,14 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
             switch (msg.what) {
                 case 1:
                     time++;
-                    if (time >= 60) {
+                    if (time >= 20) {
                         showTishiDialog();
                     } else {
-                        if (time == 4 || time == 24 || time == 44) {
+                        if (time == 5 || time == 10 || time == 15) {
                             getNs();
                         }
                         initHandlerStart();
                     }
-                    Y.i("计时是多少啊啊啊" + time);
                     break;
 
             }
@@ -338,11 +337,10 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
 
             }
         });
-
-        tishiDialog.setTextTitle("提示");
-        tishiDialog.setTextContent("获取加热器参数失败，重新获取？");
-        tishiDialog.setTextConfirm("重新连接");
-        tishiDialog.setTextCancel("关闭");
+        tishiDialog.setTextTitle("提示：网络信号异常");
+        tishiDialog.setTextContent("请检查设备情况。1:设备是否接通电源 2:设备信号灯是否闪烁 3:设备是否有损坏 4:手机是否开启网络，如已确认以上问题，请重新尝试。");
+        tishiDialog.setTextConfirm("重试");
+        tishiDialog.setTextCancel("忽略");
         tishiDialog.show();
     }
 
