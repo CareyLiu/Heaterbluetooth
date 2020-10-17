@@ -127,7 +127,7 @@
                         android:layout_height="26pt"
                         android:gravity="center"
                         android:includeFontPadding="false"
-                        android:text="离线"
+                        android:text="在线"
                         android:textColor="@color/shuinuan_text_color"
                         android:textSize="26pt" />
                 </LinearLayout>
@@ -147,7 +147,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_shebei_state"
+                    android:id="@+id/tv_shebei_youxiaoqi"
                     android:layout_width="wrap_content"
                     android:layout_height="27pt"
                     android:layout_alignParentRight="true"
@@ -155,22 +155,22 @@
                     android:layout_marginRight="25pt"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="加热器状态：关机"
-                    android:textColor="@color/white"
+                    android:text="有效期至:2012-12-12"
+                    android:textColor="@color/shuinuan_text_color"
                     android:textSize="27pt" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/tv_shebei_state"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="27pt"-->
-                <!--                    android:layout_alignParentRight="true"-->
-                <!--                    android:layout_marginTop="325pt"-->
-                <!--                    android:layout_marginRight="25pt"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:includeFontPadding="false"-->
-                <!--                    android:text="服务剩余天数:40天"-->
-                <!--                    android:textColor="@color/white"-->
-                <!--                    android:textSize="27pt" />-->
+                <TextView
+                    android:id="@+id/tv_shebei_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27pt"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="325pt"
+                    android:layout_marginRight="25pt"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="加热器状态:关机"
+                    android:textColor="@color/white"
+                    android:textSize="27pt" />
 
                 <FrameLayout
                     android:layout_width="487pt"

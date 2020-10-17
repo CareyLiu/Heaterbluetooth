@@ -137,42 +137,45 @@ public class ShebeiFrament extends BaseTwoFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mqtt_connect_state.equals("1")) {
-                    if (mDatas.get(position).device_type.equals("1")) {
-                        //mDatas.get(position).ccid = "aaaaaaaaaaaaaaaa90090018";
-                        PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
-                        PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
-                        MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
-                        MyApplication.CAR_CTROL = "wit/cbox/hardware/" + getServer_id() + getCcid();
+                    if (mDatas.get(position).validity_state.equals("1")) {
+                        if (mDatas.get(position).device_type.equals("1")) {
+                            PreferenceHelper.getInstance(getActivity()).putString("ccid", mDatas.get(position).ccid);
+                            PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
+                            MyApplication.CARBOX_GETNOW = "wit/cbox/app/" + getServer_id() + getCcid();
+                            MyApplication.CAR_CTROL = "wit/cbox/hardware/" + getServer_id() + getCcid();
 
-                        int i = mDatas.get(position).ccid.length() - 1;
-                        String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
-                        Log.i("serverId", str);
-                        PreferenceHelper.getInstance(getActivity()).putString("car_server_id", str + "/");
-                        if (NetworkUtils.isConnected(getActivity())) {
-                            Activity currentActivity = AppManager.getAppManager().currentActivity();
-                            if (currentActivity != null) {
-                                FengNuanActivity.actionStart(getActivity());
+                            int i = mDatas.get(position).ccid.length() - 1;
+                            String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
+                            Log.i("serverId", str);
+                            PreferenceHelper.getInstance(getActivity()).putString("car_server_id", str + "/");
+                            if (NetworkUtils.isConnected(getActivity())) {
+                                Activity currentActivity = AppManager.getAppManager().currentActivity();
+                                if (currentActivity != null) {
+                                    FengNuanActivity.actionStart(getActivity());
+                                }
+                            } else {
+                                UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                             }
-                        } else {
-                            UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
-                        }
-                    } else if (mDatas.get(position).device_type.equals("6")) {
-                        String ccid = mDatas.get(position).ccid;
-//                    ccid = "aaaaaaaaaaaaaaaa80040018";
-//                    ccid = "aaaaaaaaaaaaaa0070040018";
-                        String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
-                        PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
-                        PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
-                        PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
+                        } else if (mDatas.get(position).device_type.equals("6")) {
+                            String ccid = mDatas.get(position).ccid;
+                            String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
+                            PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
+                            PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
+                            PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
 
-                        if (NetworkUtils.isConnected(getActivity())) {
-                            Activity currentActivity = AppManager.getAppManager().currentActivity();
-                            if (currentActivity != null) {
-                                ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id);
+                            if (NetworkUtils.isConnected(getActivity())) {
+                                Activity currentActivity = AppManager.getAppManager().currentActivity();
+                                if (currentActivity != null) {
+                                    ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id,mDatas.get(position).validity_time);
+                                }
+                            } else {
+                                UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                             }
-                        } else {
-                            UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                         }
+                    } else {
+                        BangdingFailDialog dialog = new BangdingFailDialog(getContext());
+                        dialog.setTextContent("设备已失效");
+                        dialog.show();
                     }
                 } else {
                     BangdingFailDialog dialog = new BangdingFailDialog(getContext());
