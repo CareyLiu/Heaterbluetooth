@@ -720,7 +720,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
                     time++;
                     if (!isZaixian) {
                         if (time >= 60) {
-                            showTishiDialog("水暖服务器连接失败，是否重新连结");
+                            showTishiDialog();
                         } else {
                             if (time == 4 || time == 24 || time == 44) {
                                 getNs();
@@ -874,7 +874,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         }
     };
 
-    private void showTishiDialog(String msg) {
+    private void showTishiDialog() {
         tv_zaixian.setText("离线");
         isZaixian = false;
         time = 0;
@@ -895,50 +895,51 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
 
             }
         });
-        tishiDialog.setTextTitle("提示");
-        tishiDialog.setTextContent(msg);
+        tishiDialog.setTextTitle("提示：网络信号异常");
+        tishiDialog.setTextContent("请检查设备情况。1:设备是否接通电源 2:设备信号灯是否闪烁 3:设备是否有损坏 4:手机是否开启网络，如已确认以上问题，请重新尝试。");
         tishiDialog.setTextConfirm("重试");
         tishiDialog.setTextCancel("关闭");
         tishiDialog.show();
     }
 
     private void showZhiling() {
-        tv_zaixian.setText("离线");
-        time = 0;
-        dismissProgressDialog();
-        isZaixian = false;
-        TishiDialog tishiDialog = new TishiDialog(mContext, TishiDialog.TYPE_CAOZUO, new TishiDialog.TishiDialogListener() {
-            @Override
-            public void onClickCancel(View v, TishiDialog dialog) {
-
-            }
-
-            @Override
-            public void onClickConfirm(View v, TishiDialog dialog) {
-                getNs();
-
-                if (zhilingma == zhiling_kaiji) {
-                    kaiji();
-                } else if (zhilingma == zhiling_guanji) {
-                    guanji();
-                } else if (zhilingma == zhiling_shuibeng) {
-                    shuibeng();
-                } else if (zhilingma == zhiling_youbeng) {
-                    youbeng();
-                }
-            }
-
-            @Override
-            public void onDismiss(TishiDialog dialog) {
-
-            }
-        });
-
-        tishiDialog.setTextTitle("提示");
-        tishiDialog.setTextContent("指令发送失败，是否重新发送？");
-        tishiDialog.setTextConfirm("重试");
-        tishiDialog.setTextCancel("关闭");
-        tishiDialog.show();
+        showTishiDialog();
+//        tv_zaixian.setText("离线");
+//        time = 0;
+//        dismissProgressDialog();
+//        isZaixian = false;
+//        TishiDialog tishiDialog = new TishiDialog(mContext, TishiDialog.TYPE_CAOZUO, new TishiDialog.TishiDialogListener() {
+//            @Override
+//            public void onClickCancel(View v, TishiDialog dialog) {
+//
+//            }
+//
+//            @Override
+//            public void onClickConfirm(View v, TishiDialog dialog) {
+//                getNs();
+//
+//                if (zhilingma == zhiling_kaiji) {
+//                    kaiji();
+//                } else if (zhilingma == zhiling_guanji) {
+//                    guanji();
+//                } else if (zhilingma == zhiling_shuibeng) {
+//                    shuibeng();
+//                } else if (zhilingma == zhiling_youbeng) {
+//                    youbeng();
+//                }
+//            }
+//
+//            @Override
+//            public void onDismiss(TishiDialog dialog) {
+//
+//            }
+//        });
+//
+//        tishiDialog.setTextTitle("提示");
+//        tishiDialog.setTextContent("指令发送失败，是否重新发送？");
+//        tishiDialog.setTextConfirm("重试");
+//        tishiDialog.setTextCancel("关闭");
+//        tishiDialog.show();
     }
 
 
@@ -1030,7 +1031,7 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     @Override
     public boolean onLongClick(View v) {
         if (!isZaixian) {
-            showTishiDialog("水暖服务器未连接，请连接服务器");
+            showTishiDialog();
             return false;
         } else {
             switch (v.getId()) {
