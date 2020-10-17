@@ -154,25 +154,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                             } else {
                                 UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                             }
-                        } else if (mDatas.get(position).device_type.equals("6")) {
-                            String ccid = mDatas.get(position).ccid;
-                            String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
-                            PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
-                            PreferenceHelper.getInstance(getContext()).putString("car_server_id", car_server_id);
-                            PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
-                            int i = mDatas.get(position).ccid.length() - 1;
-                            String str = String.valueOf(mDatas.get(position).ccid.charAt(i));
-                            Log.i("serverId", str);
-                            PreferenceHelper.getInstance(getActivity()).putString("car_server_id", str + "/");
-                            if (NetworkUtils.isConnected(getActivity())) {
-                                Activity currentActivity = AppManager.getAppManager().currentActivity();
-                                if (currentActivity != null) {
-                                    FengNuanActivity.actionStart(getActivity(), mDatas.get(position).sim_ccid_save_type);
-                                }
-                            } else {
-                                UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
-                            }
-                        } else if (mDatas.get(position).device_type.equals("6")) {
+                        }  else if (mDatas.get(position).device_type.equals("6")) {
                             String ccid = mDatas.get(position).ccid;
                             String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
                             PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
