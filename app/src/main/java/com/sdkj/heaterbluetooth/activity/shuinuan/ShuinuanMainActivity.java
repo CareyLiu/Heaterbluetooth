@@ -105,8 +105,6 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     TextView tv_daqiya;
     @BindView(R.id.iv_heater_host)
     ImageView iv_heater_host;
-    @BindView(R.id.ll_content)
-    LinearLayout ll_content;
 
     private String sn_state;     //水暖状态
     private String yushewendu;      //预设温度

@@ -1,5 +1,6 @@
 package com.sdkj.heaterbluetooth.activity.shuinuan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.sdkj.heaterbluetooth.util.Y;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -117,6 +119,7 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
         }));
     }
 
+    @SuppressLint("SetTextI18n")
     private void getData(String msg) {
         if (msg.contains("j_s")) {
             String sn_state = msg.substring(3, 4);//水暖状态
@@ -298,25 +301,23 @@ public class ShuinuanZhuangtaiActivity extends ShuinuanBaseActivity {
 
     private int time = 0;
 
-    private Handler handlerStart = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    time++;
-                    if (time >= 20) {
-                        showTishiDialog();
-                    } else {
-                        if (time == 5 || time == 10 || time == 15) {
-                            getNs();
-                        }
-                        initHandlerStart();
+    private Handler handlerStart = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == 1) {
+                time++;
+                if (time >= 20) {
+                    showTishiDialog();
+                } else {
+                    if (time == 5 || time == 10 || time == 15) {
+                        getNs();
                     }
-                    break;
-
+                    initHandlerStart();
+                }
             }
-            super.handleMessage(msg);
+            return false;
         }
-    };
+    });
 
     private void showTishiDialog() {
         time = 0;

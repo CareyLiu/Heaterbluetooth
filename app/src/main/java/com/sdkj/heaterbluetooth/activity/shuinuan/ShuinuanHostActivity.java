@@ -1,5 +1,6 @@
 package com.sdkj.heaterbluetooth.activity.shuinuan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import com.sdkj.heaterbluetooth.util.Y;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -112,6 +114,7 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
         }));
     }
 
+    @SuppressLint("SetTextI18n")
     private void getData(String msg) {
         Y.e("获取的数据是" + msg);
         if (msg.contains("i_s")) {
@@ -232,25 +235,23 @@ public class ShuinuanHostActivity extends ShuinuanBaseActivity {
 
     private int time = 0;
 
-    private Handler handlerStart = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    time++;
-                    if (time >= 20) {
-                        showTishiDialog();
-                    } else {
-                        if (time == 5 || time == 10 || time == 15) {
-                            getHost();
-                        }
-                        initHandlerStart();
+    private Handler handlerStart = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            if (msg.what == 1) {
+                time++;
+                if (time >= 20) {
+                    showTishiDialog();
+                } else {
+                    if (time == 5 || time == 10 || time == 15) {
+                        getHost();
                     }
-                    break;
-
+                    initHandlerStart();
+                }
             }
-            super.handleMessage(msg);
+            return false;
         }
-    };
+    });
 
     private void showTishiDialog() {
         time = 0;
