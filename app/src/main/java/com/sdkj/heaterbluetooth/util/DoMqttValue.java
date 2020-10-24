@@ -191,19 +191,11 @@ public class DoMqttValue {
                 shuiNuan(topic, message);
                 break;
             case KONGTIAO:
+                kongtiao(topic, message);
                 break;
             case KONGCHE:
                 break;
         }
-        if (topic.contains("zn/")) {//智能家居 主题
-            String messageData = message.toString().substring(2, message.toString().length() - 1);
-        }
-//        else if (message.toString().contains("j_s")) {
-//            Notice n = new Notice();
-//            n.type = ConstanceValue.MSG_SN_DATA;
-//            n.content = message.toString();
-//            RxBus.getDefault().sendRx(n);
-//        }
     }
 
 
@@ -212,6 +204,15 @@ public class DoMqttValue {
         if (topic.contains("wh/app") || topic.contains("wh/hardware/")) {
             Notice n = new Notice();
             n.type = ConstanceValue.MSG_SN_DATA;
+            n.content = message.toString();
+            RxBus.getDefault().sendRx(n);
+        }
+    }
+
+    private void kongtiao(String topic, String message) {
+        if (topic.contains("zckt")) {
+            Notice n = new Notice();
+            n.type = ConstanceValue.MSG_ZCKT;
             n.content = message.toString();
             RxBus.getDefault().sendRx(n);
         }

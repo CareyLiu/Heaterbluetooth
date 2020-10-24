@@ -21,6 +21,7 @@ import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.BindBoxActivity;
 import com.sdkj.heaterbluetooth.activity.FengNuanActivity;
 import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanMainActivity;
+import com.sdkj.heaterbluetooth.activity.zckt.AirConditionerActivity;
 import com.sdkj.heaterbluetooth.adapter.ShebeiNewAdapter;
 import com.sdkj.heaterbluetooth.app.AppManager;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
@@ -154,7 +155,7 @@ public class ShebeiFrament extends BaseTwoFragment {
                             } else {
                                 UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
                             }
-                        }  else if (mDatas.get(position).device_type.equals("6")) {
+                        } else if (mDatas.get(position).device_type.equals("6")) {
                             String ccid = mDatas.get(position).ccid;
                             String car_server_id = ccid.charAt(ccid.length() - 1) + "/";
                             PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
@@ -164,6 +165,18 @@ public class ShebeiFrament extends BaseTwoFragment {
                                 Activity currentActivity = AppManager.getAppManager().currentActivity();
                                 if (currentActivity != null) {
                                     ShuinuanMainActivity.actionStart(getActivity(), ccid, car_server_id, mDatas.get(position).validity_time);
+                                }
+                            } else {
+                                UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
+                            }
+                        } else if (mDatas.get(position).device_type.equals("5")) {
+                            String ccid = mDatas.get(position).ccid;
+                            PreferenceHelper.getInstance(getContext()).putString("ccid", ccid);
+                            PreferenceHelper.getInstance(getActivity()).putString("share_type", mDatas.get(position).share_type);
+                            if (NetworkUtils.isConnected(getActivity())) {
+                                Activity currentActivity = AppManager.getAppManager().currentActivity();
+                                if (currentActivity != null) {
+                                    AirConditionerActivity.actionStart(getActivity(), ccid);
                                 }
                             } else {
                                 UIHelper.ToastMessage(getActivity(), "请连接网络后重新尝试");
@@ -182,6 +195,8 @@ public class ShebeiFrament extends BaseTwoFragment {
             }
         });
     }
+
+    ;
 
     private void getShebeiList() {
         Map<String, String> map = new HashMap<>();

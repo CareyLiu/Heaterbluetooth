@@ -20,6 +20,9 @@ import com.rairmmd.andmqtt.AndMqtt;
 import com.rairmmd.andmqtt.MqttPublish;
 import com.rairmmd.andmqtt.MqttSubscribe;
 import com.rairmmd.andmqtt.MqttUnSubscribe;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.SheBeiSetActivity;
 import com.sdkj.heaterbluetooth.activity.shuinuan.dialog.GuzhangDialog;
@@ -29,6 +32,7 @@ import com.sdkj.heaterbluetooth.app.MyApplication;
 import com.sdkj.heaterbluetooth.app.Notice;
 import com.sdkj.heaterbluetooth.app.PreferenceHelper;
 import com.sdkj.heaterbluetooth.dialog.TishiDialog;
+import com.sdkj.heaterbluetooth.getnet.Urls;
 import com.sdkj.heaterbluetooth.util.DoMqttValue;
 import com.sdkj.heaterbluetooth.util.SoundPoolUtils;
 import com.sdkj.heaterbluetooth.util.TimeCount;
@@ -105,6 +109,8 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
     TextView tv_daqiya;
     @BindView(R.id.iv_heater_host)
     ImageView iv_heater_host;
+
+    private SmartRefreshLayout smartRefreshLayout;
 
     private String sn_state;     //水暖状态
     private String yushewendu;      //预设温度
@@ -185,8 +191,21 @@ public class ShuinuanMainActivity extends ShuinuanBaseActivity implements View.O
         initCcid();
         initHuidiao();
         registerKtMqtt();
+        initSM();
     }
 
+    private void initSM() {
+        smartRefreshLayout = findViewById(R.id.smartRefreshLayout);
+        smartRefreshLayout.setEnableLoadMore(false);
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                isZaixian = false;
+                registerKtMqtt();
+                smartRefreshLayout.finishRefresh();
+            }
+        });
+    }
     private void init() {
         rv_shuinuan_guanji.setSelected(true);
         isKaiji = false;

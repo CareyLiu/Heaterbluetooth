@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7FBFF"
+    android:orientation="vertical"
+    tools:context=".activity.zckt.AirConditionerActivity">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlTextSizeTime="10sp"
+            app:srlTextSizeTitle="@dimen/sp_12" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginLeft="17.5dp"
+                    android:layout_marginTop="11.5dp"
+                    android:layout_marginRight="17.5dp"
+                        android:background="@drawable/air_conditioner_bg"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="115dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/img_air_conditioner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/img_air_conditioner_close" />
+
+                        <TextView
+                            android:id="@+id/tv_connect_device"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/view"
+                            android:gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:text="点击连接空调ID"
+                            android:textColor="#333333"
+                            android:textSize="13sp"
+                            android:visibility="invisible" />
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_temperature"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:includeFontPadding="false"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@+id/tv_temperature"
+                                android:layout_toRightOf="@+id/tv_temperature"
+                                android:includeFontPadding="false"
+                                android:text="℃"
+                                android:textColor="@color/white"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_device_mode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="关机状态"
+                                android:textColor="@color/white"
+                                android:textSize="17sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_device_state"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/btn_equipment_offline">
+
+                                <TextView
+                                    android:id="@+id/tv_device_state"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="5dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingRight="5dp"
+                                    android:paddingBottom="2dp"
+                                    android:text="设备离线"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_air_conditioner_bg"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_wendu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="13dp"
+                                android:text="环境温度"
+                                android:textColor="#333333"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tv_hj_temperature"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="23dp"
+                                android:layout_toEndOf="@+id/tv_wendu"
+                                android:layout_toRightOf="@+id/tv_wendu"
+                                android:gravity="right"
+                                android:singleLine="true"
+                                android:text="0℃"
+                                android:textColor="#DE443A"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginLeft="13dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_air_conditioner_bg"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_fengsu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="13dp"
+                                android:text="当前风速"
+                                android:textColor="#333333"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tv_device_fengsu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toStartOf="@+id/img_fengsu"
+                                android:layout_toLeftOf="@+id/img_fengsu"
+                                android:layout_toEndOf="@+id/tv_fengsu"
+                                android:layout_toRightOf="@+id/tv_fengsu"
+                                android:gravity="right"
+                                android:singleLine="true"
+                                android:text="0"
+                                android:textColor="#76B5F1"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:id="@+id/img_fengsu"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="12dp"
+                                android:src="@mipmap/img_fengsu" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_alert"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/btn_air_conditioner_bg"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/img_alert"
+                            android:layout_width="26dp"
+                            android:layout_height="29dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:src="@mipmap/img_alert" />
+
+                        <TextView
+                            android:id="@+id/tv_alert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="21dp"
+                            android:layout_toEndOf="@+id/img_alert"
+                            android:layout_toRightOf="@+id/img_alert"
+                            android:text="控制面板报警"
+                            android:textColor="#DE443A"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_clean_alert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="12dp"
+                            android:padding="5dp"
+                            android:text="点击清除故障"
+                            android:textColor="#212121"
+                            android:textSize="13dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:layout_marginLeft="43dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="43dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="58dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_equipment_fillet_bg"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/img_temperature_add"
+                                android:layout_width="23dp"
+                                android:layout_height="23dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="21dp"
+                                android:src="@mipmap/img_temperature_add" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="17dp"
+                                android:layout_marginBottom="17dp"
+                                android:text="温度"
+                                android:textColor="#999999"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:id="@+id/img_temperature_sub"
+                                android:layout_width="23dp"
+                                android:layout_height="23dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="21dp"
+                                android:src="@mipmap/img_temperature_sub" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="58dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/btn_equipment_fillet_bg"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tv_lamp_on"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="21dp"
+                                android:padding="5dp"
+                                android:text="ON"
+                                android:textColor="#999999"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:text="灯"
+                                android:textColor="#999999"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_lamp_off"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="21dp"
+                                android:padding="5dp"
+                                android:text="Off"
+                                android:textColor="#06EF01"
+                                android:textSize="15sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="58dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_equipment_fillet_bg"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tv_change_mode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="21dp"
+                                android:padding="5dp"
+                                android:text="模式"
+                                android:textColor="#999999"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="17dp"
+                                android:layout_marginBottom="17dp"
+                                android:text="温度"
+                                android:textColor="#999999"
+                                android:textSize="15sp"
+                                android:visibility="invisible" />
+
+                            <TextView
+                                android:id="@+id/tv_change_fengsu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="21dp"
+                                android:padding="5dp"
+                                android:text="风速"
+                                android:textColor="#999999"
+                                android:textSize="15sp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="50dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_switch"
+                            android:layout_width="61dp"
+                            android:layout_height="61dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/air_conditioner_switch_bg">
+
+                            <ImageView
+                                android:id="@+id/img_switch"
+                                android:layout_width="31dp"
+                                android:layout_height="31dp"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/img_air_conditioner_switch_close" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffeeeeee"
+            app:srlTextSizeTime="10sp"
+            app:srlTextSizeTitle="@dimen/sp_12" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
