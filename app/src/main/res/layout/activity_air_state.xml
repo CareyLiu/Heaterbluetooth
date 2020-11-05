@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="169pt"
+        android:background="@color/bg_title_new">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89pt"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="80pt"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/back_white" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:includeFontPadding="false"
+                android:text="空调状态"
+                android:textColor="@color/white"
+                android:textSize="33pt"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:gravity="center_vertical"
+        android:paddingLeft="24pt"
+        android:text="风门状态"
+        android:textColor="@color/black_666666"
+        android:textSize="28pt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="98pt"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24pt">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="扫风"
+            android:textColor="@color/black_111111"
+            android:textSize="30pt"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/switch_button"
+            android:layout_width="102pt"
+            android:layout_height="62dp"
+            android:src="@mipmap/switch_close" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_yinliang"
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:gravity="center_vertical"
+        android:paddingLeft="24pt"
+        android:text="音量设定"
+        android:textColor="@color/black_666666"
+        android:textSize="28pt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="98pt"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24pt">
+
+        <ImageView
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:src="@drawable/yinliang_xiao" />
+
+        <SeekBar
+            android:id="@+id/seek_yinliang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="32pt"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:max="15"
+            android:maxHeight="8pt"
+            android:min="0"
+            android:minHeight="8pt"
+            android:progress="0"
+            android:progressDrawable="@drawable/kongtiao_seekbar_bg"
+            android:secondaryProgress="100"
+            android:thumb="@drawable/kongtiao_seekbar_btn" />
+
+        <ImageView
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:src="@drawable/yinliang_da" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_qianyazhi"
+        android:layout_width="match_parent"
+        android:layout_height="88pt"
+        android:gravity="center_vertical"
+        android:paddingLeft="24pt"
+        android:text="当前欠压阈值"
+        android:textColor="@color/black_666666"
+        android:textSize="28pt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="98pt"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24pt">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="190"
+            android:textColor="@color/black_111111"
+            android:textSize="30pt"
+            android:textStyle="bold" />
+
+
+        <SeekBar
+            android:id="@+id/seek_qianya"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="24pt"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:max="20"
+            android:maxHeight="8pt"
+            android:min="0"
+            android:minHeight="8pt"
+            android:progress="0"
+            android:progressDrawable="@drawable/kongtiao_seekbar_bg"
+            android:secondaryProgress="100"
+            android:thumb="@drawable/kongtiao_seekbar_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="210"
+            android:textColor="@color/black_111111"
+            android:textSize="30pt"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

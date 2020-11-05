@@ -15,6 +15,7 @@ import com.lzy.okgo.request.base.Request;
 import com.sdkj.heaterbluetooth.R;
 import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanHostActivity;
 import com.sdkj.heaterbluetooth.activity.shuinuan.ShuinuanZhuangtaiActivity;
+import com.sdkj.heaterbluetooth.activity.zckt.ZcktStateActivity;
 import com.sdkj.heaterbluetooth.app.BaseActivity;
 import com.sdkj.heaterbluetooth.app.ConstanceValue;
 import com.sdkj.heaterbluetooth.app.Notice;
@@ -55,10 +56,13 @@ public class SheBeiSetActivity extends BaseActivity {
     RelativeLayout rlGongxiang;
     @BindView(R.id.rl_gongxiang_jie)
     RelativeLayout rlGongxiangJie;
+    @BindView(R.id.rl_kongtiao_state)
+    RelativeLayout rlKongtiaoState;
     private String ccid;
 
     public static final int TYPE_FENGNUAN = 1;
     public static final int TYPE_SHUINUAN = 2;
+    public static final int TYPE_KONGTISO = 3;
     private int type;
 
 
@@ -71,9 +75,16 @@ public class SheBeiSetActivity extends BaseActivity {
         if (type == TYPE_SHUINUAN) {
             rlGuzhang.setVisibility(View.GONE);
             rlZhujicanshu.setVisibility(View.VISIBLE);
+            rlKongtiaoState.setVisibility(View.GONE);
         } else if (type == TYPE_FENGNUAN) {
             rlGuzhang.setVisibility(View.VISIBLE);
             rlZhujicanshu.setVisibility(View.GONE);
+            rlKongtiaoState.setVisibility(View.GONE);
+        } else if (type == TYPE_KONGTISO) {
+            rlGuzhang.setVisibility(View.GONE);
+            rlZhujicanshu.setVisibility(View.GONE);
+            rlJiareqicanshu.setVisibility(View.GONE);
+            rlKongtiaoState.setVisibility(View.VISIBLE);
         }
 
         String share_type = PreferenceHelper.getInstance(mContext).getString("share_type", "");
@@ -146,6 +157,13 @@ public class SheBeiSetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 GongxiangActivity.actionStart(mContext, ccid);
+            }
+        });
+
+        rlKongtiaoState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZcktStateActivity.actionStart(mContext);
             }
         });
 
@@ -237,7 +255,6 @@ public class SheBeiSetActivity extends BaseActivity {
     @Override
     protected void initToolbar() {
         super.initToolbar();
-
         tv_title.setText("设置");
         tv_title.setTextSize(17);
         tv_title.setTextColor(getResources().getColor(R.color.black));
@@ -245,7 +262,6 @@ public class SheBeiSetActivity extends BaseActivity {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //imm.hideSoftInputFromWindow(findViewById(R.id.cl_layout).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 finish();
             }
         });
